@@ -1,0 +1,1631 @@
+---
+title: "Neural Text Embeddings in Psychological Research: A Tutorial With Examples in R"
+shorttitle: "Neural Text Embeddings"
+author:
+  - name: Louis Teitelbaum
+    corresponding: true
+    orcid: 0009-0001-9347-0145
+    email: louist@post.bgu.ac.il
+    affiliations:
+      - id: id1
+        name: "Ben-Gurion University of the Negev"
+        department: Department of Psychology
+        address: POB 653
+        city: Beer Sheva
+        country: Israel
+        postal-code: 84105
+  - name: Almog Simchon
+    corresponding: true
+    orcid: 0000-0003-2629-2913
+    email: almogsi@post.bgu.ac.il
+    affiliations:
+      - ref: id1
+abstract: "This is my abstract."
+keywords: [natural-language-procressing, r, deep-learning, word-embeddings, text-embeddings]
+author-note:
+  disclosures: The authors have no conflicts of interest to disclose.
+  data-sharing: Full code for this paper is available at https://github.com/rimonim/embeddings_tutorial
+floatsintext: true
+numbered-lines: false
+bibliography: references.bib
+suppress-title-page: false
+link-citations: false
+lang: en
+format:
+  apaquarto-pdf:
+    # Can be jou (journal), man (manuscript), stu (student), or doc (document)
+    documentmode: man
+    keep-tex: true
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(conflicted)
+library(tidyverse)
+library(ftExtra)
+library(knitr)
+library(tidyverse)
+library(quanteda)
+conflicts_prefer(dplyr::filter, .quiet = TRUE)
+```
+
+Psychologists have long insisted that talk therapy can heal, and that questionnaires can accurately measure psychological phenomena. These are language-based techniques, which rely on the assumption that language processing is linked to more fundamental internal states. Even so, psychological research has historically been unable to study _naturalistic language_---the sort of language that people produce in their day-to-day lives. The first reason for this is that naturalistic language has historically been difficult to record. Early efforts by linguists to record language samples from representative populations were heroic; starting in 1896, Edmond Edmont spent four years traveling around France on a bicycle conducting specially designed interviews to collect data for the _Atlas linguistique de la France_. He collected data from 700 participants in total [@crystal_1997]. Since then, microphones have made it easier to record speech, and the advent of transformer neural networks has made it possible to accurately transcribe speech at minimal cost. While these advances in audio processing are important, the most important recent change in the availability of natural language to psychologists has come through a different medium: text. Only a few decades ago, public access to text was limited to highly edited long-form productions like books, magazines, and newspapers. Some psychologists studied diaries or vectoral letters [e.g. @allport_1942; @creegan_1944], but vectoral documents like these are hard to collect at scale. With the rise of social media, minimally edited, naturalistic text has become the norm. Now more than ever before, people communicate through text---not just in long-distance correspondence, but for day-to-day socializing with friends and family. Moreover, much of this textual communication is synchronous and shares many of the same features as face-to-face spoken conversation [@placinski_zywiczynski_2023]. Most importantly, much of this textual communication is freely available to researchers through social media platforms like Twitter, Reddit, and YouTube.
+
+A second barrier to the use of naturalistic language in psychology is the problem of quantification. Language is complex, with near-infinite ways to describe the same thing. There are no clear rules for measuring the extent to which a text reflects depression, anxiety, mania, introspection, or any other psychological construct. Before the past two decades, the few researchers who tried to extract quantitative psychological dimensions of text were nearly as heroic as Edmond Edmont on his four year journey around France. For example, @peterson_seligman_1984 administered a questionnaire that prompted participants to write short explanations of various hypothetical scenarios. They then carefully read each response, noted each time a phrase like "because of" or "as a result of" was mentioned, and marked the accompanying explanation. These explanations were then typed by hand and shown one at a time to four trained judges who rated them on various 7-point scales. Finally, the agreement between the judges was assessed and their ratings were aggregated into the final variable used in their analysis of risk factors for depression. Today, this sort of analysis could be performed in a matter of seconds using the methods discussed in this tutorial. 
+
+Nuanced quantitative measures of language can also solve another historical problem with naturalistic language in psychology: its social nature. People do not write or speak in a vacuum, they participate in conversations or group discussions, considering their audiences as they form their words. For the researcher, this means that language is full of uncontrolled, confounding variables: Is the speaker responding to another speaker? Who is the other speaker? How many participants are there in the conversation? Researchers in the field of psycholinguistics have tried to solve these problems by isolating speakers in a laboratory setting, contriving situations in which participants process and produce speech without the uncontrolled variability of conversational partners [@oconnell_kowal_2003]. Nevertheless, the inherently social nature of language has made it difficult to analyze language behavior in even remotely naturalistic settings. Today, the highly structured nature of interaction on social media has made the social context of utterances easily measurable. For example, comments on Reddit are always associated with a well-defined community, are responding to a known original post, and are directly responding to previous comments in a tree-like structure. Researchers can leverage this structure to provide robust statistical control by using it in tandem with new methods for quantifying the relationships between utterances. A few decades ago the question "How similar are Daniel's utterances to Amos's utterances?" would have seemed hopelessly ill-defined. Similar in what way? Today, answering this question is simple with vector-based text embeddings. Methods like these can now make sense of nuanced features of language use in dialogue [see @duran_etal_2019 for an example in psycholinguistics].
+
+The tools presented in this tutorial are broadly useful for many fields of psychology, cognitive science, and neuroscience. For example, they can be used to enhance experimental control by matching word stimuli according to semantic similarity [e.g. @gagne_etal_2005]. Likewise, they could be used to find similarities between large language models and neural processing in the brain [e.g. @millet_etal_2022]. In an entirely different field, they might be used to measure the degree to which a therapist and patient build mutual understanding over the course of a session [cf. @duran_etal_2019]. In yet another field, they might be used to assess emotional responses to current events on social media [e.g. @simchon_etal_2020]. 
+
+In this tutorial, we introduce state of the art methods for using neural text embeddings to quantify psychological dimensions of text. We aim to explain the conceptual foundations of these methods in a way that is accessible to psychology researchers with no background in machine learning or mathematics. We note methodological concerns and give concrete recommendations regarding proper usage of the techniques discussed. Throughout, we provide example code in R using the tidyverse [@wickham_etal_2019] and Quanteda [@benoit_etal_2018], and packages. 
+
+```{r}
+#| eval: false
+#| echo: true
+library(tidyverse)
+library(quanteda)
+```
+
+We assume that the reader has basic proficiency in both of these frameworks. For a broader introduction to text analysis using the tidyverse and Quanteda, see @teitelbaum_simchon_2024. To follow along with the example code for this tutorial, please also load our suite of custom functions, available on our Github repo.[^intro-1]
+
+[^intro-1]: https://github.com/rimonim/embeddings_tutorial/blob/main/example_scripts/useful_scripts.R
+
+```{r}
+#| echo: true
+source("example_scripts/useful_scripts.R")
+```
+
+## Abstract Embedding Spaces
+
+The modern ability to generate nuanced, quantitative representations of language relies on a key assumption: The meaning of any word (or other subcomponent of text, called a "token") can be represented as a point in a single, continuous space. This space is referred to as the _semantic embedding space_, since tokens are "embedded" into it according to their semantic content. Points close to each other in the embedding space have similar meanings, while those far away convey different meanings. While certain directions in this space may correspond to a familiar scale along which meaning can vary (e.g. largeness vs. smallness), the dimensions of the space are essentially abstract; points are only defined relative to each other, through the use of distance metrics. Embedding spaces can be difficult to imagine, not only because of their abstract nature but also because they have many more than three dimensions---often hundreds or even thousands. This high dimensionality is necessary to represent the many ways in which linguistic meaning can vary.
+
+## Distance and Similarity
+
+Once words or texts are embedded into the semantic space, how do we quantify their relative positions? Here we introduce the most intuitive similarity metric---Euclidean distance---as well as the most commonly used metric for neural text embeddings---cosine similarity.
+
+### Euclidean Distance {#sec-euclidean-distance}
+
+The most straightforward way to measure the similarity between two points in space is to measure the distance between them. *Euclidean distance* is the simplest sort of distance---the length of the shortest straight line between the two points. The Euclidean distance between two vectors $A$ and $B$ can be calculated in any number of dimensions $n$ using the following formula:
+
+$$
+d\left( A,B\right)   = \sqrt {\sum _{i=1}^{n}  \left( A_{i}-B_{i}\right)^2 }
+$$
+
+A low Euclidean distance means two vectors are very similar. 
+
+### Cosine Similarity {#sec-cosine-similarity}
+
+The most common way to measure the similarity between two vectors is with cosine similarity. This is the cosine of the angle between the two vectors. Since the cosine of 0 is 1, a high cosine similarity (close to 1) means two vectors are very similar. To give a simplified example, we consider the vectors in @tbl-example_vecs.
+
+```{r}
+#| echo: false
+#| label: tbl-example_vecs
+#| tbl-cap: Example Three-Dimensional Vectors
+example_vecs <- tribble(
+  ~vector,    ~Dim1, ~Dim2, ~Dim3, 
+  "Vector A", 3,   7,   2,
+  "Vector B", 6,   4,   8,
+)
+example_vecs |> knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: fig-distmeasures
+#| fig-cap: Two Simple Distance Measures
+#| fig-height: 4
+#| fig-width: 8
+library(patchwork)
+
+cos_plot <- example_vecs |> 
+  ggplot() +
+    geom_segment(aes(Dim2, Dim1, xend = 0, yend = 0)) +
+    ggforce::geom_arc(
+      aes(x0 = 0, y0 = 0, r = 4, start = 1.1659, end = 0.588),
+      linewidth = 1, color = "red4", arrow = arrow(ends = "both", length = unit(0.25, "cm"))
+      ) +
+    annotate("text", label = "cos(θ) = 0.84", 
+             x = 4.5, y = 3.1, color = "red4", fontface = "bold") +
+    geom_point(aes(Dim2, Dim1), size = 4) +
+    geom_text(aes(Dim2 + .5, Dim1 + .5, label = vector)) +
+    coord_fixed(xlim = c(0, 8), ylim = c(0, 7)) +
+    labs(title = "Cosine Similarity") +
+    theme_minimal() +
+    theme(plot.title = element_text(size = 12, hjust = .5, color = "red4"))
+
+euc_plot <- example_vecs |> 
+  ggplot() +
+    # geom_segment(aes(Dim2, Dim1, xend = 0, yend = 0)) +
+    geom_point(aes(Dim2, Dim1), size = 4) +
+    geom_segment(
+      aes(Dim2, Dim1, xend = lead(Dim2), yend = lead(Dim1)),
+      linewidth = 1, color = "royalblue", arrow = arrow(ends = "both", length = unit(0.25, "cm"))
+      ) +
+    annotate("text", label = "4.24", 
+             x = 5, y = 4.1, color = "royalblue", fontface = "bold") +
+    geom_text(aes(Dim2 + .7, Dim1 + .5, label = vector)) +
+    guides(color = "none") +
+    coord_fixed(xlim = c(0, 8), ylim = c(0, 7)) +
+    labs(title = "Euclidean Distance") +
+    theme_minimal() +
+    theme(plot.title = element_text(size = 12, hjust = .5, color = "royalblue"))
+
+euc_plot + cos_plot
+```
+
+The cosine is convenient because it is always between -1 and 1: When the two vectors are pointing in a similar direction, the cosine is close to 1, and when they are pointing in a near-opposite direction (180°), the cosine is close to -1. 
+
+Looking at @fig-distmeasures, you may wonder: Why should the angle be fixed at the zero point? What does the zero point have to do with anything? Indeed, cosine similarity works best when the vector space is centered at zero (or close to it). In other words, it works best when zero represents a medium level of each variable. This fact is sometimes taken for granted because, in practice, many vector spaces are already centered at zero. In the case of neural word embeddings, as we shall see, this property is guaranteed by the model's architecture. The ubiquity of zero-centered vector spaces makes cosine similarity a very useful tool. Even so, not all vector spaces are zero-centered, so take a moment to consider the nature of your vector space before deciding which similarity or distance metric to use.
+
+The formula for calculating cosine similarity is as follows:
+
+$$
+Cosine(A,B) = \frac{A \cdot B}{|A||B|} = \frac{\sum _{i=1}^{n}  A_{i}B_{i}}{\sqrt {\sum _{i=1}^{n} A_{i}^2} \cdot \sqrt {\sum _{i=1}^{n} B_{i}^2}}
+$$
+
+In R, this can be translated to the following code:
+
+```{r}
+#| echo: true
+#  - `x`: a numeric vector
+#  - `y`: another numeric vector
+cos_sim <- function(x, y){
+  dot <- x %*% y
+  normx <- sqrt(sum(x^2))
+  normy <- sqrt(sum(y^2))
+  as.vector( dot / (normx*normy) )
+}
+```
+
+Readers comfortable with cosines may be satisfied with the explanation we have given so far. Nevertheless, many psychologists might be helpful to consider the relationship between cosine similarity and a more familiar statistic that ranges between -1 and 1: the Pearson correlation coefficient (i.e. regular old correlation). Cosine similarity measures the similarity between two _vectors_, while the correlation coefficient measures the similarity between two _variables_. Now just imagine our vectors as variables, with each dimension as an observation, as shown in @fig-cosineintuition A.
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: fig-cosineintuition
+#| fig-cap: Vectors as Variables
+#| fig-height: 4
+#| fig-width: 8
+cosineintuition1 <- example_vecs |> 
+  pivot_longer(Dim3:Dim1, names_to = "dimension") |> 
+  pivot_wider(names_from = "vector") |> 
+  ggplot(aes(`Vector A`, `Vector B`, label = dimension)) +
+    geom_point(size = 3) +
+    geom_text(aes(`Vector A` + .3, `Vector B` + .3)) +
+    coord_equal(xlim = c(1, 8), ylim = c(4, 9)) +
+    labs(title = "A") +
+    theme_minimal()
+
+cosineintuition2 <- example_vecs |> 
+  pivot_longer(Dim3:Dim1, names_to = "dimension") |> 
+  pivot_wider(names_from = "vector") |> 
+  mutate(across(`Vector A`:`Vector B`, ~.x - mean(.x))) |> 
+  ggplot(aes(`Vector A`, `Vector B`, label = dimension)) +
+    geom_hline(yintercept = 0, color = "grey") +
+    geom_vline(xintercept = 0, color = "grey") +
+    geom_point(size = 3) +
+    geom_text(aes(`Vector A` + .3, `Vector B` + .3)) +
+    coord_equal(xlim = c(-4, 4), ylim = c(-3, 3)) +
+    labs(title = "B") +
+    theme_minimal()
+
+cosineintuition1 + cosineintuition2
+```
+
+Now imagine centering those variables at zero, as shown in @fig-cosineintuition B. When seen like this, the correlation is the same as the cosine similarity. In other words, the correlation between two vectors is the same as the cosine similarity between them when the values of each vector are centered at zero.^[For a mathematical presentation of this relationship, see @oconnor_2012] Seeing cosine similarity as the non-centered version of correlation might give you extra intuition for why cosine similarity works best for vector spaces that are centered at zero.
+
+## The Distributional Hypothesis
+
+How do language models embed tokens in a semantic embedding space? By what metric is a word considered similar to or different from another? In answering this question, modern techniques rely on a further assumption, known as the distributional hypothesis. According to this assumption, tokens carry similar meanings inasmuch as they occur in similar contexts. For example, consider the following two sentences from the paper that introduced the distributional hypothesis, @harris_1954 [emphasis added].
+
+> "The formation of new *utterances* in the *language* is therefore based on the distributional relations as changeably perceived by the *speakers*-among the parts of the previously heard *utterances*."
+
+> "The correlation between *language* and *meaning* is much greater when we consider connected discourse. "
+
+Even if we have no idea what "utterances" or "meaning" are, we can learn from these sentences that they must be related somehow, since they both appear together with the word "language." The more sentences we observe, the more sure we can be about the distributional patterns (i.e. which words tend to have similar words nearby). Words that tend to have very similar words nearby are likely to be similar in meaning, while words that have very different contexts are probably unrelated. Algorithms that learn the meanings of tokens (or at least the relations between their meanings) from these patterns of co-occurrence are called Distributional Semantic Models (DSMs).
+
+::: callout-important
+## A Common Misconception
+
+Two words are NOT considered similar based on whether they appear together often. Words are similar when they tend to appear in similar *contexts*. For example, "fridge" and "refrigerator" almost never appear together in the same sentence, but they do tend to appear next to similar groupings of other words (e.g. "food," "cold," etc.).
+:::
+
+## Word Embeddings: word2vec, GloVe, and FastText
+
+word2vec was first introduced by @mikolov_etal_2013b and was refined by @mikolov_etal_2013c. They proposed a few variations on a simple neural network[^word2vec-1] that learns the relationships between words and contexts. Here we describe the most commonly used variation---continuous Skip-gram with negative sampling. Imagine training the model on the following sentence:
+
+[^word2vec-1]:    Some experts consider word2vec too simple to be called a neural network. The precise definition of "neural network" is beyond the scope of this tutorial; word2vec could just as productively be thought of as an advanced form of logistic regression.
+
+> Coding can be frustrating.
+
+The Skip-gram training dataset would have one column for the input word, and another column for words from its immediate context. The technique is called "continuous" because it slides a context window along the training text, considering each word as input and the words immediately around it (e.g. 10 before and 10 after) as context, like this:
+
+```{r}
+#| echo: false
+library(tidyverse)
+
+text1 <- "coding can be frustrating"
+
+skipgram_df <- function(input, context){
+  context <- tokens(context) |> 
+    tokens_remove(input) |> 
+    as.character()
+  tibble(word = input, context = context)
+}
+
+bind_rows(lapply(str_split_1(text1, " "), skipgram_df, text1))
+```
+
+The negative sampling method adds more rows to the training set, this time from words and contexts that do not go together, drawn at random from other parts of the corpus. A third column indicates whether the pair of words are in fact neighbors or not:
+
+```{r}
+#| echo: false
+neg_text <- "happy olive jump"
+
+bind_rows(
+  lapply(str_split_1(text1, " ")[1:2], skipgram_df, text1),
+  lapply(str_split_1(text1, " ")[1:2], skipgram_df, neg_text)
+  ) |> 
+  mutate(
+    neighbors = rep(c(1,0), each = 6)
+    )
+```
+
+The word2vec model takes the first two columns as input and tries to predict whether the two words are neighbors or not. It does this by learning two separate sets of embeddings: word embeddings and context embeddings. For each row of the training set, the model looks up the embedding for the target word and the embedding for the context word, and computes the dot product between the two vectors. The dot product is closely related to the cosine similarity, which we discussed in @sec-cosine-similarity---it measures how similar the two embeddings are. If the dot product is large (i.e. the word embedding and the context embedding are very similar), the model predicts that the two words are likely to be real neighbors. If the dot product is small, the model predicts that the two words were probably sampled at random.[^word2vec-3] During training, the model learns which word embeddings and context embeddings will do best at this binary prediction task.
+
+[^word2vec-3]:    To learn why models like word2vec use dot products instead of cosine similarity, see @sec-embedding-magnitude below.
+
+Note that word2vec (as well as fastText and GloVe) give each word two embeddings: one for when the word is the target and another for when it is the context [@goldberg_levy_2014]. This may seem strange, but it in fact overcomes two important challenges of semantic embedding:
+
+1.    **A Nuance of the Distributional Hypothesis.** Recall the case of "fridge" and "refrigerator", which almost never appear together in the same sentence, but do tend to appear next to similar groupings of other words. Earlier word embedding models such as latent semantic analysis [@deerwester_etal_1990], which are based directly on broad patterns of covariance in word frequencies, will pick up on the fact that "fridge" and "refrigerator" are negatively correlated and push them further apart than they should be. word2vec, on the other hand, can learn a _context embedding_ for "refrigerator" that is not so close to the _word embedding_ for "fridge", even when the word embeddings of the two words are very close. This allows word2vec to recognize that "refrigerator" and "fridge" tend to appear in similar contexts, but are unlikely to appear together.
+2.    **Associative Asymmetry.** The cosine similarity between two word embeddings gives the best estimate of _conceptual similarity_ [@torabi-asr_etal_2018]. This is because conceptual similarity is not the same as association in language (or in the mind). In fact, psycholinguists have long known that human associations between two words are asymmetric. For example, people prompted with "leopard" are much more likely to think of "tiger" than people prompted with "tiger" are to think of "leopard" [@tversky_gati_1982]. These sorts of associative connections are closely tied to probabilities of co-occurrence in language and are therefore much better represented by the cosine similarity (or even the dot product) between a word embedding and a context embedding [@torabi-asr_etal_2018]. Thus the association between "leopard" and "tiger" would be represented by the similarity between the _word embedding_ of "leopard" and the _context embedding_ of "tiger", allowing for the asymmetry observed in mental associations.[^word2vec-4] Since older models like latent semantic analysis only produce one embedding per word, they cannot capture this asymmetry.
+
+[^word2vec-4]:    To the best of our knowledge, pretrained context embeddings are not available online. If you are interested in associative (rather than conceptual) relationships between words, we recommend training your own model. A tutorial on training a custom GloVe model in R can be found at https://quanteda.io/articles/pkgdown/replication/text2vec.html.
+
+word2vec was revolutionary when it came out. The main reason for this is the efficiency of the training process. This efficiency means that the model can be trained on massive datasets. Larger and more diverse datasets result in more reliable embeddings. A few pretrained models can be easily downloaded from the Internet[^word2vec-5]. Because these models are trained on very large datasets and are already known to perform well, it almost never makes sense to train your own word2vec from scratch.[^word2vec-6]
+
+[^word2vec-5]:    See for example https://github.com/maxoodf/word2vec?tab=readme-ov-file#basic-usage and  https://www.kaggle.com/datasets/pkugoodspeed/nlpword2vecembeddingspretrained
+
+[^word2vec-6]:    Training a custom word embeddings may be useful in certain specialized cases. For example, a researcher who is interested in quantifying differences in individual word use between multiple large groups of text might train a GloVe model on texts written by conservatives and another on texts written by liberals, and demonstrate that the word "skirt" is closer to the word "woman" in conservative language than it is in liberal language. A tutorial on training custom GloVe models in R can be found at https://quanteda.io/articles/pkgdown/replication/text2vec.html.
+
+A downloaded pretrained model (generally a .bin file), can be opened in R with the `word2vec` package.[^word2vec-7] In the example code below, we use a model trained on the entirety of Google news, which uses 300-dimensional embeddings.[^word2vec-8]
+
+[^word2vec-7]:    Available at https://cran.r-project.org/web/packages/word2vec/readme/README.html
+
+[^word2vec-8]:    Available at https://www.kaggle.com/datasets/pkugoodspeed/nlpword2vecembeddingspretrained/download?datasetVersionNumber=1
+
+```{r}
+#| eval: false
+#| echo: true
+library(word2vec)
+
+# model file path
+word2vec_mod <- "data/GoogleNews-vectors-negative300.bin"
+
+# open model
+word2vec_mod <- read.word2vec(file = word2vec_mod, normalize = TRUE)
+```
+
+To find embeddings of specific words using the `word2vec` package, use `predict(word2vec_mod, c("word1", "word2"), type = "embedding")`. To get embeddings for full documents, average the embeddings of the words in the document. In our supplementary materials, we provide the `textstat_embedding` to compute document embeddings directly from a document-feature matrix (DFM).
+
+**An example of word2vec in research:** @chatterjee_etal_2023 used word2vec to study the phenomenon of nominative determinism---the purported tendency to chose a profession or city with a first letter that matches the first letter of one's name (e.g. someone named Louis might choose to be a language researcher). They first used a word2vec model trained on Google News to obtain embeddings for 3,410 first names, 508 professions, and 14,856 US cities. They then averaged the embeddings of all names/professions/cities that begin with the same letter to obtain a vector representing names that begin with the letter "A", a vector representing professions that begin with the letter "A", etc. Using cosine similarity, they found that same-letter names and professions (e.g. Albert and Actuary) tend to be more similar than different-letter names and professions (e.g. Albert and Dentist), even when controlling for gender, ethnicity, and frequency. They found a similar pattern for names and cities.
+
+::: {.callout-tip icon="false"}
+## Advantages of word2vec
+
+-   **Accurately Represents Meaning:** By distinguishing between target and context words, word2vec stays true to the distributional hypothesis. Since it is not based on counts, it also avoids problems with non-linear relationships.
+-   **Efficient for Large Datasets:** This means that models can be trained on enormous amounts of text. Some such models are available for download on the Internet.
+:::
+
+::: {.callout-important icon="false"}
+## Disadvantages of word2vec
+
+-   **Relies on Word-Level Meaning:** word2vec assumes that each word has only one meaning. This means that it has trouble with words that can mean more than one thing (e.g. deep learning _model_ vs. fashion _model_). word2vec will learn the average of these meanings.
+-   **Works Best in English:** English words are generally spelled the same no matter where they are in a sentence. word2vec doesn't work as well for languages that have more prefixes, suffixes, conjugations, etc., since it has to relearn the meaning for each form of the word.
+-   **Not Many Pretrained Models Available**
+:::
+
+### GloVe {#sec-glove}
+
+word2vec produces spectacularly rich and reliable vector embeddings, but their reliance on randomly sampled pairs of words and contexts makes them somewhat noisy and overly sensitive to frequent tokens. The developers of word2vec managed to fix these problems by strategically filtering the training dataset, but @pennington_etal_2014 came up with a more elegant solution: Global Vectors (GloVe) is designed on the same principles of word2vec, but it is computed from global patterns of co-occurrence rather than individual examples.
+
+Although GloVe uses a different method of training, the embeddings it generates are very similar to those generated by word2vec. Because GloVe embeddings are so similar to word2vec embeddings, we will not go into detail here about the way the GloVe algorithm works. Nevertheless, GloVe does have one very important advantage over word2vec: Better pretrained models are available online. Whereas the most easily available word2vec model is trained on news, the [GloVe website](https://nlp.stanford.edu/projects/glove/) offers models trained on social media (`glove.twitter.27B.zip`) and on large portions of the Internet (Common Crawl). These models generalize better to social media texts (since they were trained on similar texts) and are likely to have richer representations of emotional or social content, since more examples of that content appear on social media than in the news or on Wikipedia.[^glove-2]
+
+[^glove-2]: Another notable difference between GloVe and word2vec is that the GLoVe averages the word embeddings and context embeddings rather than using only the word embeddings as word2vec does. This makes GloVe embeddings slightly better at representing overall meaning, but may blur the distinction between conceptual similarity and mental/linguistic association [@torabi-asr_etal_2018].
+
+Since the pretrained GloVe models are available in .txt format, a wrapper package is not required to use them in R. The following code loads a downloaded pretrained model for use.
+
+```{r}
+#| eval: false
+#| echo: true
+path_to_glove <- "data/glove/glove.twitter.27B.100d.txt"
+glove_pretrained <- load_embeddings_txt(path_to_glove)
+```
+
+::: {.callout-tip icon="false"}
+## Advantages of GloVe
+
+-   **Elegant Training Procedure**
+-   **Psychologically Sensitive Pretrained Models**
+:::
+
+::: {.callout-important icon="false"}
+## Disadvantages of GloVe
+
+-   **Requires Large Training Sets**
+-   **Relies on Word-Level Meaning**
+-   **Works Best in English**
+:::
+
+### FastText {#sec-fasttext}
+
+FastText [@bojanowski_etal_2017] is a specialized version of word2vec, designed to work with languages in which words take different forms depending on their grammatical place. Rather than learning a word embedding and a context embedding for each full word (e.g. "quantify" and "quantification" each get their own embedding), fastText learns a vector for each shingle within a word (see @sec-shingles). For example, "quantify" might be broken up into "quant", "uanti", "antif", and "ntify". But it doesn't treat each shingle as its own word. Rather, it trains on words just like word2vec and GloVe, but makes sure that the embedding of a word is equal to the _sum_ of all of the shingle vectors inside it. 
+
+This approach is mostly unnecessary for English, where words are generally spelled the same wherever they appear. But for more morphologically rich languages like Hebrew, Arabic, French, or Finnish, fastText works much better than word2vec and GloVe. This is because there might not be enough data for word2vec and GloVe to learn reliable representations of every form of every word, especially rare forms. FastText, on the other hand, can focus on the important subcomponents of the words that stay the same across different forms. This way it can learn rich representations even of rare forms of a word that don't appear in the training dataset (e.g. it could quantify the meaning of מחשבותייך even if it were only trained on מחשבה, מחשבות, חבר, and חברייך). 
+
+After downloading a pretrained model from [this page](https://fasttext.cc/docs/en/crawl-vectors.html) [@grave_etal_2018], you can use fastText in R through the [`fastTextR` package](https://cran.r-project.org/web/packages/fastTextR/vignettes/Word_representations.html). Conveniently, `fastTextR` includes a dedicated function for obtaining full text embeddings, `ft_sentence_vectors()`.
+
+```{r}
+#| eval: false
+#| echo: true
+
+library(fastTextR)
+
+# example texts
+heb_words <- c("מחשבותייך", "מחשבה")
+heb_texts <- c("הדבור מיחד את האדם מן החי, הדומם והצומח, הלשון היא – נפש חיה – רוח ממללה", "לשון היא המבדלת בין אומה אחת לחברתה, והיא החוט, שעליו נחרזות תמורות הנפש הרבות")
+
+# load pretrained model from file
+heb_model <- ft_load("data/cc.he.300.bin")
+
+# get word embeddings
+word_vecs <- ft_word_vectors(heb_model, heb_words)
+
+# get text embeddings
+text_vecs <- ft_sentence_vectors(heb_model, heb_texts)
+```
+
+::: {.callout-tip icon="false"}
+## Advantages of FastText
+
+-   **Better for Morphologically Rich Languages**
+-   **Better for Rare Words**
+-   **Can Infer Embeddings for Words That Were Not in Training Data**
+:::
+
+::: {.callout-important icon="false"}
+## Disadvantages of FastText
+
+-   **More Complex:** This means larger files to download when using pretrained models. It also increases the risk of overfitting. 
+:::
+
+### Interpreting Advanced Word Embeddings {#sec-embedding-magnitude}
+
+Advanced word embedding algorithms like word2vec, GloVe, and fastText use the dot product of embeddings to measure how likely two words are to appear together. The dot product is the same as cosine similarity, except that it gets larger as the vectors get farther away from the origin (i.e. cosine similarity is the dot product of two normalized vectors). 
+
+```{r}
+#| echo: true
+dot_prod <- function(x, y){
+  dot <- x %*% y
+  as.vector(dot)
+}
+```
+
+```{r}
+#| echo: false
+#| label: fig-dotprod
+#| fig-cap: Dot Product vs. Cosine Similarity
+#| fig-height: 6
+#| fig-width: 8
+library(patchwork)
+
+vec_plot <- function(x, y, subtitle, angle){
+  tibble(
+    vec = c("Vector A", "Vector B"),
+    x = x,
+    y = y
+  ) |> 
+  ggplot() +
+    geom_hline(yintercept = 0, linetype = 2, color = "grey") +
+    geom_vline(xintercept = 0, linetype = 2, color = "grey") +
+    geom_segment(aes(x, y, xend = 0, yend = 0)) +
+    ggforce::geom_arc(
+      aes(x0 = 0, y0 = 0, r = 1/3, start = pi/2, end = angle),
+      linewidth = 2, color = "red4",
+      data = tibble()
+      ) +
+    geom_point(aes(x, y, color = vec), size = 4) +
+    geom_text(aes(x + .2*sign(-x)*if_else(y>0, 1, -1), y + .4, label = vec)) +
+    guides(color = "none") +
+    coord_fixed(xlim = c(-2, 2), ylim = c(-1, 3)) +
+    labs(
+      subtitle = subtitle,
+      x = "", y = ""
+      ) +
+    theme_minimal() +
+    theme(plot.subtitle = element_text(size = 12, hjust = .5, color = "red4", face = "bold"))
+}
+
+dot0_1 <- vec_plot(c(0, 1), c(1, 0), "Cosine Similarity = 0\nDot Product = 0", 0)
+dot0_2 <- vec_plot(c(0, 1), c(2, 0), "Cosine Similarity = 0\nDot Product = 0", 0)
+dot1_1 <- vec_plot(c(sqrt(2)/2, 1), c(sqrt(2)/2, 0), "Cosine Similarity = 0.7\nDot Product = 0.7", pi/4)
+dot1_2 <- vec_plot(c(sqrt(2), 1), c(sqrt(2), 0), "Cosine Similarity = 0.7\nDot Product = 1.4", pi/4)
+dot3_1 <- vec_plot(c(-sqrt(2)/2, 1), c(sqrt(2)/2, 0), "Cosine Similarity = -0.7\nDot Product = -0.7", -pi/4)
+dot3_2 <- vec_plot(c(-sqrt(2), 1), c(sqrt(2), 0), "Cosine Similarity = -0.7\nDot Product = -1.4", -pi/4)
+
+(dot0_1 | dot1_1 | dot3_1) /
+(dot0_2 | dot1_2 | dot3_2)
+```
+
+Recall that in models like word2vec and GloVe, the dot product corresponds to the probability that two words occur together. Vectors that are farther away from the origin will result in very positive or very negative dot products, making the model more confident in the pair of words either being neighbors or not. This means that the distance of a word embedding from the origin (also called the norm or magnitude) is proportional to the informativeness of the word [@schakel_wilson_2015; @oyama_etal_2023]. For example, the word "the" has a very low magnitude because it does not indicate a specific context, while the word "psychology" has a very high magnitude because its use is associated with a very specific context. Therefore, the magnitude of the embedding measures how representative it is of certain contexts as opposed to others, similar to averaging the TF-IDF of a word across a corpus (@sec-tfidf). 
+
+This is the reason why an accurate embedding of a full text can be obtained by averaging the embeddings of each of its words. You might think that averaging word embeddings will lead to overvaluing common words, like "the" and "I", which appear more frequently but are not very informative about the text's meaning. Don't worry, because the magnitude of a word embedding is smaller for common words, which means that common words have less impact on the average [@ethayarajh_etal_2019].
+
+Once average embeddings are computed, we almost always use cosine similarity to assess the relationships between embeddings. **The cosine similarity measures only the meanings of the two embeddings, while ignoring how specific they are to those meanings.** If the specificity of texts to your construct of interest is important to your analysis, consider using the dot product instead of cosine similarity. Despite its unpopularity as a similarity metric, the dot product may sometimes be optimal for analyzing texts with decontextualized embeddings (@sec-ccr-validation). For more applications of word embedding magnitude, see @sec-navigating-vectorspace and @sec-linguistic-complexity.
+
+# References
+
+::: {#refs}
+:::
+
+# Appendix A
+
+# DDR Metrics
+
+```{r}
+#| include: false
+average_vector <- function(mat){
+  mat <- as.matrix(mat)
+  apply(mat, 2, mean)
+}
+
+# outputs 
+new_scores <- function(dat, cols, pos_mean, neg_mean, prefix = "",
+                       schemes = c("mean_dot", "mean_cos", "mean_euc", 
+                                   "negdiff_dot", "negdiff_cos", "negdiff_euc", 
+                                   "anchoredvec_norm")){
+  dat <- dat |> rowwise()
+  for(scheme in schemes){
+    new_col_name = paste0(prefix, scheme)
+    ccr <- pos_mean
+    ccr_neg <- neg_mean
+    if(str_detect(scheme, "negdiff_")){
+      ccr <- ccr - ccr_neg
+    }
+    
+    if(str_detect(scheme, "anchoredvec_")){
+      if(scheme == "anchoredvec_norm"){
+        ccr <- ccr/sqrt(sum(ccr^2))
+        ccr_neg <- ccr_neg/sqrt(sum(ccr_neg^2))
+      }
+      dat <- dat |> mutate(!!new_col_name := anchored_sim(c_across({{cols}}), ccr, ccr_neg))
+    }else{
+      if(str_detect(scheme, "_dot")){
+        dat <- dat |> mutate(!!new_col_name := dot_prod(c_across({{cols}}), ccr))
+      }else if(str_detect(scheme, "_cos")){
+        dat <- dat |> mutate(!!new_col_name := cos_sim(c_across({{cols}}), ccr))
+      }else if(str_detect(scheme, "_euc")){
+        dat <- dat |> mutate(!!new_col_name := -euc_dist(c_across({{cols}}), ccr))
+      }
+    }
+  }
+  dat |> ungroup() |> select(-{{cols}})
+}
+```
+
+@garten_etal_2018 found that DDR works best with smaller dictionaries of only the words most directly connected to the construct being measured (around 30 words worked best in their experiments). Here we replicate their study using slightly different methods, and extend it to a variety of vector-based metrics, including anchored vectors. We also investigate the impact of weighting the averaged dictionary representation by token frequency, which we suggested would eliminate the observed superiority of smaller dictionaries.
+
+## Benchmark 1: Negative Sentiment in Movie Reviews
+
+As an initial benchmark, we used the same data used by @garten_etal_2018 in their investigation of dictionary size: a set of 2000 movie reviews, half labeled as negative and half as positive [@pang_lee_2005]. For vector representations of words and texts, we used a publicly available GloVe model trained on 2B Tweets to produce 100-dimensional embeddings [@pennington_etal_2014]. For construct representations, we used the positive tone and negative tone dictionaries from LIWC-22 [@boyd_etal_2022], expanded on the movie reviews dataset. The primary DDR was the average embedding of the negative tone dictionary, while for anchored vectors the average embedding of the positive tone dictionary was used as a second anchor. 
+
+We investigated the following metrics:
+
+-   **Cosine similarity** with the negative tone DDR
+-   **Cosine similarity with the anchored vector** (equivalent to projection of the normalized text vector onto the anchored vector)
+-   **Dot product** with the negative tone DDR (see @sec-embedding-magnitude)
+-   **Dot product with the anchored vector** (equivalent to projection of the raw text vector onto the anchored vector)
+-   **Dot product with the pre-normalized anchored vector** (i.e. positive and negative DDR embeddings normalized before calculating the anchored vector)
+-   **Euclidean distance** from the negative tone DDR
+-   **Euclidean distance from the anchored vector**
+
+To evaluate the predictive value of each metric, we trained a univariate logistic regression model for each metric at each dictionary size. We then computed an F1 score for the model's predictions on the training set, with the model's threshold set at 0.5 (i.e. any text given a probability of greater than 0.5 of being negative was considered as having been predicted to be negative). 
+
+```{r}
+#| echo: false
+#| eval: false
+
+# word embeddings
+path_to_glove <- "~/Projects/ds4psych/data/glove/glove.twitter.27B.100d.txt"
+glove_dimensions <- as.numeric(str_extract(path_to_glove, "[:digit:]+(?=d\\.txt)"))
+glove_pretrained <- data.table::fread(
+  path_to_glove, 
+  quote = "",
+  col.names = c("token", paste0("dim_", 1:glove_dimensions))
+  ) |> 
+  distinct(token, .keep_all = TRUE) |> 
+  remove_rownames() |> 
+  column_to_rownames("token") |> 
+  as.matrix()
+class(glove_pretrained) <- "embeddings"
+
+# Load Data
+reviews_files_neg <- list.files("benchmarks/DDR/txt_sentoken/neg", full.names = TRUE)
+reviews_files_pos <- list.files("benchmarks/DDR/txt_sentoken/pos", full.names = TRUE)
+
+reviews_neg <- sapply(reviews_files_neg, function(x) paste(readLines(x), collapse = " "))
+reviews_pos <- sapply(reviews_files_pos, function(x) paste(readLines(x), collapse = " "))
+
+reviews <- tibble(
+  text = c(reviews_neg, reviews_pos),
+  label = factor(rep(c("neg", "pos"), each = length(reviews_neg)))
+) |> 
+  mutate(label_int = as.integer(label) - 1L)
+
+rm(reviews_neg, reviews_pos)
+
+# Load Dictionaries (LIWC-22 expanded on corpus)
+reviews_dfm <- reviews$text |> 
+  tokens(remove_punct = TRUE, remove_url = TRUE) |> 
+  dfm()
+# reviews_tokens <- reviews_dfm |> 
+#   featnames()
+# tibble(text = reviews_tokens) |> 
+#   write_csv("benchmarks/DDR/reviews_tokens.csv")
+
+pos_dict <- read_csv("benchmarks/DDR/reviews_tokens.csv") |> 
+  filter(tone_pos > 0) |> 
+  pull(text)
+neg_dict <- read_csv("benchmarks/DDR/reviews_tokens.csv") |> 
+  filter(tone_neg > 0) |> 
+  pull(text)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## DICTIONARY EMBEDDINGS (by word)
+
+pos_dict_glove <- pos_dict |> 
+  tokens() |> 
+  dfm() |> 
+  textstat_embedding(glove_pretrained) |> 
+  select(-doc_id) |> 
+  as.matrix()
+rownames(pos_dict_glove) <- pos_dict
+
+neg_dict_glove <- neg_dict |> 
+  tokens() |> 
+  dfm() |> 
+  textstat_embedding(glove_pretrained) |> 
+  select(-doc_id) |> 
+  as.matrix()
+rownames(neg_dict_glove) <- neg_dict
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## DICTIONARY WORD FREQUENCIES
+
+pos_dict_freqs <- reviews_dfm |> 
+  dfm_keep(pos_dict) |> 
+  quanteda.textstats::textstat_frequency() |> 
+  pull(frequency, name = feature)
+
+neg_dict_freqs <- reviews_dfm |> 
+  dfm_keep(neg_dict) |> 
+  quanteda.textstats::textstat_frequency() |> 
+  pull(frequency, name = feature)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## BENCHMARK TEXT EMBEDDINGS
+
+reviews_glove <- reviews_dfm |> 
+  textstat_embedding(glove_pretrained) |> 
+  select(-doc_id)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## RUN MODELS (construct = negative tone)
+
+results_grid <- expand_grid(
+  dict_size = c(10, 20, 30, 40, 50, 100, 200, 400),
+  seed = 1:200,
+  model = c("raw", "freq_weight"),
+  scheme = c("mean_dot", "mean_cos", "mean_euc", 
+             "negdiff_dot", "negdiff_cos", "negdiff_euc", 
+             "anchoredvec_norm")
+) |> 
+  mutate(
+    model_disp = if_else(model == "raw", "Equal Weighting", "Frequency Weighted"),
+    scheme_disp = case_match(
+      scheme,
+      "mean_dot" ~ "Dot", 
+      "mean_cos" ~ "Cosine", 
+      "mean_euc" ~ "Euclidean", 
+      "negdiff_dot" ~ "Dot (Anchored Vector)", 
+      "negdiff_cos" ~ "Cosine (Anchored Vector)", 
+      "negdiff_euc" ~ "Euclidean (Anchored Vector)", 
+      "anchoredvec_norm" ~ "Dot (Pre-normalized Anchored Vector)"
+      )
+  )
+
+results_grid <- results_grid |> 
+  mutate(Acc = NA, F1 = NA, Beta = NA, sig = NA)
+
+model <- "none"
+for (row in 1:nrow(results_grid)) {
+  # recalculate when needed
+  if(model != results_grid$model[row]){
+    message("Calculating scores for row ", row, "/", nrow(results_grid))
+    dict_size <- results_grid$dict_size[row]
+    seed <- results_grid$seed[row]
+    model <- results_grid$model[row]
+    
+    if(model == "raw"){
+      set.seed(seed)
+      neg_DDR <- average_vector(neg_dict_glove[sample(1:nrow(neg_dict_glove), dict_size),])
+      set.seed(seed)
+      pos_DDR <- average_vector(pos_dict_glove[sample(1:nrow(pos_dict_glove), dict_size),])
+    }else{
+      set.seed(seed)
+      neg_DDR <- neg_dict_glove[sample(1:nrow(neg_dict_glove), dict_size),]
+      neg_DDR <- apply(neg_DDR, 2, weighted.mean, w = neg_dict_freqs[rownames(neg_DDR)], na.rm = TRUE)
+      set.seed(seed)
+      pos_DDR <- pos_dict_glove[sample(1:nrow(pos_dict_glove), dict_size),]
+      pos_DDR <- apply(pos_DDR, 2, weighted.mean, w = pos_dict_freqs[rownames(pos_DDR)], na.rm = TRUE)
+    }
+
+    scores_df <- reviews |> 
+      select(label, label_int) |> 
+      bind_cols(new_scores(reviews_glove, V1:V100, neg_DDR, pos_DDR, prefix = paste0(model, "_")))
+  }
+  
+  scheme <- results_grid$scheme[row]
+  
+  var_name <- paste(model, scheme, sep = "_")
+  row_form <- as.formula(paste0("label~",var_name))
+  
+  mod <- glm(row_form, data = scores_df, family = binomial())
+  mod_pred <- round(predict(mod, type = "response"))
+  tp <- sum(mod_pred == 1 & scores_df$label_int == 1)
+  fp <- sum(mod_pred == 1 & scores_df$label_int == 0)
+  fn <- sum(mod_pred == 0 & scores_df$label_int == 1)
+  
+  results_grid$Acc[row] <- mean(mod_pred == scores_df$label_int)
+  results_grid$F1[row] <- tp/(tp + (fp + fn)/2)
+  results_grid$Beta[row] <- summary(mod)$coefficients[[2,"Estimate"]]
+  results_grid$sig[row] <- summary(mod)$coefficients[[2,"Pr(>|z|)"]]
+}
+
+results_grid |> 
+  # bind_rows(read_csv("benchmarks/DDR/results1.csv")) |> 
+  write_csv("benchmarks/DDR/results1.csv")
+
+# Check whether success is related to frequency
+results_grid <- results_grid |> 
+  mutate(mean_freq = NA, sd_freq = NA, entropy_freq = NA)
+
+for (row in 1:nrow(results_grid)) {
+  dict_size <- results_grid$dict_size[row]
+  seed <- results_grid$seed[row]
+  anchored <- str_detect(results_grid$scheme[row], "anchoredvec|negdiff")
+  
+  set.seed(seed)
+  neg_freqs <- rownames(neg_dict_glove[sample(1:nrow(neg_dict_glove), dict_size),])
+  neg_freqs <- neg_dict_freqs[neg_freqs]
+  freqs <- neg_freqs
+  results_grid$mean_freq[row] <- mean(freqs, na.rm = TRUE)
+  results_grid$sd_freq[row] <- sd(freqs, na.rm = TRUE)
+  results_grid$entropy_freq[row] <- entropy::entropy(freqs, method = "ML")
+}
+
+results_grid |> 
+  write_csv("benchmarks/DDR/results1.csv")
+```
+
+When using only the primary DDR, we found that the performance of equal weighting drops sharply with increasing dictionary size, while the performance of frequency weighting continues to rise. Indeed, DDRs computed with equal weighting were likely to result in negative associations between the predictor and the outcome, even at small dictionary sizes. Surprisingly, metrics based on anchored vectors were robust to this instability. Additionally, frequency weighting was not superior to equal weighting for metrics based on anchored vectors. The overall best performing metric across all dictionary sizes was cosine similarity with the anchored vector calculated using equal weighting.
+
+```{r}
+#| echo: false
+#| output: false
+results_grid <- read_csv("benchmarks/DDR/results1.csv")
+```
+
+
+```{r}
+#| echo: false
+#| label: fig-f1_by_dictsize
+#| fig-cap: Mean F1 by Dictionary Size
+#| apa-note: Each data point represents the mean of 200 samples. F1 scores arising from negative associations between the predictor and the outcome are counted as negative.
+#| fig-height: 4
+#| fig-width: 6
+
+results_grid |> 
+  mutate(F1 = if_else(Beta > 0, -F1, F1),
+         anchored = if_else(str_detect(scheme, "anchoredvec|negdiff"), "Anchored Vector", "Primary DDR")) |> 
+  group_by(model_disp, scheme_disp, anchored, dict_size) |> 
+  summarise(F1 = mean(F1), .groups = "drop") |> 
+  ggplot(aes(dict_size, F1, color = scheme_disp, linetype = model_disp)) +
+    geom_line() +
+    scale_color_manual(values = c(
+      "navyblue", "dodgerblue",
+      "orange", "red2", "firebrick4",
+      "seagreen2", "seagreen4"
+    )) +
+    labs(x = "Sampled Dictionary Size",
+         y = "F1",
+         color = "Metric",
+         linetype = "Aggregation\nMethod") + 
+    facet_wrap(~anchored) +
+    theme_bw() +
+    theme(plot.caption = element_text(hjust = 0))
+```
+
+The pattern of results was similar among the highest performing dictionaries at each size, with two notable exceptions. First, frequency weighting was slightly better than equal weighting for all metrics (including those based on anchored vectors) except cosine similarity with the anchored vector. Second, the performance of frequency weighting among metrics using only the primary DDR did not increase with sample size.
+
+```{r}
+#| echo: false
+#| label: fig-f1_by_dictsize_top
+#| fig-cap: Mean F1 Score by Dictionary Size for Dictionaries Above the 80th Percentile
+#| apa-note: Each data point represents the mean of 200 samples. F1 scores arising from negative associations between the predictor and the outcome are counted as negative.
+#| fig-height: 4
+#| fig-width: 6
+results_grid |> 
+  mutate(F1 = if_else(Beta > 0, -F1, F1),
+         anchored = if_else(str_detect(scheme, "anchoredvec|negdiff"), "Anchored Vector", "Primary DDR")) |> 
+  group_by(model_disp, scheme_disp, anchored, dict_size) |> 
+  filter(F1 >= quantile(F1, probs = .8)) |> 
+  summarise(F1 = mean(F1), .groups = "drop") |> 
+  ggplot(aes(dict_size, F1, color = scheme_disp, linetype = model_disp)) +
+    geom_line() +
+    scale_color_manual(values = c(
+      "navyblue", "dodgerblue",
+      "orange", "red2", "firebrick4",
+      "seagreen2", "seagreen4"
+    )) +
+    labs(x = "Sampled Dictionary Size",
+         y = "F1",
+         color = "Metric",
+         linetype = "Aggregation\nMethod") + 
+    facet_wrap(~anchored) +
+    theme_bw() +
+    theme(plot.caption = element_text(hjust = 0))
+```
+
+
+```{r}
+#| echo: false
+#| label: fig-neg_by_dictsize
+#| fig-cap: Significant Negative Effects by Dictionary Size
+#| apa-note: 200 samples per data point.
+#| fig-height: 4
+#| fig-width: 6
+
+results_grid |> 
+  mutate(anchored = if_else(str_detect(scheme, "anchoredvec|negdiff"), "Anchored Vector", "Single DDR")) |> 
+  group_by(model_disp, scheme_disp, anchored, dict_size) |> 
+  summarise(false = 100*mean(Beta > 0 & sig < .05), .groups = "drop") |> 
+  ggplot(aes(dict_size, false, color = scheme_disp, linetype = model_disp)) +
+    geom_line() +
+    scale_color_manual(values = c(
+        "navyblue", "dodgerblue",
+        "orange", "red2", "firebrick4",
+        "seagreen2", "seagreen4"
+      )) +
+    labs(x = "Sampled Dictionary Size",
+         y = "Significant Negative Effects (%)",
+         color = "Metric",
+         linetype = "Aggregation\nMethod") + 
+    facet_wrap(~anchored) +
+    theme_bw() +
+    theme(plot.caption = element_text(hjust = 0))
+```
+
+As a further validation of our proposed frequency weighting method, we investigated the performance of dictionary representations as a function of the variance of their word frequencies. We found that dictionaries with higher variation in word frequencies result in a large advantage for frequency weighted aggregation. As before, we found that this did not hold for metrics based on anchored vectors.
+
+```{r}
+#| echo: false
+#| label: fig-neg_by_freq_variance
+#| fig-cap: Mean F1 Score by Dictionary Frequency Variance
+#| apa-note: Smoothing lines are computed with LOESS regression. F1 scores arising from negative associations between the predictor and the outcome are counted as negative.
+#| fig-height: 4
+#| fig-width: 8
+
+results_grid |> 
+  mutate(F1 = if_else(Beta > 0, -F1, F1),
+         anchored = if_else(str_detect(scheme, "anchoredvec|negdiff"), "Anchored Vector", "Single DDR")) |> 
+  ggplot(aes(sd_freq, F1, color = scheme_disp, linetype = model_disp)) +
+    geom_smooth(method = "loess", formula = 'y ~ x') +
+    scale_color_manual(values = c(
+      "navyblue", "dodgerblue",
+      "orange", "red2", "firebrick4",
+      "seagreen2", "seagreen4"
+    )) +
+    labs(x = "SD Dictionary Word Frequency",
+         y = "F1",
+         color = "Metric",
+         linetype = "Aggregation\nMethod") + 
+    facet_wrap(~anchored) +
+    theme_bw() +
+    theme(plot.caption = element_text(hjust = 0))
+```
+
+## Benchmark 2: Moral Foundations in Reddit Comments
+
+To see whether the patterns observed for negative valence extend to more complex psychological constructs, we evaluated the same metrics and aggregation methods on a large dataset of Reddit comments (N = 16,123), which were manually annotated with six moral foundations: authority, care, fairness, loyalty, sanctity, and vice [@trager_etal_2022]. Each text was annotated by at least three annotators, giving a total of 53,545 cases.
+
+To construct distributed construct representations for the moral foundations, we used the Moral Foundations Dictionary 2.0 [@frimer_etal_2019], which includes more than 200 words per foundation. Since the moral foundations do not have clear opposites, we constructed a neutral embedding by averaging the embeddings of all six foundations. This neutral embedding was used as the second anchor in anchored vector metrics.
+
+Since the Reddit dataset was heavily imbalanced (i.e. most comments were not labeled as reflecting any given foundation), we set the classifier threshold at the empirical probability of each rating. For example, if 20% of texts in the dataset were labeled as reflecting loyalty, we would consider any text given a probability of greater than 0.2 to reflect loyalty according to the model. Using these predictions, F1 scores were computed as for the first benchmark.
+
+```{r}
+#| eval: false
+#| echo: false
+
+# Load Data
+morality <- read_csv("https://huggingface.co/datasets/USC-MOLA-Lab/MFRC/resolve/main/final_mfrc_data.csv")
+
+morality <- morality |> 
+  separate_longer_delim(annotation, ",") |> 
+  distinct() |> 
+  pivot_wider(id_cols = c("text", "subreddit", "bucket", "annotator", "confidence"),
+              names_from = "annotation", values_from = "annotation") |> 
+  mutate(across(-c(text:confidence), function(x) if_else(is.na(x), 0, 1))) |> 
+  rename(fairness = Equality, sanctity = Purity)
+
+names(morality) <- str_to_lower(names(morality))
+
+
+morality_unique <- morality |> 
+  distinct(text)
+
+morality_unique_dfm <- morality_unique$text |> 
+  tokens(remove_punct = TRUE, remove_url = TRUE) |> 
+  tokens_ngrams(n= c(1L, 2L)) |> 
+  dfm() |> 
+  dfm_keep(rownames(glove_pretrained))
+
+# Load Dictionaries (Moral Foundations Dictionary 2.0)
+mfd <- read_csv("benchmarks/DDR/mfd2.0.csv")
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## DICTIONARY WORD FREQUENCIES
+
+mfd_freqs <- morality_unique_dfm |> 
+  dfm_keep(mfd$token) |> 
+  quanteda.textstats::textstat_frequency() |> 
+  pull(frequency, name = feature)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## DICTIONARY EMBEDDINGS (by word)
+
+mfd_glove <- mfd |> 
+  group_by(foundation) |> 
+  summarise(token = paste(token, collapse = " ")) |> 
+  pull(token) |> 
+  tokens() |> 
+  tokens_ngrams(n= c(1L, 2L)) |> 
+  dfm() |> 
+  dfm_keep(mfd$token) |> 
+  textstat_embedding(glove_pretrained) |> 
+  select(-doc_id) |> 
+  as.matrix()
+rownames(mfd_glove) <- unique(mfd$foundation)[order(unique(mfd$foundation))]
+
+mfd_neutral_glove <- average_vector(mfd_glove)
+
+mfd_glove_weighted <- mfd |> 
+  pull(token) |> 
+  tokens() |> 
+  tokens_ngrams(n= c(1L, 2L)) |> 
+  dfm() |> 
+  dfm_keep(mfd$token) |> 
+  textstat_embedding(glove_pretrained) |> 
+  select(-doc_id) |> 
+  as.matrix()
+rownames(mfd_glove_weighted) <- mfd$token
+
+mfd_glove_weighted <- do.call(rbind,
+  lapply(rownames(mfd_glove)[1:5], function(construct){
+    construct_tokens <- mfd$token[mfd$foundation == construct]
+    construct_tokens <- construct_tokens[construct_tokens %in% featnames(morality_unique_dfm)]
+    construct_token_weights <- mfd_freqs[construct_tokens]
+    construct_mat <- mfd_glove_weighted[construct_tokens,]
+    apply(construct_mat, 2, weighted.mean, w = construct_token_weights, na.rm = TRUE)
+  })
+)
+rownames(mfd_glove_weighted) <- rownames(mfd_glove)[1:5]
+mfd_neutral_glove_weighted <- average_vector(mfd_glove)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## BENCHMARK TEXT EMBEDDINGS
+
+morality_unique_glove <- morality_unique_dfm |> 
+  textstat_embedding(glove_pretrained) |> 
+  select(-doc_id)
+
+#~~~~~~~~~~~~~~~~
+## COMPUTE SCORES
+
+for (construct in rownames(mfd_glove)) {
+  morality_unique <- morality_unique |> 
+    bind_cols(
+      new_scores(
+        morality_unique_glove,
+        V1:V100, 
+        mfd_glove[construct,], 
+        mfd_neutral_glove, 
+        prefix = paste0(construct,"_raw_")
+        ),
+      new_scores(
+        morality_unique_glove,
+        V1:V100, 
+        mfd_glove_weighted[construct,], 
+        mfd_neutral_glove_weighted, 
+        prefix = paste0(construct,"_freqweight_")
+        )
+    )
+}
+
+morality <- morality |> 
+  left_join(morality_unique)
+
+#~~~~~~~~~~~~
+## RUN MODELS
+
+results_grid <- expand_grid(
+  construct = rownames(mfd_glove),
+  model = c("raw", "freqweight"),
+  scheme = c("mean_dot", "mean_cos", "mean_euc", 
+             "negdiff_dot", "negdiff_cos", "negdiff_euc", 
+             "anchoredvec_norm")
+) |> 
+  mutate(
+    model_disp = if_else(model == "raw", "Equal Weighting", "Frequency Weighted"),
+    scheme_disp = case_match(
+      scheme,
+      "mean_dot" ~ "Dot", 
+      "mean_cos" ~ "Cosine", 
+      "mean_euc" ~ "Euclidean", 
+      "negdiff_dot" ~ "Dot (Anchored Vector)", 
+      "negdiff_cos" ~ "Cosine (Anchored Vector)", 
+      "negdiff_euc" ~ "Euclidean (Anchored Vector)", 
+      "anchoredvec_norm" ~ "Dot (Pre-normalized Anchored Vector)"
+      )
+  )
+
+results_grid <- results_grid |> 
+  mutate(Acc = NA, F1 = NA, Beta = NA, sig = NA, AIC = NA)
+
+for (row in 1:nrow(results_grid)) {
+  message("Calculating scores for row ", row, "/", nrow(results_grid))
+  construct <- results_grid$construct[row]
+  model <- results_grid$model[row]
+  scheme <- results_grid$scheme[row]
+  
+  var_name <- paste(construct, model, scheme, sep = "_")
+  row_form <- as.formula(paste0(construct,"~",var_name))
+  
+  mod <- glm(row_form, data = morality, family = binomial())
+  mod_pred <- as.numeric(predict(mod, type = "response") > mean(pull(morality, {{construct}})))
+  tp <- sum(mod_pred == 1 & pull(morality, {{construct}}) == 1)
+  fp <- sum(mod_pred == 1 & pull(morality, {{construct}}) == 0)
+  fn <- sum(mod_pred == 0 & pull(morality, {{construct}}) == 1)
+  
+  results_grid$Acc[row] <- mean(mod_pred == pull(morality, {{construct}}))
+  results_grid$F1[row] <- tp/(tp + (fp + fn)/2)
+  results_grid$Beta[row] <- summary(mod)$coefficients[[2,"Estimate"]]
+  results_grid$sig[row] <- summary(mod)$coefficients[[2,"Pr(>|z|)"]]
+  results_grid$AIC[row] <- mod$aic
+}
+
+write_csv(results_grid, "benchmarks/DDR/results2.csv")
+```
+
+We found that frequency weighted aggregation performed better than equal weighting in all five moral foundations except loyalty, for which all metrics performed comparably. Furthermore, the pattern of optimal metrics was somewhat erratic for equal weighting, whereas with frequency weighted aggregation, cosine similarity with the DDR performed best in all five foundations.
+
+Curiously, anchored vector metrics did not perform as well as simple similarity scores. This may be attributable to the use of a neutral embedding as the second anchor, rather than a true opposite.
+
+```{r}
+#| include: false
+results_grid <- read_csv("benchmarks/DDR/results2.csv")
+```
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: fig-morality_equalvsfreq
+#| fig-cap: Equal vs. Frequency Weights for Moral Foundation DDRs
+#| apa-note: Vertical lines represent mean F1 scores across moral foundations.
+#| fig-height: 4
+#| fig-width: 8
+
+scheme_agg <- results_grid |> 
+  mutate(F1 = if_else(Beta < 0, -F1, F1)) |> 
+  group_by(model_disp, scheme_disp) |> 
+  summarise(F1 = mean(F1),
+            F1_sd = sd(F1),
+            F1_max = max(F1), .groups = "drop") |> 
+  group_by(model_disp) |> 
+  arrange(F1) |> 
+  mutate(scheme_disp = factor(scheme_disp))
+
+results_grid |> 
+  mutate(F1 = if_else(Beta < 0, -F1, F1),
+         construct_disp = str_to_title(construct)) |> 
+  ggplot(
+    aes(F1, construct_disp, 
+        xmin = 0, xmax = F1,
+        color = scheme_disp)
+    ) +
+    geom_linerange(position = position_dodge(width = 1/2), alpha = 0) +
+    # annotate("tile", 2, seq(1,6,by=2), width = Inf, alpha = .1) +
+    geom_point(position = position_dodge(width = 1/2), size = 2) +
+    geom_vline(aes(xintercept = F1, color = scheme_disp), 
+               linewidth = 1,
+               data = scheme_agg) +
+    scale_color_manual(values = c(
+      "navyblue", "dodgerblue",
+      "orange", "red2", "firebrick4",
+      "seagreen2", "seagreen4"
+    )) +
+    facet_wrap(~model_disp, ncol = 1) +
+    labs(x = "F1",
+         y = "Moral Foundation",
+         linetype = "Model",
+         color = "Metric") +
+    theme_bw() +
+    theme(plot.caption = element_text(hjust = .1))
+```
+
+For equal weighting, Euclidean distance from the anchored vector resulted in significant negative effects in 1/5 foundations. For frequency weighted aggregation, the dot product with the pre-normalized anchored vector resulted in significant negative effects in 3/5 foundations. Otherwise no negative effects were observed. 
+
+```{r}
+#| echo: false
+#| eval: false
+results_grid |> 
+  group_by(model_disp, scheme_disp) |> 
+  summarise(prop_neg = sum(Beta < 0 & sig < 0.05)/n(), .groups = "keep")
+```
+
+## Conclusions
+
+The results of our experiments support our suggestion that the diminishing performance of larger dictionaries is due to the influence of less frequent words. We found that computing the DDR as a weighted average generally improves performance, especially for larger dictionaries of a few hundred words. We further found that metrics based on anchored vectors were largely robust to the influence of term weighting. Nevertheless, metrics based on anchored vectors require a construct with a clear opposite---while anchored vectors performed well for negative vs. positive sentiment, they did not perform well for moral foundations as compared to a neutral moral foundation embedding.
+
+# Appendix B
+
+# CCR Metrics
+
+@atari_etal_2023 asked participants to describe their core values in their own words (values essay) and to likewise describe their activities in the past week (behaviors essay). They then assessed participants on 22 questionnaire-based scales. This design allowed them to validate CCR by obtaining a contextualized embedding of each questionnaire and comparing it to the contextualized embedding of each essay. In benchmark 1 we partially replicate Atari et al.'s analysis and extend it to various vector-based metrics, including anchored vectors. In benchmark 2, we investigate the extent to which the techniques generalize to a more naturalistic context.
+
+## Benchmark 1: Prompted Essays
+
+The anchored vector is equivalent to the embedding of the questionnaire (positive CCR) minus the embedding of the negated questionnaire (negative CCR). The individualism items were used as a negated form of the collectivism, and vice versa. To obtain negated versions of the remaining questionnaires, we queried GPT-4o and manually curated the results.[^ccr-validation1] We investigated the following metrics:
+
+[^ccr-validation1]: All matrials, including original and negated questionnaire items, are available on our Github repo.
+
+-   **Cosine similarity** with the CCR
+-   **Cosine similarity with the anchored vector** (equivalent to projection of the normalized text vector onto the anchored vector)
+-   **Dot product** with the CCR (see @sec-embedding-magnitude)
+-   **Dot product with the anchored vector** (equivalent to projection of the raw text vector onto the anchored vector)
+-   **Dot product with the pre-normalized anchored vector** (i.e. positive and negative CCR embeddings normalized before calculating the anchored vector)
+-   **Euclidean distance** from the CCR
+-   **Euclidean distance from the anchored vector**
+
+Although the term CCR implies the use of contextualized embeddings, we use it here to refer to any vector embedding of a questionnaire. To obtain embeddings for participant essays and questionnaire items, we used two pretrained models:
+
+-   **SBERT** ([`sentence-transformers/all-MiniLM-L12-v2`](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2)), a model similar to that used by @atari_etal_2023, designed to produce 384-dimensional contextualized embeddings amenable to use with cosine similarity.
+-   **GloVe** ([`glove.twitter.27B.100d`](https://huggingface.co/stanfordnlp/glove/tree/main)) a pretrained word embedding model with a 100-dimensional embedding space. GloVe embeddings each text were obtained by aggregating the embeddings of each word in the text, discounting tokens not available in the pretrained GloVe model. Since GloVe is a decontextualized model, we used it here as a baseline for evaluating the utility of contextualized embeddings in CCR analysis.
+
+As a further baseline, we also performed DDR using dictionaries for each construct and its opposite. These dictionaries were generated by GPT-4o and manually curated, but were not validated in any way prior to testing. We can therefore consider this DDR to be a conservative baseline for evaluating CCR methods. DDR analysis was performed with the same GloVe model described above.
+
+All code is available in the source code for this appendix on Github.
+
+```{r}
+#| eval: false
+#| echo: false
+library(tidyverse)
+library(quanteda)
+library(text)
+
+#~~~~~~~~~~~
+## LOAD DATA
+
+# data from https://osf.io/bu6wg/
+CCR_behavioral <- read_csv("benchmarks/CCR/CCR_clean_behavioral.csv")
+
+CCR_items <- read_csv("benchmarks/CCR/Questionnaires - Experiment - Questionnaire.csv") |> 
+  pivot_longer(
+    everything(),
+    names_to = "construct",
+    values_to = "item",
+    values_drop_na = TRUE
+  ) |> 
+  mutate(construct = str_to_lower(str_extract(construct, "[:letter:]+"))) |> 
+  arrange(construct)
+
+names(CCR_behavioral)[3:24] <- c(
+  "care", "equality", "proportionality", "loyalty", "authority", "purity", 
+  "individualism", "collectivism", "sd", "po", "un", "ac", "se", "st", "co", 
+  "tr", "he", "be", "religiosity", "nfc", "conservatism", "tightness"
+  )
+
+# negative items
+# - individualism and collectivism were used as each other's opposites
+# - otherwise, reverse items were obtained from GPT-4o and curated manually
+CCR_items_neg <- read_csv("benchmarks/CCR/questionnaires_neg.csv") |> 
+  pivot_longer(
+    everything(),
+    names_to = "construct",
+    values_to = "item",
+    values_drop_na = TRUE
+  ) |> 
+  mutate(construct = str_to_lower(str_extract(construct, "[:letter:]+"))) |> 
+  arrange(construct)
+
+# DDR items (obtained from GPT-4o and curated manually)
+DDR_items <- read_csv("benchmarks/CCR/ddr_items.csv")
+DDR_items_neg <- read_csv("benchmarks/CCR/ddr_items_neg.csv")
+#~~~~~~~~~~~
+## FUNCTIONS
+
+# relevant scripts
+source("example_scripts/useful_scripts.R")
+
+# consistent embedding scheme
+contextualized_embedding <- function(x){
+  textEmbed(
+    x,
+    model = "sentence-transformers/all-MiniLM-L12-v2", # model name
+    layers = -1,  # last layer
+    dim_name = FALSE,
+    keep_token_embeddings = FALSE
+  )
+}
+
+average_vector <- function(mat){
+  mat <- as.matrix(mat)
+  apply(mat, 2, mean)
+}
+
+# word embeddings
+path_to_glove <- "~/Projects/ds4psych/data/glove/glove.twitter.27B.100d.txt"
+glove_dimensions <- as.numeric(str_extract(path_to_glove, "[:digit:]+(?=d\\.txt)"))
+glove_pretrained <- read_delim(
+  path_to_glove, 
+  delim = " ",
+  quote = "",
+  escape_double = FALSE,
+  col_names = c("token", paste0("dim_", 1:glove_dimensions))
+) |> distinct(token, .keep_all = TRUE) |> column_to_rownames("token") |> as.matrix()
+class(glove_pretrained) <- "embeddings"
+
+# outputs 
+new_scores <- function(dat, cols, pos_mean, neg_mean, prefix = "",
+                       schemes = c("mean_dot", "mean_cos", "mean_euc", 
+                                   "negdiff_dot", "negdiff_cos", "negdiff_euc", 
+                                   "anchoredvec_raw", "anchoredvec_norm")){
+  dat <- dat |> rowwise()
+  for(scheme in schemes){
+    new_col_name = paste0(prefix, scheme)
+    ccr <- pos_mean
+    ccr_neg <- neg_mean
+    if(str_detect(scheme, "negdiff_")){
+      ccr <- ccr - ccr_neg
+    }
+    
+    if(str_detect(scheme, "anchoredvec_")){
+      if(scheme == "anchoredvec_norm"){
+        ccr <- ccr/sqrt(sum(ccr^2))
+        ccr_neg <- ccr_neg/sqrt(sum(ccr_neg^2))
+      }
+      dat <- dat |> mutate(!!new_col_name := anchored_sim(c_across({{cols}}), ccr, ccr_neg))
+    }else{
+      if(str_detect(scheme, "_dot")){
+        dat <- dat |> mutate(!!new_col_name := dot_prod(c_across({{cols}}), ccr))
+      }else if(str_detect(scheme, "_cos")){
+        dat <- dat |> mutate(!!new_col_name := cos_sim(c_across({{cols}}), ccr))
+      }else if(str_detect(scheme, "_euc")){
+        dat <- dat |> mutate(!!new_col_name := -euc_dist(c_across({{cols}}), ccr))
+      }
+    }
+  }
+  dat |> ungroup() |> select(-{{cols}})
+}
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## QUESTIONNAIRE EMBEDDINGS (matrices)
+
+CCR_items_glove <- CCR_items$item |> 
+  tokens() |> 
+  dfm() |> 
+  textstat_embedding(glove_pretrained) |> 
+  select(-doc_id) |> 
+  bind_cols(CCR_items) |> 
+  group_by(construct) |> 
+  summarise(across(V1:V100, mean)) |> 
+  column_to_rownames("construct") |> 
+  as.matrix()
+
+CCR_items_neg_glove <- CCR_items_neg$item |> 
+  tokens() |> 
+  dfm() |> 
+  textstat_embedding(glove_pretrained) |> 
+  select(-doc_id) |> 
+  bind_cols(CCR_items) |> 
+  group_by(construct) |> 
+  summarise(across(V1:V100, mean)) |> 
+  column_to_rownames("construct") |> 
+  as.matrix()
+
+CCR_items_sbert <- contextualized_embedding(CCR_items$item)$texts[[1]] |> 
+  bind_cols(CCR_items) |> 
+  group_by(construct) |> 
+  summarise(across(Dim1:Dim384, mean)) |> 
+  column_to_rownames("construct") |> 
+  as.matrix()
+
+CCR_items_neg_sbert <- contextualized_embedding(CCR_items_neg$item)$texts[[1]] |> 
+  bind_cols(CCR_items_neg) |> 
+  group_by(construct) |> 
+  summarise(across(Dim1:Dim384, mean)) |> 
+  column_to_rownames("construct") |> 
+  as.matrix()
+
+DDR_items_glove <- DDR_items$item |> 
+  tokens() |> 
+  dfm() |> 
+  textstat_embedding(glove_pretrained) |> 
+  bind_cols(DDR_items) |> 
+  select(-doc_id, -item) |> 
+  column_to_rownames("construct") |> 
+  as.matrix()
+
+DDR_items_neg_glove <- DDR_items_neg$item |> 
+  tokens() |> 
+  dfm() |> 
+  textstat_embedding(glove_pretrained) |> 
+  bind_cols(DDR_items_neg) |> 
+  select(-doc_id, -item) |> 
+  column_to_rownames("construct") |> 
+  as.matrix()
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## PARTICIPANT TEXT EMBEDDINGS
+
+# response embeddings
+values_survey_sbert <- contextualized_embedding(CCR_behavioral$ValuesSurvey)
+# saveRDS(values_survey_sbert, "~/Projects/ds4psych/data/values_survey_sbert.rds")
+behaviors_survey_sbert <- contextualized_embedding(CCR_behavioral$BehaviorsSurvey)
+# saveRDS(behaviors_survey_sbert, "~/Projects/ds4psych/data/behaviors_survey_sbert.rds")
+
+values_survey_sbert <- readRDS("~/Projects/ds4psych/data/values_survey_sbert.rds")
+behaviors_survey_sbert <- readRDS("~/Projects/ds4psych/data/behaviors_survey_sbert.rds")
+
+values_survey_glove <- CCR_behavioral$ValuesSurvey |> 
+  tokens() |> 
+  dfm() |> 
+  textstat_embedding(glove_pretrained) |> 
+  select(-doc_id)
+behaviors_survey_glove <- CCR_behavioral$BehaviorsSurvey |> 
+  tokens() |> 
+  dfm() |> 
+  textstat_embedding(glove_pretrained) |> 
+  select(-doc_id)
+
+#~~~~~~~~~~~~~~~~
+## COMPUTE SCORES
+
+for (construct in rownames(CCR_items_sbert)) {
+  CCR_behavioral <- CCR_behavioral |> 
+    bind_cols(
+      new_scores(
+        values_survey_sbert$texts[[1]],
+        Dim1:Dim384, 
+        CCR_items_sbert[construct,], 
+        CCR_items_neg_sbert[construct,], 
+        prefix = paste0(construct,"_values_sbert_")
+        ),
+      new_scores(
+        values_survey_glove,
+        V1:V100, 
+        CCR_items_glove[construct,], 
+        CCR_items_neg_glove[construct,], 
+        prefix = paste0(construct,"_values_glove_")
+        ),
+      new_scores(
+        values_survey_glove,
+        V1:V100, 
+        DDR_items_glove[construct,], 
+        DDR_items_neg_glove[construct,], 
+        prefix = paste0(construct,"_values_ddr_")
+        ),
+      new_scores(
+        behaviors_survey_sbert$texts[[1]],
+        Dim1:Dim384, 
+        CCR_items_sbert[construct,], 
+        CCR_items_neg_sbert[construct,], 
+        prefix = paste0(construct,"_behaviors_sbert_")
+        ),
+      new_scores(
+        behaviors_survey_glove,
+        V1:V100, 
+        CCR_items_glove[construct,], 
+        CCR_items_neg_glove[construct,], 
+        prefix = paste0(construct,"_behaviors_glove_")
+        ),
+      new_scores(
+        behaviors_survey_glove,
+        V1:V100, 
+        DDR_items_glove[construct,], 
+        DDR_items_neg_glove[construct,], 
+        prefix = paste0(construct,"_behaviors_ddr_")
+        )
+    )
+}
+
+#~~~~~~~~~~~~
+## RUN MODELS
+
+results_grid <- expand_grid(
+  construct = rownames(CCR_items_sbert),
+  text = c("behaviors", "values"),
+  model = c("glove", "sbert", "ddr"),
+  scheme = c("mean_dot", "mean_cos", "mean_euc", 
+             "negdiff_dot", "negdiff_cos", "negdiff_euc", 
+             "anchoredvec_norm")
+) |> bind_cols(expand_grid(
+  construct_disp = c(
+    "Achievement", "Authority", "Benevolence", "Care", 
+    "Conformity", "Collectivism", "Conservatism", 
+    "Equality", "Hedonism", "Individualism", 
+    "Loyalty", "Need for Cognition", "Power", "Proportionality", 
+    "Purity", "Religiosity", "Self-Direction", "Safety", 
+    "Stimulation", "Tightness", "Tradition", "Universalism"
+    ),
+  text_disp = c("Behaviors Essay", "Values Essay"),
+  model_disp = c("GloVe", "SBERT", "DDR"),
+  scheme_disp = c(
+    "Dot", "Cosine", "Euclidean", 
+    "Dot (Anchored Vector)", "Cosine (Anchored Vector)", "Euclidean (Anchored Vector)", 
+    "Dot (Pre-normalized Anchored Vector)"
+    )
+))
+
+results_grid <- results_grid |> 
+  mutate(R2 = NA, Beta = NA, SE = NA, sig = NA)
+
+for (row in 1:nrow(results_grid)) {
+  construct <- results_grid$construct[row]
+  text <- results_grid$text[row]
+  model <- results_grid$model[row]
+  scheme <- results_grid$scheme[row]
+  
+  var_name <- paste(construct, text, model, scheme, sep = "_")
+  row_form <- as.formula(paste0("scale(",construct,")~scale(",var_name,")"))
+  
+  mod <- lm(row_form, data = CCR_behavioral)
+  results_grid$R2[row] <- summary(mod)$r.squared
+  results_grid$Beta[row] <- summary(mod)$coefficients[[2,"Estimate"]]
+  results_grid$SE[row] <- summary(mod)$coefficients[[2,"Std. Error"]]
+  results_grid$sig[row] <- summary(mod)$coefficients[[2,"Pr(>|t|)"]]
+}
+
+write_csv(results_grid, "benchmarks/CCR/results.csv")
+```
+
+### Results: Values Essay
+
+In predicting questionnaire responses using participant values essays, the most effective metrics were as follows:
+
+**DDR:**
+
+-   Dot product with anchored vector (mean R^2^ = 0.016)
+-   Dot product with pre-normalized anchored vector (mean R^2^ = 0.015)
+-   Cosine similarity with anchored vector (mean R^2^ = 0.012)
+
+**GloVe:**
+
+-   Cosine similarity with anchored vector (mean R^2^ = 0.010)
+-   Dot product with pre-normalized anchored vector (mean R^2^ = 0.009)
+
+**SBERT:**
+
+-   Dot product with anchored vector (mean R^2^ = 0.023)
+-   Cosine similarity with anchored vector (mean R^2^ = 0.023)
+-   Dot product with pre-normalized anchored vector (mean R^2^ = 0.022)
+
+```{r}
+#| include: false
+results_grid <- read_csv("benchmarks/CCR/results.csv")
+
+construct_agg <- results_grid |> 
+  mutate(R2 = if_else(sig < .05 | Beta > 0, R2, 0)) |> 
+  group_by(text, construct, construct_disp) |> 
+  summarise(R2 = mean(R2),
+            R2_sd = sd(R2),
+            R2_max = max(R2)) |> 
+  group_by(text) |> 
+  arrange(R2_max) |> 
+  mutate(construct_disp = factor(construct_disp))
+
+scheme_agg <- results_grid |> 
+  mutate(R2 = if_else(sig < .05 | Beta > 0, R2, 0)) |> 
+  group_by(text, model_disp, scheme_disp) |> 
+  summarise(R2 = mean(R2),
+            R2_sd = sd(R2),
+            R2_max = max(R2)) |> 
+  group_by(text, model_disp) |> 
+  arrange(R2) |> 
+  mutate(scheme_disp = factor(scheme_disp))
+```
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: fig-values_essay
+#| fig-cap: Values Essay
+#| apa-note: Negative or insignificant effects (p > 0.05) are displayed as translucent and are considered to be 0 in metric-wise averages.
+#| fig-height: 8
+#| fig-width: 8
+
+results_grid |> 
+  filter(text == "values") |> 
+  mutate(construct_disp = factor(
+    construct_disp, 
+    levels = construct_agg$construct_disp[construct_agg$text=="values"]
+    )) |> 
+  ggplot(
+    aes(R2*100, construct_disp, 
+        xmin = 0, xmax = R2*100,
+        color = scheme_disp, alpha = sig < .05 & Beta > 0)
+    ) +
+    geom_linerange(position = position_dodge(width = 4/5), alpha = 0) +
+    annotate("tile", 3, seq(1,21,by=2), width = Inf, alpha = .1) +
+    geom_point(position = position_dodge(width = 4/5), size = 2) +
+    geom_vline(aes(xintercept = R2*100, color = scheme_disp), 
+               linewidth = 1,
+               data = scheme_agg |> filter(text=="values")) +
+    scale_color_manual(values = c(
+      "navyblue", "dodgerblue",
+      "orange", "red2", "firebrick4",
+      "seagreen2", "seagreen4"
+    )) +
+    facet_wrap(~model_disp, ncol = 1) +
+    guides(alpha = "none") +
+    labs(x = "Variance Explained (%)",
+         y = "Questionnaire",
+         linetype = "Model",
+         color = "Metric") +
+    theme_bw() +
+    theme(plot.caption = element_text(hjust = .1))
+```
+
+For values essays, SBERT was consistently more effective than GloVe, and generally better than DDR. In all models, Euclidean distance metrics were minimally effective and most likely to result in significant negative effects. The success of GloVe-based CCR with metrics that involve anchored vectors is surprising, since most negated questionnaire items only differ from the originals by the words "do not" or similarly uninformative negations.
+
+```{r}
+#| echo: false
+#| label: fig-values_essay_neg
+#| fig-cap: Significant Negative Effects in Values Essay
+#| fig-height: 3
+#| fig-width: 8
+results_grid |> 
+  filter(text == "values") |> 
+  group_by(model_disp, scheme_disp) |> 
+  summarise(prop_neg = sum(Beta < 0 & sig < 0.05)/n(), .groups = "keep") |> 
+  ggplot(aes(scheme_disp, prop_neg*100, fill = scheme_disp)) +
+    geom_bar(stat = "identity") +
+    geom_hline(yintercept = 0, linewidth = 1.5) +
+    facet_wrap(~model_disp) +
+    scale_fill_manual(values = c(
+        "navyblue", "dodgerblue",
+        "orange", "red2", "firebrick4",
+        "seagreen2", "seagreen4"
+      )) +
+    labs(y = "Significant Negative Effects (%)",
+         fill = "Metric") +
+    theme_bw() +
+    theme(axis.text.x = element_blank(),
+          axis.title.x = element_blank())
+```
+
+### Results: Behaviors Essay
+
+In predicting questionnaire responses using participant behaviors essays, the most effective metrics were as follows:
+
+**DDR:**
+
+-   Dot product with anchored vector (mean R^2^ = 0.017)
+-   Dot product with CCR (mean R^2^ = 0.016)
+-   Euclidean distance from anchored vector (mean R^2^ = 0.014)
+
+**GloVe:**
+
+-   Dot product with CCR (mean R^2^ = 0.014)
+-   Euclidean distance from anchored vector (mean R^2^ = 0.014)
+-   Dot product with anchored vector (mean R^2^ = 0.006)
+
+**SBERT:**
+
+-   Euclidean distance from anchored vector (mean R^2^ = 0.008)
+-   Dot product with CCR (mean R^2^ = 0.006)
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: fig-behaviors_essay
+#| fig-cap: Behaviors Essay
+#| apa-note: Negative or insignificant effects (p > 0.05) are displayed as translucent and are considered to be 0 in metric-wise averages.
+#| fig-height: 8
+#| fig-width: 8
+results_grid |> 
+  filter(text == "behaviors") |> 
+  mutate(construct_disp = factor(
+    construct_disp, 
+    levels = construct_agg$construct_disp[construct_agg$text=="behaviors"]
+    )) |> 
+  ggplot(
+    aes(R2*100, construct_disp, 
+        xmin = 0, xmax = R2*100,
+        color = scheme_disp, alpha = sig < .05 & Beta > 0)
+    ) +
+    geom_linerange(position = position_dodge(width = 4/5), alpha = 0) +
+    annotate("tile", 3, seq(1,21,by=2), width = Inf, alpha = .1) +
+    geom_point(position = position_dodge(width = 4/5), size = 2) +
+    geom_vline(aes(xintercept = R2*100, color = scheme_disp), 
+               linewidth = 1,
+               data = scheme_agg |> filter(text=="behaviors")) +
+    scale_color_manual(values = c(
+      "navyblue", "dodgerblue",
+      "orange", "red2", "firebrick4",
+      "seagreen2", "seagreen4"
+    )) +
+    facet_wrap(~model_disp, ncol = 1) +
+    guides(alpha = "none") +
+    labs(x = "Variance Explained (%)",
+         y = "Questionnaire",
+         linetype = "Model",
+         color = "Metric") +
+    theme_bw() +
+    theme(plot.caption = element_text(hjust = .1))
+```
+
+For behaviors essays, GloVe-based CCR was more consistently effective than SBERT, and DDR was most effective overall. While Euclidean distance from the anchored vector was most effective on average for both models, it was also most likely to result in significant negative effects. 
+
+```{r}
+#| echo: false
+#| label: fig-behaviors_essay_neg
+#| fig-cap: Significant Negative Effects in Behaviors Essay
+#| fig-height: 3
+#| fig-width: 8
+results_grid |> 
+  filter(text == "behaviors") |> 
+  group_by(model_disp, scheme_disp) |> 
+  summarise(prop_neg = sum(Beta < 0 & sig < 0.05)/n(), .groups = "keep") |> 
+  ggplot(aes(scheme_disp, prop_neg*100, fill = scheme_disp)) +
+    geom_bar(stat = "identity") +
+    geom_hline(yintercept = 0, linewidth = 1.5) +
+    facet_wrap(~model_disp) +
+    scale_fill_manual(values = c(
+        "navyblue", "dodgerblue",
+        "orange", "red2", "firebrick4",
+        "seagreen2", "seagreen4"
+      )) +
+    labs(y = "Significant Negative Effects (%)",
+         fill = "Metric") +
+    theme_bw() +
+    theme(axis.text.x = element_blank(),
+          axis.title.x = element_blank())
+```
+
+## Conclusions
+
+CCR [@atari_etal_2023] proposes to measure psychological constructs in texts by comparing text embeddings to embeddings of questionnaires. This approach to text analysis can be highly effective, but is sensitive to the nature of both questionnaires and texts. Some questionnaires do not appear to be amenable to CCR at all, including those used here for tightness, collectivism, individualism, proportionality, equality, and safety. Among those scales that were amenable to CCR metrics, the pattern of optimal metrics was greatly influenced by the content of the texts being analyzed. 
+
+Values essays tend to be similar in content to the values questionnaires being used, since the questionnaire items almost all consist of statements in the first person. Contextualized embeddings from an SBERT model appear to perform best in these sorts of situations. 
+
+Behaviors essays, which bear little resemblance to questionnaire items in either tone or content, behave very differently. In particular, GloVe embeddings of the questionnaires tend to perform better. This may be due to the consistent geometric properties of GloVe embeddings, which can more reliably encode semantic relationships between very different contexts. Alternatively, this may be due to the datasets used to train SBERT models, which emphasize topical similarity rather than similarity in tone [@reimers_gurevych_2019]. Unsurprisingly, GloVe embeddings of dictionaries associated with the questionnaires performed best overall. 
+
+Overall, the results of this analysis suggest that CCR is can be a powerful tool, but that it should be used primarily in contexts in which the content of the questionnaires is similar to that of the texts being analyzed. In such cases, we recommend negating the questionnaire items, computing an anchored vector, and scoring texts by the dot products of their embeddings with the anchored vector. 
+
+When the content of the questionnaires is not similar to that of the texts being analyzed, we recommend using DDR with negative and positive versions of each dictionary, and scoring texts by the dot products of their embeddings with the anchored vector. This approach appears to outperform CCR even with unvalidated dictionaries generated by GPT-4o.
+

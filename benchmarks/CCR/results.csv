@@ -1,0 +1,925 @@
+construct,text,model,scheme,construct_disp,text_disp,model_disp,scheme_disp,R2,Beta,SE,sig
+ac,behaviors,glove,mean_dot,Achievement,Behaviors Essay,GloVe,Dot,0.031242909942297975,0.1767566404475322,0.05654394856217878,0.0019438435487308945
+ac,behaviors,glove,mean_cos,Achievement,Behaviors Essay,GloVe,Cosine,0.0010810882150897416,-0.032879905947093856,0.057417437117122425,0.5673086019486917
+ac,behaviors,glove,mean_euc,Achievement,Behaviors Essay,GloVe,Euclidean,2.5452444719890765e-5,0.0050450415974389925,0.057447767855118355,0.9300780481732563
+ac,behaviors,glove,negdiff_dot,Achievement,Behaviors Essay,GloVe,Dot (Anchored Vector),0.011001027563027005,-0.10488578341713904,0.057131628817522276,0.06735786872300167
+ac,behaviors,glove,negdiff_cos,Achievement,Behaviors Essay,GloVe,Cosine (Anchored Vector),0.0021105783253716494,0.0459410309567782,0.057387842161637934,0.42402757079633957
+ac,behaviors,glove,negdiff_euc,Achievement,Behaviors Essay,GloVe,Euclidean (Anchored Vector),0.03578620528404648,-0.1891724221022884,0.056411202300049715,8.99473035245221e-4
+ac,behaviors,glove,anchoredvec_norm,Achievement,Behaviors Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.001983531072051746,0.04453685071995708,0.057391495239580696,0.43834347211643765
+ac,behaviors,sbert,mean_dot,Achievement,Behaviors Essay,SBERT,Dot,0.02210737684621396,0.14868549642185658,0.0568099321707641,0.0093091122634601
+ac,behaviors,sbert,mean_cos,Achievement,Behaviors Essay,SBERT,Cosine,0.005386385399747445,0.07339199819971813,0.057293570175886065,0.20117976405048785
+ac,behaviors,sbert,mean_euc,Achievement,Behaviors Essay,SBERT,Euclidean,0.005551695710679568,-0.0745097021244854,0.05728880872312887,0.19438444302594698
+ac,behaviors,sbert,negdiff_dot,Achievement,Behaviors Essay,SBERT,Dot (Anchored Vector),1.9294725287954611e-4,-0.01389054544931729,0.05744295642974722,0.8090874007883285
+ac,behaviors,sbert,negdiff_cos,Achievement,Behaviors Essay,SBERT,Cosine (Anchored Vector),0.006655894586109318,-0.0815836661722758,0.057256994194633225,0.15522450978614238
+ac,behaviors,sbert,negdiff_euc,Achievement,Behaviors Essay,SBERT,Euclidean (Anchored Vector),0.03723979768796892,-0.19297615834078827,0.056368665145368944,7.034058534590071e-4
+ac,behaviors,sbert,anchoredvec_norm,Achievement,Behaviors Essay,SBERT,Dot (Pre-normalized Anchored Vector),1.2749035655074365e-5,-0.0035705791764186483,0.05744813275449457,0.9504818944908081
+ac,behaviors,ddr,mean_dot,Achievement,Behaviors Essay,DDR,Dot,0.046788137570150205,0.2163056577395755,0.05608844566746564,1.405068880391655e-4
+ac,behaviors,ddr,mean_cos,Achievement,Behaviors Essay,DDR,Cosine,2.451378437120439e-4,0.01565687847918737,0.05744145712998119,0.7853686253217192
+ac,behaviors,ddr,mean_euc,Achievement,Behaviors Essay,DDR,Euclidean,0.014902392742410795,-0.12207535681869128,0.05701883214054729,0.033074538312792987
+ac,behaviors,ddr,negdiff_dot,Achievement,Behaviors Essay,DDR,Dot (Anchored Vector),0.03541107892989963,0.18817831684309314,0.056422174592175176,9.58440039880227e-4
+ac,behaviors,ddr,negdiff_cos,Achievement,Behaviors Essay,DDR,Cosine (Anchored Vector),0.005525718934984488,0.07433517965932723,0.0572895569615286,0.19543430331233444
+ac,behaviors,ddr,negdiff_euc,Achievement,Behaviors Essay,DDR,Euclidean (Anchored Vector),0.03295557033232766,-0.18153669142167278,0.05649394458241312,0.0014531543801328199
+ac,behaviors,ddr,anchoredvec_norm,Achievement,Behaviors Essay,DDR,Dot (Pre-normalized Anchored Vector),0.01665980621689216,0.12907287173101945,0.05696794865713248,0.024174609624590226
+ac,values,glove,mean_dot,Achievement,Values Essay,GloVe,Dot,2.250460277433587e-5,0.004743901640457457,0.05744785253068109,0.934241994629588
+ac,values,glove,mean_cos,Achievement,Values Essay,GloVe,Cosine,0.009422191719693832,-0.09706797473777735,0.057177213037136326,0.09059701311997803
+ac,values,glove,mean_euc,Achievement,Values Essay,GloVe,Euclidean,0.007150544743694908,-0.0845608937020825,0.05724273644256843,0.14065163703947317
+ac,values,glove,negdiff_dot,Achievement,Values Essay,GloVe,Dot (Anchored Vector),0.011287967255060283,0.10624484578114962,0.05712334037554056,0.06386575271114796
+ac,values,glove,negdiff_cos,Achievement,Values Essay,GloVe,Cosine (Anchored Vector),0.03641945237640029,0.19083881255237423,0.05639267523836703,8.080810493541604e-4
+ac,values,glove,negdiff_euc,Achievement,Values Essay,GloVe,Euclidean (Anchored Vector),6.106905310530464e-4,-0.024712153509013377,0.057430954656028425,0.6672882062794314
+ac,values,glove,anchoredvec_norm,Achievement,Values Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.029044534244297277,0.17042457054162508,0.056608069074490175,0.002826616382282682
+ac,values,sbert,mean_dot,Achievement,Values Essay,SBERT,Dot,0.015653977477599838,0.1251158562197445,0.05699707660045395,0.02891276886210864
+ac,values,sbert,mean_cos,Achievement,Values Essay,SBERT,Cosine,0.0017702133388563341,0.04207390329950767,0.05739762838964905,0.4641098207985064
+ac,values,sbert,mean_euc,Achievement,Values Essay,SBERT,Euclidean,0.0015450094214129577,-0.039306607859403854,0.0574041025712321,0.49403448535430416
+ac,values,sbert,negdiff_dot,Achievement,Values Essay,SBERT,Dot (Anchored Vector),0.048840873064808846,0.22099971281612282,0.05602802006843902,9.943086697311915e-5
+ac,values,sbert,negdiff_cos,Achievement,Values Essay,SBERT,Cosine (Anchored Vector),0.03661943182901809,0.19136204385671182,0.056386823126919255,7.812039624228236e-4
+ac,values,sbert,negdiff_euc,Achievement,Values Essay,SBERT,Euclidean (Anchored Vector),0.0014745439838253615,-0.03839979145549311,0.0574061281677183,0.5040593345654472
+ac,values,sbert,anchoredvec_norm,Achievement,Values Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.048494971953636695,0.22021573956835302,0.056038206793357165,1.0539644232673017e-4
+ac,values,ddr,mean_dot,Achievement,Values Essay,DDR,Dot,0.002746590446125534,0.052407923505187026,0.0573695509662189,0.3616982644048905
+ac,values,ddr,mean_cos,Achievement,Values Essay,DDR,Cosine,0.0017726959102871683,0.042103395472184495,0.057397557016402645,0.46379640380444276
+ac,values,ddr,mean_euc,Achievement,Values Essay,DDR,Euclidean,8.906192668345374e-8,2.9843244911289754e-4,0.05744849640390551,0.9958586002760043
+ac,values,ddr,negdiff_dot,Achievement,Values Essay,DDR,Dot (Anchored Vector),0.019495112982123697,0.13962490101025551,0.056885760310745645,0.014671123727213582
+ac,values,ddr,negdiff_cos,Achievement,Values Essay,DDR,Cosine (Anchored Vector),0.021681222369265,0.1472454494008727,0.05682230938342606,0.010023347861984841
+ac,values,ddr,negdiff_euc,Achievement,Values Essay,DDR,Euclidean (Anchored Vector),4.631486235507077e-5,-0.006805502358758872,0.0574471685870774,0.9057773980610471
+ac,values,ddr,anchoredvec_norm,Achievement,Values Essay,DDR,Dot (Pre-normalized Anchored Vector),0.025484247530381265,0.15963786371153071,0.05671175897034309,0.005198799987123673
+authority,behaviors,glove,mean_dot,Authority,Behaviors Essay,GloVe,Dot,0.004374810852364398,0.06614235293943203,0.057322698064192094,0.24946699434322067
+authority,behaviors,glove,mean_cos,Authority,Behaviors Essay,GloVe,Cosine,1.0912686690873014e-4,-0.010446380564996199,0.05744536428927086,0.8558228435584865
+authority,behaviors,glove,mean_euc,Authority,Behaviors Essay,GloVe,Euclidean,4.209893207828245e-5,-0.0064883689844430405,0.057447289689187324,0.9101491610996719
+authority,behaviors,glove,negdiff_dot,Authority,Behaviors Essay,GloVe,Dot (Anchored Vector),1.3739866819512632e-4,0.011721717800524115,0.05744455215294276,0.8384492755094366
+authority,behaviors,glove,negdiff_cos,Authority,Behaviors Essay,GloVe,Cosine (Anchored Vector),0.005345481858468872,0.07311280228844252,0.057294748264434536,0.20290379389410615
+authority,behaviors,glove,negdiff_euc,Authority,Behaviors Essay,GloVe,Euclidean (Anchored Vector),0.004181812672607704,-0.06466693647148992,0.05732825368914969,0.26020740251945573
+authority,behaviors,glove,anchoredvec_norm,Authority,Behaviors Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.005711804707014707,0.07557648249961563,0.057284196707172996,0.18805650764879048
+authority,behaviors,sbert,mean_dot,Authority,Behaviors Essay,SBERT,Dot,0.009860717847484804,0.09930114726167476,0.05716455553701327,0.08338387567249468
+authority,behaviors,sbert,mean_cos,Authority,Behaviors Essay,SBERT,Cosine,0.008207479300306667,0.09059513949603855,0.05721225954787354,0.11435258731267414
+authority,behaviors,sbert,mean_euc,Authority,Behaviors Essay,SBERT,Euclidean,6.862647732998952e-4,-0.026196655765572258,0.057428783138435,0.6486024294999214
+authority,behaviors,sbert,negdiff_dot,Authority,Behaviors Essay,SBERT,Dot (Anchored Vector),8.933539863217435e-4,0.029889027858425697,0.05742283230573134,0.6030898705984826
+authority,behaviors,sbert,negdiff_cos,Authority,Behaviors Essay,SBERT,Cosine (Anchored Vector),9.746319745973419e-5,-0.009872345084109078,0.05744569933672684,0.8636660488296084
+authority,behaviors,sbert,negdiff_euc,Authority,Behaviors Essay,SBERT,Euclidean (Anchored Vector),0.007512429321134074,-0.0866742713908462,0.05723230326392555,0.13095943678124294
+authority,behaviors,sbert,anchoredvec_norm,Authority,Behaviors Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.0017522584051263847,0.04185998572773747,0.05739814458641743,0.4663866578242415
+authority,behaviors,ddr,mean_dot,Authority,Behaviors Essay,DDR,Dot,0.001478241861401392,0.03844791101479245,0.057406021870463,0.503524703211574
+authority,behaviors,ddr,mean_cos,Authority,Behaviors Essay,DDR,Cosine,0.006065137658100273,-0.07787899368957116,0.05727401746897083,0.1749164147511431
+authority,behaviors,ddr,mean_euc,Authority,Behaviors Essay,DDR,Euclidean,0.006611185741793866,-0.08130919838366309,0.05725828270342992,0.1566233711553883
+authority,behaviors,ddr,negdiff_dot,Authority,Behaviors Essay,DDR,Dot (Anchored Vector),0.01168972945581331,0.10811905223323641,0.05711173318857166,0.059295363528542776
+authority,behaviors,ddr,negdiff_cos,Authority,Behaviors Essay,DDR,Cosine (Anchored Vector),0.008418490365110231,0.09175233166034653,0.057206173062168575,0.10978041065684815
+authority,behaviors,ddr,negdiff_euc,Authority,Behaviors Essay,DDR,Euclidean (Anchored Vector),0.00309327752179389,-0.05561724122782329,0.05735957806938362,0.33300713839647034
+authority,behaviors,ddr,anchoredvec_norm,Authority,Behaviors Essay,DDR,Dot (Pre-normalized Anchored Vector),0.020985471637668944,0.1448636311765964,0.056842510946480566,0.011311646399621187
+authority,values,glove,mean_dot,Authority,Values Essay,GloVe,Dot,0.02173057089625343,0.1474129264896856,0.05682087624491628,0.00993785892973183
+authority,values,glove,mean_cos,Authority,Values Essay,GloVe,Cosine,1.8257447237088103e-4,-0.013512012151078043,0.05744325440805803,0.8141940413618924
+authority,values,glove,mean_euc,Authority,Values Essay,GloVe,Euclidean,0.006370185845675225,-0.0798134440158754,0.05726522782056325,0.16441429997994647
+authority,values,glove,negdiff_dot,Authority,Values Essay,GloVe,Dot (Anchored Vector),3.919780424796599e-5,0.0062608149827291905,0.057447373023600624,0.9132877266785889
+authority,values,glove,negdiff_cos,Authority,Values Essay,GloVe,Cosine (Anchored Vector),0.010008844940661461,0.10004421492850779,0.057160279403183176,0.08108905328428419
+authority,values,glove,negdiff_euc,Authority,Values Essay,GloVe,Euclidean (Anchored Vector),0.020562999808741156,-0.14339804673963003,0.056854774180941675,0.012175180963946115
+authority,values,glove,anchoredvec_norm,Authority,Values Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.01072335162163252,0.10355361713447064,0.057139648525275095,0.07093110734729664
+authority,values,sbert,mean_dot,Authority,Values Essay,SBERT,Dot,5.938135959573832e-4,0.02436829078859215,0.05743143957936763,0.6716464719404915
+authority,values,sbert,mean_cos,Authority,Values Essay,SBERT,Cosine,4.0511187226105553e-4,-0.0201273910942542,0.057436861248892725,0.7262622202652678
+authority,values,sbert,mean_euc,Authority,Values Essay,SBERT,Euclidean,0.0034982943601885906,-0.05914638078689673,0.05734792504582957,0.3031943535439958
+authority,values,sbert,negdiff_dot,Authority,Values Essay,SBERT,Dot (Anchored Vector),0.040789575162187355,0.201964291799782,0.0562646511858209,3.862333798666735e-4
+authority,values,sbert,negdiff_cos,Authority,Values Essay,SBERT,Cosine (Anchored Vector),0.044927701644207854,0.2119615569960927,0.05614315443536385,1.9223526980931754e-4
+authority,values,sbert,negdiff_euc,Authority,Values Essay,SBERT,Euclidean (Anchored Vector),2.686612765143976e-4,0.016390890046437446,0.057440781350219385,0.77556879409670465
+authority,values,sbert,anchoredvec_norm,Authority,Values Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.03682175048861397,0.1918899436880786,0.056380901943814066,7.549258993649475e-4
+authority,values,ddr,mean_dot,Authority,Values Essay,DDR,Dot,0.03505927091203622,0.1872412105067584,0.05643246289395057,0.0010172682777723242
+authority,values,ddr,mean_cos,Authority,Values Essay,DDR,Cosine,2.3695865340870692e-5,-0.0048678399050164035,0.057447818312162766,0.9325280422672155
+authority,values,ddr,mean_euc,Authority,Values Essay,DDR,Euclidean,0.009743007806437236,-0.0987066755920654,0.057167953363120604,0.08525723311406123
+authority,values,ddr,negdiff_dot,Authority,Values Essay,DDR,Dot (Anchored Vector),0.05164059153375856,0.22724566339923544,0.055945500604091335,6.204414601649087e-5
+authority,values,ddr,negdiff_cos,Authority,Values Essay,DDR,Cosine (Anchored Vector),0.02065440315653911,0.143716398356413,0.056852121208904975,0.011982814625935818
+authority,values,ddr,negdiff_euc,Authority,Values Essay,DDR,Euclidean (Anchored Vector),0.017182653044098408,-0.13108261915333563,0.056952801573892646,0.02203592750699839
+authority,values,ddr,anchoredvec_norm,Authority,Values Essay,DDR,Dot (Pre-normalized Anchored Vector),0.05396747201184779,0.23230900114254685,0.05587682493053209,4.192153314105124e-5
+be,behaviors,glove,mean_dot,Benevolence,Behaviors Essay,GloVe,Dot,0.008903499727997805,0.0943583580187669,0.05719218080692634,0.10001042008467609
+be,behaviors,glove,mean_cos,Benevolence,Behaviors Essay,GloVe,Cosine,0.0012902301759423918,0.035919774163298904,0.057411426106691935,0.5320118931241715
+be,behaviors,glove,mean_euc,Benevolence,Behaviors Essay,GloVe,Euclidean,0.005094244416868415,0.07137397576756128,0.0573019837803095,0.2138824120232849
+be,behaviors,glove,negdiff_dot,Benevolence,Behaviors Essay,GloVe,Dot (Anchored Vector),0.0023689945254199724,-0.048672317855429505,0.057380411023475866,0.396974315053915
+be,behaviors,glove,negdiff_cos,Benevolence,Behaviors Essay,GloVe,Cosine (Anchored Vector),4.3839609432749123e-5,0.006621148649044909,0.05744723968846245,0.9083184230006501
+be,behaviors,glove,negdiff_euc,Benevolence,Behaviors Essay,GloVe,Euclidean (Anchored Vector),0.007796060626773184,-0.08829530353746552,0.057224124807441476,0.1238809451058942
+be,behaviors,glove,anchoredvec_norm,Benevolence,Behaviors Essay,GloVe,Dot (Pre-normalized Anchored Vector),7.295226439915567e-5,0.008541209773747206,0.05744640342488056,0.8819039674448573
+be,behaviors,sbert,mean_dot,Benevolence,Behaviors Essay,SBERT,Dot,1.7239178157853123e-4,-0.013129805085321371,0.057443546924168185,0.8193582268389118
+be,behaviors,sbert,mean_cos,Benevolence,Behaviors Essay,SBERT,Cosine,0.002048598548736448,0.045261446604549144,0.05738962433826642,0.4309218180680435
+be,behaviors,sbert,mean_euc,Benevolence,Behaviors Essay,SBERT,Euclidean,0.007510138184066749,0.08666105344424749,0.05723236932368267,0.13101841158701538
+be,behaviors,sbert,negdiff_dot,Benevolence,Behaviors Essay,SBERT,Dot (Anchored Vector),5.1837332734397474e-5,0.007199814770839388,0.057447009954367884,0.9003456771831687
+be,behaviors,sbert,negdiff_cos,Benevolence,Behaviors Essay,SBERT,Cosine (Anchored Vector),3.224413424704597e-4,0.017956651761129094,0.05743923632985434,0.7547844592009804
+be,behaviors,sbert,negdiff_euc,Benevolence,Behaviors Essay,SBERT,Euclidean (Anchored Vector),0.00999519058534592,0.0999759500347255,0.05716067359058051,0.08129772527832982
+be,behaviors,sbert,anchoredvec_norm,Benevolence,Behaviors Essay,SBERT,Dot (Pre-normalized Anchored Vector),3.947817443125438e-5,0.006283165956049153,0.05744736497001912,0.9129793878204534
+be,behaviors,ddr,mean_dot,Benevolence,Behaviors Essay,DDR,Dot,0.009254499731912513,0.09620031045642477,0.057182052512983875,0.09353087955067263
+be,behaviors,ddr,mean_cos,Benevolence,Behaviors Essay,DDR,Cosine,2.0418318753983623e-5,-0.004518663381353307,0.05744791245826686,0.9373576039872356
+be,behaviors,ddr,mean_euc,Benevolence,Behaviors Essay,DDR,Euclidean,0.002444322510359993,-0.049440090112781956,0.05737824467524269,0.3895603206463375
+be,behaviors,ddr,negdiff_dot,Benevolence,Behaviors Essay,DDR,Dot (Anchored Vector),0.004049541487127456,-0.06363600778747394,0.05733206092243186,0.26789851742032667
+be,behaviors,ddr,negdiff_cos,Benevolence,Behaviors Essay,DDR,Cosine (Anchored Vector),0.001251848612192023,-0.03538147272502975,0.05741252928962205,0.5381807216167627
+be,behaviors,ddr,negdiff_euc,Benevolence,Behaviors Essay,DDR,Euclidean (Anchored Vector),0.007612234429073487,-0.08724811991712762,0.05722942553528531,0.12841878225548883
+be,behaviors,ddr,anchoredvec_norm,Benevolence,Behaviors Essay,DDR,Dot (Pre-normalized Anchored Vector),0.0024917240914491827,-0.04991717231022994,0.057376881417085863,0.3849958857883977
+be,values,glove,mean_dot,Benevolence,Values Essay,GloVe,Dot,0.017210816946617614,0.13119000322668498,0.05695198553994279,0.021926414609887035
+be,values,glove,mean_cos,Benevolence,Values Essay,GloVe,Cosine,0.010979811766124897,0.10478459698889377,0.05713224160204841,0.06762400289623605
+be,values,glove,mean_euc,Benevolence,Values Essay,GloVe,Euclidean,0.015383684873955061,0.12403098352409793,0.05700490150676103,0.030343115337593055
+be,values,glove,negdiff_dot,Benevolence,Values Essay,GloVe,Dot (Anchored Vector),2.0921639323048208e-4,-0.014464314474958075,0.05744248906390915,0.8013623819508898
+be,values,glove,negdiff_cos,Benevolence,Values Essay,GloVe,Cosine (Anchored Vector),0.003557456037739102,0.05964441329864099,0.057346222665497874,0.29913393678800315
+be,values,glove,negdiff_euc,Benevolence,Values Essay,GloVe,Euclidean (Anchored Vector),0.012714543117677045,-0.11275878288486915,0.05708211492662228,0.04913246229090949
+be,values,glove,anchoredvec_norm,Benevolence,Values Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.004853422232705412,0.06966650725208927,0.05730891848434984,0.22507174070505828
+be,values,sbert,mean_dot,Benevolence,Values Essay,SBERT,Dot,0.01774756423857536,0.13321998438138086,0.056936431339995985,0.019943076677355443
+be,values,sbert,mean_cos,Benevolence,Values Essay,SBERT,Cosine,0.019187806229254714,0.13852005713706123,0.05689467409026473,0.015482250319384544
+be,values,sbert,mean_euc,Benevolence,Values Essay,SBERT,Euclidean,0.010688280741896452,0.10338414163640589,0.05714066134609966,0.0713965775606056
+be,values,sbert,negdiff_dot,Benevolence,Values Essay,SBERT,Dot (Anchored Vector),0.02034775077822264,0.14264554244077396,0.05686102127121765,0.012640749868615849
+be,values,sbert,negdiff_cos,Benevolence,Values Essay,SBERT,Cosine (Anchored Vector),0.020844276700294817,0.14437547125566302,0.0568466097546114,0.011593066064281912
+be,values,sbert,negdiff_euc,Benevolence,Values Essay,SBERT,Euclidean (Anchored Vector),0.004933512230563824,0.07023896518716542,0.05730661230975515,0.22127488368879714
+be,values,sbert,anchoredvec_norm,Benevolence,Values Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.021311456831961936,0.14598444037623312,0.05683304665398227,0.010688232811354894
+be,values,ddr,mean_dot,Benevolence,Values Essay,DDR,Dot,0.026367853538679643,0.16238181406388974,0.05668604249781214,0.00446735152273342
+be,values,ddr,mean_cos,Benevolence,Values Essay,DDR,Cosine,0.007220832747263369,0.08497548321288537,0.057240710179244036,0.13870823067033458
+be,values,ddr,mean_euc,Benevolence,Values Essay,DDR,Euclidean,2.1581538705044254e-4,-0.014690656454033692,0.057442299492619794,0.7983202577760898
+be,values,ddr,negdiff_dot,Benevolence,Values Essay,DDR,Dot (Anchored Vector),0.002658981855941859,-0.051565316404942864,0.05737207086489844,0.36947938640968003
+be,values,ddr,negdiff_cos,Benevolence,Values Essay,DDR,Cosine (Anchored Vector),9.394945079724543e-4,-0.030651174658933612,0.0574215063461661,0.5938764113520381
+be,values,ddr,negdiff_euc,Benevolence,Values Essay,DDR,Euclidean (Anchored Vector),0.011399153677047236,-0.10676681917640535,0.05712012835920558,0.06256470811352495
+be,values,ddr,anchoredvec_norm,Benevolence,Values Essay,DDR,Dot (Pre-normalized Anchored Vector),7.881626983752254e-4,-0.02807423549048526,0.057425855117524856,0.62528175715815415
+care,behaviors,glove,mean_dot,Care,Behaviors Essay,GloVe,Dot,2.701911779083855e-5,-0.0051979917074614955,0.057447722853019856,0.9279638861398631
+care,behaviors,glove,mean_cos,Care,Behaviors Essay,GloVe,Cosine,0.012258545602434149,0.1107183164721814,0.057095295662520584,0.05340700869229402
+care,behaviors,glove,mean_euc,Care,Behaviors Essay,GloVe,Euclidean,0.01810328568287576,0.13454845106085647,0.05692612067907016,0.01873117022654625
+care,behaviors,glove,negdiff_dot,Care,Behaviors Essay,GloVe,Dot (Anchored Vector),0.005820490535094735,0.0762921394056737,0.057281065748495924,0.18389697442551645
+care,behaviors,glove,negdiff_cos,Care,Behaviors Essay,GloVe,Cosine (Anchored Vector),0.007617514020948601,0.08727837086557344,0.05722927330224569,0.12828591464310435
+care,behaviors,glove,negdiff_euc,Care,Behaviors Essay,GloVe,Euclidean (Anchored Vector),0.0016327057034381592,0.04040675319099711,0.05740158155778619,0.4820163514362602
+care,behaviors,glove,anchoredvec_norm,Care,Behaviors Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.016822134590973,0.1297001719003216,0.05696324636986099,0.023488617095060334
+care,behaviors,sbert,mean_dot,Care,Behaviors Essay,SBERT,Dot,5.5823010953654e-4,0.023626893776722727,0.05743246198281476,0.6810805614036396
+care,behaviors,sbert,mean_cos,Care,Behaviors Essay,SBERT,Cosine,0.005853574720064921,0.07650865781115829,0.05728011264439198,0.18265198728787044
+care,behaviors,sbert,mean_euc,Care,Behaviors Essay,SBERT,Euclidean,0.014222279327607171,0.11925719822135328,0.05703851170394116,0.0373772112822367
+care,behaviors,sbert,negdiff_dot,Care,Behaviors Essay,SBERT,Dot (Anchored Vector),6.820826415622646e-5,-0.008258829466469577,0.05744653969753621,0.8857812276696078
+care,behaviors,sbert,negdiff_cos,Care,Behaviors Essay,SBERT,Cosine (Anchored Vector),0.0013524101829618035,0.03677512995166434,0.05740963885149882,0.5222835457941036
+care,behaviors,sbert,negdiff_euc,Care,Behaviors Essay,SBERT,Euclidean (Anchored Vector),0.014838326630925791,0.1218126702396996,0.05702068622862881,0.03345692084120291
+care,behaviors,sbert,anchoredvec_norm,Care,Behaviors Essay,SBERT,Dot (Pre-normalized Anchored Vector),5.6746474709191933e-5,-0.007533025601256926,0.05744686893912098,0.8957592480322172
+care,behaviors,ddr,mean_dot,Care,Behaviors Essay,DDR,Dot,1.0321902733025128e-4,-0.010159676536693996,0.05744553399653815,0.8597384386913641
+care,behaviors,ddr,mean_cos,Care,Behaviors Essay,DDR,Cosine,0.003149275653994183,0.056118407443495597,0.05735796704887832,0.32866244577433357
+care,behaviors,ddr,mean_euc,Care,Behaviors Essay,DDR,Euclidean,0.0043858798357510834,0.06622597553642419,0.05732237941729404,0.2488676274109306
+care,behaviors,ddr,negdiff_dot,Care,Behaviors Essay,DDR,Dot (Anchored Vector),6.985105856318538e-6,0.002642935083636858,0.0574482983198689,0.9633362080860979
+care,behaviors,ddr,negdiff_cos,Care,Behaviors Essay,DDR,Cosine (Anchored Vector),0.002464588687251821,0.049644623951157214,0.057377661828796694,0.38759946699207304
+care,behaviors,ddr,negdiff_euc,Care,Behaviors Essay,DDR,Euclidean (Anchored Vector),0.0021534190923644912,0.046404946852296756,0.057386610278871875,0.4193583286894058
+care,behaviors,ddr,anchoredvec_norm,Care,Behaviors Essay,DDR,Dot (Pre-normalized Anchored Vector),9.331432305680399e-4,0.03054739318776702,0.05742168886731175,0.5951272327400177
+care,values,glove,mean_dot,Care,Values Essay,GloVe,Dot,2.016939768468293e-5,-0.004491035257564026,0.05744791960841028,0.9377398368317176
+care,values,glove,mean_cos,Care,Values Essay,GloVe,Cosine,0.014394725131606244,0.11997801936857526,0.05703352250505508,0.0362338832525579
+care,values,glove,mean_euc,Care,Values Essay,GloVe,Euclidean,0.01941674128947809,0.1393439675388859,0.05688803370290255,0.014873757296855588
+care,values,glove,negdiff_dot,Care,Values Essay,GloVe,Dot (Anchored Vector),0.008613116775947212,0.09280687892579534,0.05720055860767336,0.105740150424334
+care,values,glove,negdiff_cos,Care,Values Essay,GloVe,Cosine (Anchored Vector),0.011591778205022354,0.10766512065205855,0.05711456328518447,0.0603767515453143
+care,values,glove,negdiff_euc,Care,Values Essay,GloVe,Euclidean (Anchored Vector),0.0019147095382593359,0.04375739409813301,0.05739347401586432,0.44640805989011456
+care,values,glove,anchoredvec_norm,Care,Values Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.0245062853033794,0.15654483480261938,0.056740207997673105,0.006150971984073658
+care,values,sbert,mean_dot,Care,Values Essay,SBERT,Dot,0.014217786759604004,0.11923836110750609,0.05703864167700473,0.037407494752559396
+care,values,sbert,mean_cos,Care,Values Essay,SBERT,Cosine,0.030167430211619394,0.17368773765473292,0.056575326398151306,0.002334239663860041
+care,values,sbert,mean_euc,Care,Values Essay,SBERT,Euclidean,0.030726399446605115,0.17528947329091119,0.05655902027177989,0.0021223631985158795
+care,values,sbert,negdiff_dot,Care,Values Essay,SBERT,Dot (Anchored Vector),0.019592094995785337,0.13997176499489197,0.05688294694791443,0.014424278737348313
+care,values,sbert,negdiff_cos,Care,Values Essay,SBERT,Cosine (Anchored Vector),0.036840563902941326,0.19193895879404255,0.05638035130718534,7.525279048530089e-4
+care,values,sbert,negdiff_euc,Care,Values Essay,SBERT,Euclidean (Anchored Vector),0.02882173801804888,0.16976966165380894,0.05661456336861543,0.0029361392877703778
+care,values,sbert,anchoredvec_norm,Care,Values Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.020206794349391703,0.14215060446368735,0.05686511182387032,0.012955447879180338
+care,values,ddr,mean_dot,Care,Values Essay,DDR,Dot,5.193249288370635e-4,0.022788701780423137,0.057433579806100934,0.6918063722084955
+care,values,ddr,mean_cos,Care,Values Essay,DDR,Cosine,0.02220748808741872,0.1490217705149774,0.056807024152923366,0.009148980562218936
+care,values,ddr,mean_euc,Care,Values Essay,DDR,Euclidean,0.011193533013580862,0.10579949439189604,0.057126068303561386,0.06499331603635056
+care,values,ddr,negdiff_dot,Care,Values Essay,DDR,Dot (Anchored Vector),0.00807245410889089,0.08984683694427353,0.057216153927607545,0.11738772076654926
+care,values,ddr,negdiff_cos,Care,Values Essay,DDR,Cosine (Anchored Vector),0.023480845532783127,0.1532346094483329,0.05677002284032604,0.007340461643367527
+care,values,ddr,negdiff_euc,Care,Values Essay,DDR,Euclidean (Anchored Vector),0.005065541557417765,0.07117261803121877,0.057302810350522315,0.21518077893853887
+care,values,ddr,anchoredvec_norm,Care,Values Essay,DDR,Dot (Pre-normalized Anchored Vector),0.0212395024188291,0.14573778651684352,0.056835135834133334,0.010822755155394924
+co,behaviors,glove,mean_dot,Conformity,Behaviors Essay,GloVe,Dot,0.005058072102185426,0.07112012445282563,0.05730302545010472,0.21552018745023666
+co,behaviors,glove,mean_cos,Conformity,Behaviors Essay,GloVe,Cosine,1.2111778751589135e-5,0.003480198090854751,0.05744815105933459,0.951733790391122
+co,behaviors,glove,mean_euc,Conformity,Behaviors Essay,GloVe,Euclidean,4.5372328454618745e-4,0.021300781313045483,0.05743546462265831,0.710997524538729
+co,behaviors,glove,negdiff_dot,Conformity,Behaviors Essay,GloVe,Dot (Anchored Vector),0.004316349853746332,-0.06569893342929034,0.057324380973090526,0.25266198503196774
+co,behaviors,glove,negdiff_cos,Conformity,Behaviors Essay,GloVe,Cosine (Anchored Vector),1.372614347474613e-4,-0.011715862526824949,0.0574445560951412,0.8385288682683353
+co,behaviors,glove,negdiff_euc,Conformity,Behaviors Essay,GloVe,Euclidean (Anchored Vector),0.005557211941138411,-0.07454670979418473,0.0572886498316568,0.1941623492583152
+co,behaviors,glove,anchoredvec_norm,Conformity,Behaviors Essay,GloVe,Dot (Pre-normalized Anchored Vector),3.474977175668423e-7,-5.894893701898998e-4,0.05744848898053055,0.991819658111992
+co,behaviors,sbert,mean_dot,Conformity,Behaviors Essay,SBERT,Dot,8.57975327346715e-4,-0.02929121587347839,0.05742384897638678,0.610361176253799
+co,behaviors,sbert,mean_cos,Conformity,Behaviors Essay,SBERT,Cosine,0.0034080213188045732,-0.05837826066957265,0.057350522559883696,0.30952792145171193
+co,behaviors,sbert,mean_euc,Conformity,Behaviors Essay,SBERT,Euclidean,0.002665211846457849,-0.0516256897915935,0.05737189167442634,0.3689184437531705
+co,behaviors,sbert,negdiff_dot,Conformity,Behaviors Essay,SBERT,Dot (Anchored Vector),9.161898226953228e-4,-0.030268627697590134,0.057422176066529586,0.5984929500597002
+co,behaviors,sbert,negdiff_cos,Conformity,Behaviors Essay,SBERT,Cosine (Anchored Vector),0.002472879596582953,-0.04972805643279204,0.05737742338413853,0.3868013269737377
+co,behaviors,sbert,negdiff_euc,Conformity,Behaviors Essay,SBERT,Euclidean (Anchored Vector),0.002164259132123804,-0.046521598555120586,0.0573862985702192,0.4181889983355592
+co,behaviors,sbert,anchoredvec_norm,Conformity,Behaviors Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.0010053274562535478,-0.031706899190137666,0.05741961442404868,0.5812209321411348
+co,behaviors,ddr,mean_dot,Conformity,Behaviors Essay,DDR,Dot,0.0031594313526193915,0.05620881917118867,0.05735767487288017,0.3278825628992502
+co,behaviors,ddr,mean_cos,Conformity,Behaviors Essay,DDR,Cosine,0.005016173283273763,-0.07082494816993344,0.05730423200485072,0.2174358597022884
+co,behaviors,ddr,mean_euc,Conformity,Behaviors Essay,DDR,Euclidean,0.007080307678285713,-0.08414456416362084,0.05724476116580228,0.14262409645515725
+co,behaviors,ddr,negdiff_dot,Conformity,Behaviors Essay,DDR,Dot (Anchored Vector),0.008310214535647023,0.09116037810171158,0.057209296293439946,0.11210098254301853
+co,behaviors,ddr,negdiff_cos,Conformity,Behaviors Essay,DDR,Cosine (Anchored Vector),0.006124625053651454,0.07825998373147952,0.05727230350699926,0.17280957613022632
+co,behaviors,ddr,negdiff_euc,Conformity,Behaviors Essay,DDR,Euclidean (Anchored Vector),0.0041743065591225755,-0.06460887368715361,0.05732846974845271,0.2606364895645708
+co,behaviors,ddr,anchoredvec_norm,Conformity,Behaviors Essay,DDR,Dot (Pre-normalized Anchored Vector),0.01136146123464311,0.10659015543024172,0.0571212172600672,0.06300258760066521
+co,values,glove,mean_dot,Conformity,Values Essay,GloVe,Dot,0.013169257767242861,0.11475738654763282,0.05706896824090738,0.0452264009947855
+co,values,glove,mean_cos,Conformity,Values Essay,GloVe,Cosine,6.620343633438266e-4,0.025730028436514143,0.05742947937349837,0.6544529925839029
+co,values,glove,mean_euc,Conformity,Values Essay,GloVe,Euclidean,0.002059777394057194,0.045384770507926886,0.0573893029040115,0.4296659384873266
+co,values,glove,negdiff_dot,Conformity,Values Essay,GloVe,Dot (Anchored Vector),0.0016243796994217475,-0.04030359412535985,0.0574018209109806,0.4831365115999191
+co,values,glove,negdiff_cos,Conformity,Values Essay,GloVe,Cosine (Anchored Vector),0.0031710308247791166,0.05631190659868575,0.05735734115818737,0.3269947997154312
+co,values,glove,negdiff_euc,Conformity,Values Essay,GloVe,Euclidean (Anchored Vector),0.014250114826848214,-0.11937384481890555,0.05703770639731662,0.0371901464859118
+co,values,glove,anchoredvec_norm,Conformity,Values Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.006325567874856006,0.07953343872143329,0.057266513525533413,0.16590449421527811
+co,values,sbert,mean_dot,Conformity,Values Essay,SBERT,Dot,0.001332652949990619,0.03650551944556632,0.05741020674452297,0.5253401008348602
+co,values,sbert,mean_cos,Conformity,Values Essay,SBERT,Cosine,1.0301510808402946e-5,0.0032095966737899066,0.05744820305821401,0.9554826694322299
+co,values,sbert,mean_euc,Conformity,Values Essay,SBERT,Euclidean,1.1145357688570551e-4,-0.010557157613946364,0.05744529745258712,0.8543108711599441
+co,values,sbert,negdiff_dot,Conformity,Values Essay,SBERT,Dot (Anchored Vector),0.02453225310265152,0.1566277532963153,0.05673945277592452,0.0061235329759431025
+co,values,sbert,negdiff_cos,Conformity,Values Essay,SBERT,Cosine (Anchored Vector),0.0291535965031845,0.17074424295766005,0.056604889743676515,0.0027745161297875907
+co,values,sbert,negdiff_euc,Conformity,Values Essay,SBERT,Euclidean (Anchored Vector),1.04878271047263e-4,0.01024100927874118,0.0574454863335279,0.8586273021652435
+co,values,sbert,anchoredvec_norm,Conformity,Values Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.02406983893991068,0.1551445743167017,0.056752899667420975,0.0066312788961589144
+co,values,ddr,mean_dot,Conformity,Values Essay,DDR,Dot,0.018806619423255552,0.13713722843653903,0.05690572890405199,0.0165525994211181
+co,values,ddr,mean_cos,Conformity,Values Essay,DDR,Cosine,0.0012052318907717569,0.03471644985841367,0.05741386914324311,0.545850749790645
+co,values,ddr,mean_euc,Conformity,Values Essay,DDR,Euclidean,0.004310618901438541,-0.06565530368095585,0.057324545946584204,0.25297787871671895
+co,values,ddr,negdiff_dot,Conformity,Values Essay,DDR,Dot (Anchored Vector),0.012952320914308013,0.11380826382257117,0.057075240685368164,0.04704761416479201
+co,values,ddr,negdiff_cos,Conformity,Values Essay,DDR,Cosine (Anchored Vector),0.0037454286763637682,0.06119990748656209,0.057340813407696097,0.2866855664698394
+co,values,ddr,negdiff_euc,Conformity,Values Essay,DDR,Euclidean (Anchored Vector),0.014254165308087973,-0.11939080914412113,0.057037589212217035,0.037163007163401325
+co,values,ddr,anchoredvec_norm,Conformity,Values Essay,DDR,Dot (Pre-normalized Anchored Vector),0.007877527880183184,0.088755438594957,0.05722177549809603,0.12192681900682575
+collectivism,behaviors,glove,mean_dot,Collectivism,Behaviors Essay,GloVe,Dot,0.020859101971686573,0.14442680489329732,0.0568461793993639,0.011563184640001565
+collectivism,behaviors,glove,mean_cos,Collectivism,Behaviors Essay,GloVe,Cosine,7.000496726844015e-4,0.0264584518194924,0.05742838704024293,0.6453294326423487
+collectivism,behaviors,glove,mean_euc,Collectivism,Behaviors Essay,GloVe,Euclidean,0.006761051372587983,0.0822256126312719,0.057253963461961925,0.1519896241360763
+collectivism,behaviors,glove,negdiff_dot,Collectivism,Behaviors Essay,GloVe,Dot (Anchored Vector),0.016630995235773185,0.12896121601385888,0.05696878320578684,0.024298507136043243
+collectivism,behaviors,glove,negdiff_cos,Collectivism,Behaviors Essay,GloVe,Cosine (Anchored Vector),9.319204533142377e-4,0.030527372197983835,0.05742172400705894,0.595368672420456
+collectivism,behaviors,glove,negdiff_euc,Collectivism,Behaviors Essay,GloVe,Euclidean (Anchored Vector),0.02027377384934607,-0.14238600299659387,0.056863168116857384,0.012804923812433776
+collectivism,behaviors,glove,anchoredvec_norm,Collectivism,Behaviors Essay,GloVe,Dot (Pre-normalized Anchored Vector),9.557503652191323e-4,0.030915212521008685,0.05742103918746956,0.59069951603192
+collectivism,behaviors,sbert,mean_dot,Collectivism,Behaviors Essay,SBERT,Dot,0.006748838267857581,0.08215131324487503,0.0572543154651246,0.15236139756380318
+collectivism,behaviors,sbert,mean_cos,Collectivism,Behaviors Essay,SBERT,Cosine,0.008367917434178904,0.09147632171321113,0.057207631866575175,0.11085767829694344
+collectivism,behaviors,sbert,mean_euc,Collectivism,Behaviors Essay,SBERT,Euclidean,0.001499817235508029,0.038727473910752555,0.05740540167211561,0.5004245286166169
+collectivism,behaviors,sbert,negdiff_dot,Collectivism,Behaviors Essay,SBERT,Dot (Anchored Vector),0.016504593731311232,0.12847020561714392,0.05697244445018427,0.02484987229606835
+collectivism,behaviors,sbert,negdiff_cos,Collectivism,Behaviors Essay,SBERT,Cosine (Anchored Vector),0.01680134918236567,0.12962001844763663,0.056963848497988245,0.02357532253947758
+collectivism,behaviors,sbert,negdiff_euc,Collectivism,Behaviors Essay,SBERT,Euclidean (Anchored Vector),8.516114634090128e-4,0.029182382757564806,0.0574240318517793,0.6116890902239145
+collectivism,behaviors,sbert,anchoredvec_norm,Collectivism,Behaviors Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.014965245217568294,0.12233251905183798,0.057017013116792574,0.0327038091765179
+collectivism,behaviors,ddr,mean_dot,Collectivism,Behaviors Essay,DDR,Dot,0.027209560809032505,0.16495320793798612,0.0566615345916471,0.0038675263682285063
+collectivism,behaviors,ddr,mean_cos,Collectivism,Behaviors Essay,DDR,Cosine,1.0850761725824058e-5,-0.0032940494419215842,0.05744818728131018,0.9543125619924742
+collectivism,behaviors,ddr,mean_euc,Collectivism,Behaviors Essay,DDR,Euclidean,0.007846398971979958,-0.0885799016254813,0.05722267318838875,0.12266945060188406
+collectivism,behaviors,ddr,negdiff_dot,Collectivism,Behaviors Essay,DDR,Dot (Anchored Vector),0.026900828019634504,0.164014718911549,0.0566705251641225,0.004077448278859362
+collectivism,behaviors,ddr,negdiff_cos,Collectivism,Behaviors Essay,DDR,Cosine (Anchored Vector),0.01631414662904472,0.12772684380757532,0.05697796034363325,0.02570511481704788
+collectivism,behaviors,ddr,negdiff_euc,Collectivism,Behaviors Essay,DDR,Euclidean (Anchored Vector),0.018026072627998446,-0.13426121043696287,0.05692835887439594,0.018987634046630033
+collectivism,behaviors,ddr,anchoredvec_norm,Collectivism,Behaviors Essay,DDR,Dot (Pre-normalized Anchored Vector),0.022608367768708566,0.15036079199282162,0.05679537796211102,0.008535347844727238
+collectivism,values,glove,mean_dot,Collectivism,Values Essay,GloVe,Dot,0.003808388201346251,0.061712139821482784,0.05733900151768477,0.28266355369565993
+collectivism,values,glove,mean_cos,Collectivism,Values Essay,GloVe,Cosine,0.0025484903836690553,-0.05048257504990274,0.05737524878944977,0.3796287778520333
+collectivism,values,glove,mean_euc,Collectivism,Values Essay,GloVe,Euclidean,0.0011014917301259948,-0.033188728962194325,0.057416850721415065,0.5636724098772483
+collectivism,values,glove,negdiff_dot,Collectivism,Values Essay,GloVe,Dot (Anchored Vector),2.1927992382019048e-5,0.0046827334305957775,0.057447869093565807,0.935088007084141
+collectivism,values,glove,negdiff_cos,Collectivism,Values Essay,GloVe,Cosine (Anchored Vector),0.0074409957673101665,-0.08626120661867738,0.05723436285307097,0.13281212074872026
+collectivism,values,glove,negdiff_euc,Collectivism,Values Essay,GloVe,Euclidean (Anchored Vector),0.007562122204628744,-0.08696046345684189,0.05723087046322222,0.12968754465157373
+collectivism,values,glove,anchoredvec_norm,Collectivism,Values Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.005356523664324857,-0.07318827545669358,0.05729443024484525,0.20243669586389543
+collectivism,values,sbert,mean_dot,Collectivism,Values Essay,SBERT,Dot,4.42584851232643e-5,-0.0066527050981736,0.05744722765630757,0.9078834002002198
+collectivism,values,sbert,mean_cos,Collectivism,Values Essay,SBERT,Cosine,0.003133111608910836,-0.05597420485286806,0.05735843207989264,0.3299087978570814
+collectivism,values,sbert,mean_euc,Collectivism,Values Essay,SBERT,Euclidean,0.00534438141684078,-0.07310527625856278,0.05729477995860944,0.2029504147488336
+collectivism,values,sbert,negdiff_dot,Collectivism,Values Essay,SBERT,Dot (Anchored Vector),0.0028770480796930296,0.05363812151532747,0.05736579838910545,0.3505229826333428
+collectivism,values,sbert,negdiff_cos,Collectivism,Values Essay,SBERT,Cosine (Anchored Vector),0.004632569966908745,0.06806298529236533,0.05731527739801599,0.2359530248264507
+collectivism,values,sbert,negdiff_euc,Collectivism,Values Essay,SBERT,Euclidean (Anchored Vector),0.002349657258329336,-0.048473263334846174,0.05738096712836389,0.39891022354124483
+collectivism,values,sbert,anchoredvec_norm,Collectivism,Values Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.003058651565810773,0.05530507721548514,0.057360574207204,0.3357318998755815
+collectivism,values,ddr,mean_dot,Collectivism,Values Essay,DDR,Dot,0.010147329753774059,0.10073395531683474,0.05715628133339445,0.07900483575028276
+collectivism,values,ddr,mean_cos,Collectivism,Values Essay,DDR,Cosine,7.821396718024296e-4,0.027966760123447117,0.05742602819240112,0.6266069328194016
+collectivism,values,ddr,mean_euc,Collectivism,Values Essay,DDR,Euclidean,0.0015132547195949436,-0.038900574797744794,0.057405015399393765,0.4985100112338958
+collectivism,values,ddr,negdiff_dot,Collectivism,Values Essay,DDR,Dot (Anchored Vector),0.006793875494619399,0.08242496887848616,0.05725301740229872,0.1509954971715778
+collectivism,values,ddr,negdiff_cos,Collectivism,Values Essay,DDR,Cosine (Anchored Vector),0.0022431432176873082,0.04736183292153404,0.05738403018326296,0.4098229959607992
+collectivism,values,ddr,negdiff_euc,Collectivism,Values Essay,DDR,Euclidean (Anchored Vector),0.006013656721598202,-0.07754777057787154,0.05727550070594613,0.176763496766169
+collectivism,values,ddr,anchoredvec_norm,Collectivism,Values Essay,DDR,Dot (Pre-normalized Anchored Vector),0.004665208554242939,0.06830233198246544,0.057314337692252075,0.23430575211003624
+conservatism,behaviors,glove,mean_dot,Conservatism,Behaviors Essay,GloVe,Dot,0.002404161738461545,0.04903225202314845,0.05737939966410989,0.39348811977990694
+conservatism,behaviors,glove,mean_cos,Conservatism,Behaviors Essay,GloVe,Cosine,5.164168639647174e-7,7.186215025761808e-4,0.057448484128453776,0.9900277764759916
+conservatism,behaviors,glove,mean_euc,Conservatism,Behaviors Essay,GloVe,Euclidean,0.0020172702054462865,-0.044914031275830525,0.05739052513751357,0.43447112226649875
+conservatism,behaviors,glove,negdiff_dot,Conservatism,Behaviors Essay,GloVe,Dot (Anchored Vector),5.235040835685078e-4,0.02288021161546599,0.05743345973170949,0.6906323354619254
+conservatism,behaviors,glove,negdiff_cos,Conservatism,Behaviors Essay,GloVe,Cosine (Anchored Vector),2.2507945632885918e-4,-0.015002648310510272,0.057442033359846864,0.7941319645567115
+conservatism,behaviors,glove,negdiff_euc,Conservatism,Behaviors Essay,GloVe,Euclidean (Anchored Vector),0.0032886185035462387,-0.057346477690842085,0.05735395807255986,0.3181714499439744
+conservatism,behaviors,glove,anchoredvec_norm,Conservatism,Behaviors Essay,GloVe,Dot (Pre-normalized Anchored Vector),2.923305413657409e-4,0.017097676490264387,0.05744010137297863,0.7661659166464987
+conservatism,behaviors,sbert,mean_dot,Conservatism,Behaviors Essay,SBERT,Dot,0.019398927177832235,0.1392800315114561,0.05688855043882073,0.014920214811080978
+conservatism,behaviors,sbert,mean_cos,Conservatism,Behaviors Essay,SBERT,Cosine,0.01051328438226804,0.10253430831808451,0.057145714842068346,0.07376837529596435
+conservatism,behaviors,sbert,mean_euc,Conservatism,Behaviors Essay,SBERT,Euclidean,0.0016553987030679103,-0.04068659119498597,0.057400929181912766,0.4789847998990516
+conservatism,behaviors,sbert,negdiff_dot,Conservatism,Behaviors Essay,SBERT,Dot (Anchored Vector),1.9192908473528713e-6,-0.0013853847290023027,0.05744844383192695,0.9807765368490038
+conservatism,behaviors,sbert,negdiff_cos,Conservatism,Behaviors Essay,SBERT,Cosine (Anchored Vector),1.8452382829373977e-4,-0.013583954810501184,0.05744319840913259,0.8132228798163778
+conservatism,behaviors,sbert,negdiff_euc,Conservatism,Behaviors Essay,SBERT,Euclidean (Anchored Vector),0.008325349694952031,-0.0912433542508824,0.0572088597279284,0.11177339933245947
+conservatism,behaviors,sbert,anchoredvec_norm,Conservatism,Behaviors Essay,SBERT,Dot (Pre-normalized Anchored Vector),1.8174931502691548e-4,0.013481443358443273,0.057443278112242445,0.8146067788508372
+conservatism,behaviors,ddr,mean_dot,Conservatism,Behaviors Essay,DDR,Dot,1.0865817935045506e-8,1.0423923414454796e-4,0.05744849865003009,0.998553448090937
+conservatism,behaviors,ddr,mean_cos,Conservatism,Behaviors Essay,DDR,Cosine,0.01673270585427783,-0.12935496068677765,0.056965836966896354,0.023864017807102563
+conservatism,behaviors,ddr,mean_euc,Conservatism,Behaviors Essay,DDR,Euclidean,0.011404543577299128,-0.10679205765083437,0.057119972648124066,0.06250235686327656
+conservatism,behaviors,ddr,negdiff_dot,Conservatism,Behaviors Essay,DDR,Dot (Anchored Vector),5.9790854500374825e-5,0.007732454623234096,0.05744678148904851,0.8930158854153039
+conservatism,behaviors,ddr,negdiff_cos,Conservatism,Behaviors Essay,DDR,Cosine (Anchored Vector),0.0028213451356253125,-0.05311633586407587,0.057367400698643524,0.35523607955389
+conservatism,behaviors,ddr,negdiff_euc,Conservatism,Behaviors Essay,DDR,Euclidean (Anchored Vector),0.003776699608981209,-0.061454858302506965,0.0573399134796883,0.28467892861680977
+conservatism,behaviors,ddr,anchoredvec_norm,Conservatism,Behaviors Essay,DDR,Dot (Pre-normalized Anchored Vector),8.018176306971166e-5,0.008954427009569756,0.05744619575500658,0.8762353304776325
+conservatism,values,glove,mean_dot,Conservatism,Values Essay,GloVe,Dot,0.004538610440972638,0.0673692098882912,0.05731798252430777,0.24077384920027922
+conservatism,values,glove,mean_cos,Conservatism,Values Essay,GloVe,Cosine,0.011343613039724988,-0.10650639905529133,0.0571217328711719,0.06321106562613855
+conservatism,values,glove,mean_euc,Conservatism,Values Essay,GloVe,Euclidean,0.02123242591596095,-0.1457135062921792,0.05683534129464986,0.010836077947028882
+conservatism,values,glove,negdiff_dot,Conservatism,Values Essay,GloVe,Dot (Anchored Vector),0.005130897445871797,0.07163028302241854,0.05730092824786022,0.2122378748520786
+conservatism,values,glove,negdiff_cos,Conservatism,Values Essay,GloVe,Cosine (Anchored Vector),3.2430230867868564e-5,-0.005694754680218287,0.05744756742054773,0.9211009162676196
+conservatism,values,glove,negdiff_euc,Conservatism,Values Essay,GloVe,Euclidean (Anchored Vector),0.018939304570035422,-0.13762014594540803,0.05690188114049141,0.016171678093953354
+conservatism,values,glove,anchoredvec_norm,Conservatism,Values Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.004699859560679592,0.06855552173734501,0.0573133400295628,0.23257204806972218
+conservatism,values,sbert,mean_dot,Conservatism,Values Essay,SBERT,Dot,0.0015092040638087273,-0.03884847569479043,0.05740513183945815,0.4990858258315123
+conservatism,values,sbert,mean_cos,Conservatism,Values Essay,SBERT,Cosine,0.0058180682959921995,-0.07627626299178657,0.057281135528828034,0.1839885097389671
+conservatism,values,sbert,mean_euc,Conservatism,Values Essay,SBERT,Euclidean,0.010273788885166588,-0.10135970049860325,0.057152630201879946,0.07715170792886346
+conservatism,values,sbert,negdiff_dot,Conservatism,Values Essay,SBERT,Dot (Anchored Vector),0.030203728158979443,0.17379219821090772,0.056574267665181026,0.0023198551218399084
+conservatism,values,sbert,negdiff_cos,Conservatism,Values Essay,SBERT,Cosine (Anchored Vector),0.032786331563438645,0.18106996317290902,0.05649888776137523,0.0014954980493034847
+conservatism,values,sbert,negdiff_euc,Conservatism,Values Essay,SBERT,Euclidean (Anchored Vector),1.340479886118079e-4,-0.0115779095095707,0.057444648405231044,0.8404045851640689
+conservatism,values,sbert,anchoredvec_norm,Conservatism,Values Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.02919961306294309,0.17087894271367393,0.05660354823736395,0.0027528253020622498
+conservatism,values,ddr,mean_dot,Conservatism,Values Essay,DDR,Dot,0.011490845759001285,0.10719536258160274,0.05711747937050669,0.06151291726774255
+conservatism,values,ddr,mean_cos,Conservatism,Values Essay,DDR,Cosine,0.009542281869504933,-0.09768460405562825,0.05717374706599158,0.08855711369173078
+conservatism,values,ddr,mean_euc,Conservatism,Values Essay,DDR,Euclidean,0.019408053110452603,-0.13931278875412906,0.05688828572246441,0.014896396712967466
+conservatism,values,ddr,negdiff_dot,Conservatism,Values Essay,DDR,Dot (Anchored Vector),0.008919659926790119,0.0944439512451174,0.057191714535085716,0.09970163300650303
+conservatism,values,ddr,negdiff_cos,Conservatism,Values Essay,DDR,Cosine (Anchored Vector),7.384976623978398e-4,0.027175313473773163,0.057427282253200686,0.6364022378553567
+conservatism,values,ddr,negdiff_euc,Conservatism,Values Essay,DDR,Euclidean (Anchored Vector),0.018863682287523876,-0.1373451210910815,0.05690407415833018,0.01638766466589818
+conservatism,values,ddr,anchoredvec_norm,Conservatism,Values Essay,DDR,Dot (Pre-normalized Anchored Vector),0.007863189207508236,0.08867462549967851,0.057222188996110326,0.12226827356794841
+equality,behaviors,glove,mean_dot,Equality,Behaviors Essay,GloVe,Dot,6.886015983425096e-4,0.026241219452276053,0.05742871599180605,0.6480448109754137
+equality,behaviors,glove,mean_cos,Equality,Behaviors Essay,GloVe,Cosine,0.002663291442699033,0.05160708713635204,0.057371946910213176,0.3690912289767938
+equality,behaviors,glove,mean_euc,Equality,Behaviors Essay,GloVe,Euclidean,0.0033987021784565546,0.058298389158334026,0.05735079070187709,0.3101914619629109
+equality,behaviors,glove,negdiff_dot,Equality,Behaviors Essay,GloVe,Dot (Anchored Vector),9.433339795337609e-4,-0.030713742519168225,0.05742139600827809,0.5931228938571075
+equality,behaviors,glove,negdiff_cos,Equality,Behaviors Essay,GloVe,Cosine (Anchored Vector),0.0013141021784625348,-0.03625054728500715,0.057410739954448356,0.5282390571593643
+equality,behaviors,glove,negdiff_euc,Equality,Behaviors Essay,GloVe,Euclidean (Anchored Vector),2.1474919616117796e-4,-0.014654323463100553,0.05744233012145004,0.7988083833517803
+equality,behaviors,glove,anchoredvec_norm,Equality,Behaviors Essay,GloVe,Dot (Pre-normalized Anchored Vector),3.7546000732566664e-4,-0.01937679042890404,0.057437713142716014,0.7360843102236134
+equality,behaviors,sbert,mean_dot,Equality,Behaviors Essay,SBERT,Dot,5.197538764199707e-4,-0.022798111246767137,0.057433567481701676,0.69168561823326
+equality,behaviors,sbert,mean_cos,Equality,Behaviors Essay,SBERT,Cosine,1.9027127005603665e-5,-0.0043620095146163565,0.05744795241959981,0.9395250850862445
+equality,behaviors,sbert,mean_euc,Equality,Behaviors Essay,SBERT,Euclidean,4.8311568393771283e-4,0.02197989271897642,0.05743462015023857,0.702214870770884
+equality,behaviors,sbert,negdiff_dot,Equality,Behaviors Essay,SBERT,Dot (Anchored Vector),0.006743543482865774,-0.08211908111313584,0.0572544680694698,0.15252289220163975
+equality,behaviors,sbert,negdiff_cos,Equality,Behaviors Essay,SBERT,Cosine (Anchored Vector),0.003924836017255644,-0.06264851169226321,0.05733565015608473,0.2754100167484433
+equality,behaviors,sbert,negdiff_euc,Equality,Behaviors Essay,SBERT,Euclidean (Anchored Vector),9.019836886192032e-4,0.030033043279348234,0.05742258431267678,0.6013439956540017
+equality,behaviors,sbert,anchoredvec_norm,Equality,Behaviors Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.0066284024795534875,-0.08141500156330836,0.05725778652051789,0.15608300883104917
+equality,behaviors,ddr,mean_dot,Equality,Behaviors Essay,DDR,Dot,0.003644002451852066,0.06036557339951371,0.05734373219691163,0.29331866056301464
+equality,behaviors,ddr,mean_cos,Equality,Behaviors Essay,DDR,Cosine,0.007071083518936546,0.08408973492012303,0.05724502706523846,0.1428854296855251
+equality,behaviors,ddr,mean_euc,Equality,Behaviors Essay,DDR,Euclidean,6.983476659991621e-4,0.026426268484202643,0.057428435946208174,0.6457314247974659
+equality,behaviors,ddr,negdiff_dot,Equality,Behaviors Essay,DDR,Dot (Anchored Vector),0.00763459699100863,-0.08737618091338524,0.057228780724946436,0.1278570429568524
+equality,behaviors,ddr,negdiff_cos,Equality,Behaviors Essay,DDR,Cosine (Anchored Vector),0.022951233327891656,-0.15149664460935,0.05678541527854485,0.008043816680338255
+equality,behaviors,ddr,negdiff_euc,Equality,Behaviors Essay,DDR,Euclidean (Anchored Vector),0.0013984311904412182,-0.037395603891917796,0.05740831602256242,0.5152839902287418
+equality,behaviors,ddr,anchoredvec_norm,Equality,Behaviors Essay,DDR,Dot (Pre-normalized Anchored Vector),0.006180178714697224,-0.07861411269420558,0.057270702838203964,0.17086826158269297
+equality,values,glove,mean_dot,Equality,Values Essay,GloVe,Dot,0.004811715083240482,-0.06936652710955386,0.057310119396174926,0.2270797628960246
+equality,values,glove,mean_cos,Equality,Values Essay,GloVe,Cosine,0.0011353405957848645,-0.03369481556241058,0.05741587789398803,0.5577378422740283
+equality,values,glove,mean_euc,Equality,Values Essay,GloVe,Euclidean,8.975379817275648e-4,-0.029958938261019256,0.05742271206975899,0.6022420749945553
+equality,values,glove,negdiff_dot,Equality,Values Essay,GloVe,Dot (Anchored Vector),0.00245756080421801,0.04957379150537115,0.05737786394833125,0.3882778547453951
+equality,values,glove,negdiff_cos,Equality,Values Essay,GloVe,Cosine (Anchored Vector),3.7557831115657625e-4,0.019379842908459743,0.05743770974388902,0.7360442782709709
+equality,values,glove,negdiff_euc,Equality,Values Essay,GloVe,Euclidean (Anchored Vector),0.004580525820668505,0.06767958200719405,0.0573167757822298,0.23860870591162786
+equality,values,glove,anchoredvec_norm,Equality,Values Essay,GloVe,Dot (Pre-normalized Anchored Vector),3.4768045759707634e-4,0.01864619150381859,0.05743851123372899,0.7456860786335446
+equality,values,sbert,mean_dot,Equality,Values Essay,SBERT,Dot,0.007225522420403336,0.08500307300564704,0.05724057498274377,0.1385796363642013
+equality,values,sbert,mean_cos,Equality,Values Essay,SBERT,Cosine,0.0030916195946165234,0.05560233443495452,0.0573596257659041,0.3331369302907864
+equality,values,sbert,mean_euc,Equality,Values Essay,SBERT,Euclidean,5.521301509762001e-4,-0.023497449882406398,0.057432637248205035,0.6827328558114472
+equality,values,sbert,negdiff_dot,Equality,Values Essay,SBERT,Dot (Anchored Vector),0.0037836384903253426,0.06151128750339514,0.05733971378773749,0.2842360731717415
+equality,values,sbert,negdiff_cos,Equality,Values Essay,SBERT,Cosine (Anchored Vector),0.0024060685306189172,0.04905169243378791,0.0573793448269518,0.39330035348304326
+equality,values,sbert,negdiff_euc,Equality,Values Essay,SBERT,Euclidean (Anchored Vector),0.005821648686197271,-0.0762997292668675,0.05728103238422517,0.1838532270105329
+equality,values,sbert,anchoredvec_norm,Equality,Values Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.003280131092033653,0.05727242872476834,0.057354202268430875,0.3187977720804316
+equality,values,ddr,mean_dot,Equality,Values Essay,DDR,Dot,0.0017056802232893904,-0.041299881637716467,0.05739948366784915,0.4723772613727206
+equality,values,ddr,mean_cos,Equality,Values Essay,DDR,Cosine,0.008449289157166072,0.09192001499763831,0.05720528463560316,0.10912997289066956
+equality,values,ddr,mean_euc,Equality,Values Essay,DDR,Euclidean,0.006958229660514467,0.08341600362349211,0.05724828013729473,0.14612656507187707
+equality,values,ddr,negdiff_dot,Equality,Values Essay,DDR,Dot (Anchored Vector),0.0012781398839687022,-0.03575108227688645,0.057411773614458754,0.5339412281269014
+equality,values,ddr,negdiff_cos,Equality,Values Essay,DDR,Cosine (Anchored Vector),1.3182089615995243e-6,0.0011481328153133707,0.057448461097567065,0.9840681408487597
+equality,values,ddr,negdiff_euc,Equality,Values Essay,DDR,Euclidean (Anchored Vector),0.005057064565617426,0.07111304075637209,0.05730305446430024,0.21556601798066605
+equality,values,ddr,anchoredvec_norm,Equality,Values Essay,DDR,Dot (Pre-normalized Anchored Vector),0.0013596243665430173,-0.03687308458134488,0.05740943148884856,0.5211752978987185
+he,behaviors,glove,mean_dot,Hedonism,Behaviors Essay,GloVe,Dot,0.043063248913200666,0.20751686416578466,0.0561979278914834,2.6321578824883005e-4
+he,behaviors,glove,mean_cos,Hedonism,Behaviors Essay,GloVe,Cosine,8.452383723998009e-4,-0.02907298354830138,0.05742421499174215,0.6130251923890726
+he,behaviors,glove,mean_euc,Hedonism,Behaviors Essay,GloVe,Euclidean,9.020097617603096e-4,0.030033477350455293,0.057422583563407306,0.6013387369148933
+he,behaviors,glove,negdiff_dot,Hedonism,Behaviors Essay,GloVe,Dot (Anchored Vector),0.022044253757375235,-0.14847307418308295,0.05681176568522308,0.009411544302584339
+he,behaviors,glove,negdiff_cos,Hedonism,Behaviors Essay,GloVe,Cosine (Anchored Vector),1.1388504919329592e-4,-0.01067169382962689,0.05744522760643513,0.8527481503594578
+he,behaviors,glove,negdiff_euc,Hedonism,Behaviors Essay,GloVe,Euclidean (Anchored Vector),0.04815549655864352,-0.2194436067846215,0.05604820248194072,1.1159914591499748e-4
+he,behaviors,glove,anchoredvec_norm,Hedonism,Behaviors Essay,GloVe,Dot (Pre-normalized Anchored Vector),6.880463612797656e-5,-0.008294856004053101,0.05744652256661213,0.8852864070807789
+he,behaviors,sbert,mean_dot,Hedonism,Behaviors Essay,SBERT,Dot,0.0036181679710746706,0.060151209223711095,0.05734447562393358,0.29503930675739987
+he,behaviors,sbert,mean_cos,Hedonism,Behaviors Essay,SBERT,Cosine,2.2675821947439666e-4,-0.015058493267070129,0.05744198513318754,0.7933829003959717
+he,behaviors,sbert,mean_euc,Hedonism,Behaviors Essay,SBERT,Euclidean,0.007660684898401195,-0.0875253386077494,0.05722802848744424,0.12720516220829814
+he,behaviors,sbert,negdiff_dot,Hedonism,Behaviors Essay,SBERT,Dot (Anchored Vector),2.0123705304989341e-4,0.014185804631739971,0.0574427182879899,0.8051097746078459
+he,behaviors,sbert,negdiff_cos,Hedonism,Behaviors Essay,SBERT,Cosine (Anchored Vector),8.363456760204538e-4,-0.028919641699378867,0.057424470535223524,0.6149001248995195
+he,behaviors,sbert,negdiff_euc,Hedonism,Behaviors Essay,SBERT,Euclidean (Anchored Vector),0.014312055428552847,-0.11963300309092331,0.0570359143578714,0.03677737417282733
+he,behaviors,sbert,anchoredvec_norm,Hedonism,Behaviors Essay,SBERT,Dot (Pre-normalized Anchored Vector),3.282536027967264e-4,0.018117770359421314,0.05743906934987324,0.7526554358781596
+he,behaviors,ddr,mean_dot,Hedonism,Behaviors Essay,DDR,Dot,0.05498261687647285,0.23448372411848312,0.05584683743268515,3.532954327814881e-5
+he,behaviors,ddr,mean_cos,Hedonism,Behaviors Essay,DDR,Cosine,4.692645561163626e-4,-0.021662514999795383,0.057435018108252765,0.7063145401192767
+he,behaviors,ddr,mean_euc,Hedonism,Behaviors Essay,DDR,Euclidean,0.027290302107926715,-0.16519776665538394,0.056659183098124295,0.0038144524908105115
+he,behaviors,ddr,negdiff_dot,Hedonism,Behaviors Essay,DDR,Dot (Anchored Vector),0.04610947863725786,0.21473117760879043,0.05610840878024108,1.5752646536597715e-4
+he,behaviors,ddr,negdiff_cos,Hedonism,Behaviors Essay,DDR,Cosine (Anchored Vector),0.012276435756952427,0.11079907832176411,0.057094778599941956,0.05323213222172962
+he,behaviors,ddr,negdiff_euc,Hedonism,Behaviors Essay,DDR,Euclidean (Anchored Vector),0.045520245210608094,-0.21335474030498627,0.056125735635491274,1.7396828457462223e-4
+he,behaviors,ddr,anchoredvec_norm,Hedonism,Behaviors Essay,DDR,Dot (Pre-normalized Anchored Vector),0.03595248381817071,0.1896114021312293,0.05640633803835458,8.745148027140688e-4
+he,values,glove,mean_dot,Hedonism,Values Essay,GloVe,Dot,0.00416038507427648,0.06450104707891556,0.05732887046849785,0.26143462545027957
+he,values,glove,mean_cos,Hedonism,Values Essay,GloVe,Cosine,0.0017429490305153846,-0.041748641061900266,0.057398412225181786,0.46757419447610093
+he,values,glove,mean_euc,Hedonism,Values Essay,GloVe,Euclidean,7.869744593920616e-4,-0.028053065062343216,0.05742588926224617,0.6255426942941577
+he,values,glove,negdiff_dot,Hedonism,Values Essay,GloVe,Dot (Anchored Vector),0.0059552056019478205,-0.07716997863125145,0.05727718471697507,0.17888788213409693
+he,values,glove,negdiff_cos,Hedonism,Values Essay,GloVe,Cosine (Anchored Vector),0.0015804636229470718,-0.03975504525147815,0.057403083379226415,0.4891165234760434
+he,values,glove,negdiff_euc,Hedonism,Values Essay,GloVe,Euclidean (Anchored Vector),0.007106374098610254,-0.08429931256309418,0.05724400975770212,0.1418884867070522
+he,values,glove,anchoredvec_norm,Hedonism,Values Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.0029212744309908487,-0.05404881525982638,0.05736452617484136,0.3468412219416567
+he,values,sbert,mean_dot,Hedonism,Values Essay,SBERT,Dot,0.018381236615909652,0.1355774192699862,0.056918062912893225,0.017837038397147537
+he,values,sbert,mean_cos,Hedonism,Values Essay,SBERT,Cosine,0.0033746803739325222,0.058091999224785876,0.05735148188158195,0.3119103910682622
+he,values,sbert,mean_euc,Hedonism,Values Essay,SBERT,Euclidean,8.086047717210576e-4,-0.02843597671473687,0.05742526769977093,0.6208303390106442
+he,values,sbert,negdiff_dot,Hedonism,Values Essay,SBERT,Dot (Anchored Vector),0.0058431365668956,0.07644041187026394,0.057280413353123,0.18304373057638992
+he,values,sbert,negdiff_cos,Hedonism,Values Essay,SBERT,Cosine (Anchored Vector),0.001450175770608969,0.03808117344054627,0.05740682863871182,0.5076068394185971
+he,values,sbert,negdiff_euc,Hedonism,Values Essay,SBERT,Euclidean (Anchored Vector),0.010624690332650672,-0.10307613852221403,0.05714249774386038,0.07224889447889007
+he,values,sbert,anchoredvec_norm,Hedonism,Values Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.006731305457415385,0.0820445333792288,0.057254820787780596,0.15289689986125607
+he,values,ddr,mean_dot,Hedonism,Values Essay,DDR,Dot,0.007893122058279585,0.08884324430298336,0.057221325790479546,0.12155666030622095
+he,values,ddr,mean_cos,Hedonism,Values Essay,DDR,Cosine,1.4291330350368315e-5,-0.0037803875926111763,0.05744808845293746,0.9475762483022454
+he,values,ddr,mean_euc,Hedonism,Values Essay,DDR,Euclidean,0.004342954704800624,-0.06590109790284697,0.05732361510895026,0.2512018183431825
+he,values,ddr,negdiff_dot,Hedonism,Values Essay,DDR,Dot (Anchored Vector),0.011490638201975123,0.10719439445220594,0.057117485366977985,0.06151527686559749
+he,values,ddr,negdiff_cos,Hedonism,Values Essay,DDR,Cosine (Anchored Vector),0.008828290558636107,0.0939589833844328,0.05719435077463995,0.1014612513258346
+he,values,ddr,negdiff_euc,Hedonism,Values Essay,DDR,Euclidean (Anchored Vector),0.005520236059743508,-0.07429829109571434,0.05728971488972573,0.19565673935995
+he,values,ddr,anchoredvec_norm,Hedonism,Values Essay,DDR,Dot (Pre-normalized Anchored Vector),0.011532913664960355,0.10739140405526114,0.057116263985547915,0.06103664418260721
+individualism,behaviors,glove,mean_dot,Individualism,Behaviors Essay,GloVe,Dot,0.0206973725559161,0.1438658144102207,0.05685087398407126,0.011893456986058558
+individualism,behaviors,glove,mean_cos,Individualism,Behaviors Essay,GloVe,Cosine,0.0050975668217918225,0.07139724659811343,0.057301888102627964,0.21373272357975623
+individualism,behaviors,glove,mean_euc,Individualism,Behaviors Essay,GloVe,Euclidean,0.002857125634820365,0.053452087282166674,0.057366371468506136,0.35219881556618027
+individualism,behaviors,glove,negdiff_dot,Individualism,Behaviors Essay,GloVe,Dot (Anchored Vector),0.00374566349240838,-0.0612018258911315,0.05734080665011415,0.2866704319103555
+individualism,behaviors,glove,negdiff_cos,Individualism,Behaviors Essay,GloVe,Cosine (Anchored Vector),0.009362604331702877,0.09676055152645036,0.05717893273523256,0.09162797239909888
+individualism,behaviors,glove,negdiff_euc,Individualism,Behaviors Essay,GloVe,Euclidean (Anchored Vector),0.016845661920167634,-0.12979083912267336,0.05696256480393372,0.02339087051589591
+individualism,behaviors,glove,anchoredvec_norm,Individualism,Behaviors Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.010284811723104956,0.10141406077613173,0.05715231193914862,0.0769923993562326
+individualism,behaviors,sbert,mean_dot,Individualism,Behaviors Essay,SBERT,Dot,0.004183212663444589,0.06467776019192828,0.05732821339110165,0.26012746847753365
+individualism,behaviors,sbert,mean_cos,Individualism,Behaviors Essay,SBERT,Cosine,0.0022090422832499405,0.04700044981965537,0.05738501079909036,0.41340899559851885
+individualism,behaviors,sbert,mean_euc,Individualism,Behaviors Essay,SBERT,Euclidean,5.061073180330508e-4,0.022496829066182833,0.05743395956941913,0.6955559049284502
+individualism,behaviors,sbert,negdiff_dot,Individualism,Behaviors Essay,SBERT,Dot (Anchored Vector),0.012396982924481154,0.11134173936346212,0.05709129441463911,0.05206939305659097
+individualism,behaviors,sbert,negdiff_cos,Individualism,Behaviors Essay,SBERT,Cosine (Anchored Vector),0.01598882223518365,0.1264469146922279,0.05698738143473664,0.02723708721991487
+individualism,behaviors,sbert,negdiff_euc,Individualism,Behaviors Essay,SBERT,Euclidean (Anchored Vector),5.713663810698198e-4,0.0239032713466132,0.057432084546671335,0.6775578233008164
+individualism,behaviors,sbert,anchoredvec_norm,Individualism,Behaviors Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.012937465990435134,0.1137429821590551,0.05707567017078385,0.0471751038508496
+individualism,behaviors,ddr,mean_dot,Individualism,Behaviors Essay,DDR,Dot,0.014248402534989778,0.11936667263097246,0.05703775593582509,0.03720162551401062
+individualism,behaviors,ddr,mean_cos,Individualism,Behaviors Essay,DDR,Cosine,0.0055826541251163915,-0.07471716084753474,0.057287916980200145,0.19314181525738325
+individualism,behaviors,ddr,mean_euc,Individualism,Behaviors Essay,DDR,Euclidean,0.01482301150640906,-0.12174979058055518,0.05702112944294546,0.03354900847829491
+individualism,behaviors,ddr,negdiff_dot,Individualism,Behaviors Essay,DDR,Dot (Anchored Vector),0.02125180969329319,0.14578000443577022,0.05683477850064031,0.010799624273533575
+individualism,behaviors,ddr,negdiff_cos,Individualism,Behaviors Essay,DDR,Cosine (Anchored Vector),0.0035081036174551385,0.05922924630159617,0.05734764278743915,0.30251624178339004
+individualism,behaviors,ddr,negdiff_euc,Individualism,Behaviors Essay,DDR,Euclidean (Anchored Vector),0.016489853404387526,-0.12841282414302507,0.05697287139132949,0.024915005315626505
+individualism,behaviors,ddr,anchoredvec_norm,Individualism,Behaviors Essay,DDR,Dot (Pre-normalized Anchored Vector),0.012180815094287745,0.1103667300153798,0.05709754218108836,0.05417388376422949
+individualism,values,glove,mean_dot,Individualism,Values Essay,GloVe,Dot,1.1783294299727508e-4,-0.010855088345899119,0.057445114199578755,0.8502471334364146
+individualism,values,glove,mean_cos,Individualism,Values Essay,GloVe,Cosine,6.111739705113335e-4,-0.024721932984929272,0.057430940765349055,0.6671644192647038
+individualism,values,glove,mean_euc,Individualism,Values Essay,GloVe,Euclidean,0.0016093950362275457,-0.040117266061230325,0.057402251682580036,0.48516332780534943
+individualism,values,glove,negdiff_dot,Individualism,Values Essay,GloVe,Dot (Anchored Vector),0.0042179635674732974,0.06494585104125819,0.05732721309433637,0.2581529915190614
+individualism,values,glove,negdiff_cos,Individualism,Values Essay,GloVe,Cosine (Anchored Vector),0.012585177134184024,0.11218367588104784,0.05708585459583379,0.05030729693159058
+individualism,values,glove,negdiff_euc,Individualism,Values Essay,GloVe,Euclidean (Anchored Vector),9.584419099900768e-5,0.009790004647547791,0.05744574584371983,0.8647922048670775
+individualism,values,glove,anchoredvec_norm,Individualism,Values Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.01192167904012352,0.1091864416497008,0.05710503093093771,0.05681546735941588
+individualism,values,sbert,mean_dot,Individualism,Values Essay,SBERT,Dot,8.493549074881679e-4,0.029143694129059292,0.0574240966972353,0.6121614512367826
+individualism,values,sbert,mean_cos,Individualism,Values Essay,SBERT,Cosine,5.171276045524961e-6,-0.002274043984958281,0.057448350420927274,0.9684507345183968
+individualism,values,sbert,mean_euc,Individualism,Values Essay,SBERT,Euclidean,0.0011274426783308307,-0.03357741321678658,0.0574161048841831,0.5591118490758604
+individualism,values,sbert,negdiff_dot,Individualism,Values Essay,SBERT,Dot (Anchored Vector),0.005170765281453644,0.07190803349733355,0.05729978011346383,0.21046603616415085
+individualism,values,sbert,negdiff_cos,Individualism,Values Essay,SBERT,Cosine (Anchored Vector),0.0044944493825012696,0.06704065469922915,0.0573192538919028,0.24308080002827379
+individualism,values,sbert,negdiff_euc,Individualism,Values Essay,SBERT,Euclidean (Anchored Vector),8.129810186885053e-4,-0.028512822004994554,0.05742514194437005,0.6198864859547994
+individualism,values,sbert,anchoredvec_norm,Individualism,Values Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.0052411701978679875,0.07239592666627027,0.057297752500348485,0.20737947626351305
+individualism,values,ddr,mean_dot,Individualism,Values Essay,DDR,Dot,0.0011527960767340958,-0.03395285078950066,0.05741537621133665,0.55472371023082
+individualism,values,ddr,mean_cos,Individualism,Values Essay,DDR,Cosine,0.003549774210377181,-0.05957998162451196,0.05734644371333246,0.29965719961326043
+individualism,values,ddr,mean_euc,Individualism,Values Essay,DDR,Euclidean,9.533021254644026e-4,-0.030875591094979865,0.05742110954490604,0.5911757433227588
+individualism,values,ddr,negdiff_dot,Individualism,Values Essay,DDR,Dot (Anchored Vector),0.0012118600872241254,-0.03481178086832284,0.05741367863812276,0.5447479480913804
+individualism,values,ddr,negdiff_cos,Individualism,Values Essay,DDR,Cosine (Anchored Vector),0.0017845473576230055,-0.04224390320061589,0.057397216289325564,0.4623048223727054
+individualism,values,ddr,negdiff_euc,Individualism,Values Essay,DDR,Euclidean (Anchored Vector),4.58382070890029e-7,6.770391945006375e-4,0.05744848579546007,0.9906047817743125
+individualism,values,ddr,anchoredvec_norm,Individualism,Values Essay,DDR,Dot (Pre-normalized Anchored Vector),8.161062429058666e-4,-0.028567573276459205,0.05742505213806699,0.6192143827720351
+loyalty,behaviors,glove,mean_dot,Loyalty,Behaviors Essay,GloVe,Dot,0.01597544526227356,0.1263940080157028,0.05698776878606162,0.0273020646735095
+loyalty,behaviors,glove,mean_cos,Loyalty,Behaviors Essay,GloVe,Cosine,2.2188559029872912e-4,-0.01489582459277523,0.057442125111504594,0.7955653471278328
+loyalty,behaviors,glove,mean_euc,Loyalty,Behaviors Essay,GloVe,Euclidean,6.590946621917927e-5,0.008118464523490803,0.05744660573099577,0.8877095459354667
+loyalty,behaviors,glove,negdiff_dot,Loyalty,Behaviors Essay,GloVe,Dot (Anchored Vector),2.518628767875128e-4,0.015870188303467293,0.05744126393444733,0.7825171468972472
+loyalty,behaviors,glove,negdiff_cos,Loyalty,Behaviors Essay,GloVe,Cosine (Anchored Vector),0.012476640581734765,0.11169888352949088,0.05708899194573693,0.051315747620511505
+loyalty,behaviors,glove,negdiff_euc,Loyalty,Behaviors Essay,GloVe,Euclidean (Anchored Vector),0.016558555778344714,-0.12868005198298904,0.05697088145767864,0.02461292617186286
+loyalty,behaviors,glove,anchoredvec_norm,Loyalty,Behaviors Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.012230487032877104,0.11059153237421518,0.05709610660395716,0.053682501633420913
+loyalty,behaviors,sbert,mean_dot,Loyalty,Behaviors Essay,SBERT,Dot,0.0071170223815045525,0.084362446512086,0.05724370280032615,0.14158920831048225
+loyalty,behaviors,sbert,mean_cos,Loyalty,Behaviors Essay,SBERT,Cosine,0.006889697348541754,0.08300420078852476,0.05725025552716428,0.14813502312421295
+loyalty,behaviors,sbert,mean_euc,Loyalty,Behaviors Essay,SBERT,Euclidean,2.7676051907792563e-4,-0.016636120914381568,0.0574405486738266,0.7723025270465653
+loyalty,behaviors,sbert,negdiff_dot,Loyalty,Behaviors Essay,SBERT,Dot (Anchored Vector),2.0563919737254534e-4,0.014340125430851237,0.057442591826833964,0.8030328083482468
+loyalty,behaviors,sbert,negdiff_cos,Loyalty,Behaviors Essay,SBERT,Cosine (Anchored Vector),5.977471641261656e-4,-0.02444886836084986,0.05743132655690092,0.6706242040814466
+loyalty,behaviors,sbert,negdiff_euc,Loyalty,Behaviors Essay,SBERT,Euclidean (Anchored Vector),0.003979113136739855,-0.0630802119268782,0.05733408799670062,0.27210882654403035
+loyalty,behaviors,sbert,anchoredvec_norm,Loyalty,Behaviors Essay,SBERT,Dot (Pre-normalized Anchored Vector),3.50222801827473e-4,0.018714240615837756,0.05743843819405423,0.7447900670096086
+loyalty,behaviors,ddr,mean_dot,Loyalty,Behaviors Essay,DDR,Dot,0.01075450214165887,0.10370391574891889,0.05713874890645739,0.07052038137945736
+loyalty,behaviors,ddr,mean_cos,Loyalty,Behaviors Essay,DDR,Cosine,0.011562146340452726,-0.10752742134196633,0.057115419408334256,0.060707986144800545
+loyalty,behaviors,ddr,mean_euc,Loyalty,Behaviors Essay,DDR,Euclidean,0.020904992861381845,-0.14458559008899152,0.05684484723546334,0.0114711854967945
+loyalty,behaviors,ddr,negdiff_dot,Loyalty,Behaviors Essay,DDR,Dot (Anchored Vector),0.01505238193837733,0.12268814913583681,0.05701449118271455,0.032196965569949304
+loyalty,behaviors,ddr,negdiff_cos,Loyalty,Behaviors Essay,DDR,Cosine (Anchored Vector),6.054897644514647e-5,0.0077813222812800915,0.05744675971190953,0.892343850717498
+loyalty,behaviors,ddr,negdiff_euc,Loyalty,Behaviors Essay,DDR,Euclidean (Anchored Vector),0.01768644990033482,-0.1329904128136114,0.05693820256400804,0.02015926654866281
+loyalty,behaviors,ddr,anchoredvec_norm,Loyalty,Behaviors Essay,DDR,Dot (Pre-normalized Anchored Vector),0.01693106446519503,0.13011942385821976,0.056960090699173814,0.02303956769938317
+loyalty,values,glove,mean_dot,Loyalty,Values Essay,GloVe,Dot,0.012513621969109635,0.11186430158504375,0.05708792298373621,0.050969773764054746
+loyalty,values,glove,mean_cos,Loyalty,Values Essay,GloVe,Cosine,0.0012810939094770983,-0.035792372224778574,0.05741168870795178,0.5334686687360117
+loyalty,values,glove,mean_euc,Loyalty,Values Essay,GloVe,Euclidean,0.0037090928220100978,-0.060902321975521645,0.05734185907840472,0.2890397619009394
+loyalty,values,glove,negdiff_dot,Loyalty,Values Essay,GloVe,Dot (Anchored Vector),3.911359477255927e-4,0.019777157220530757,0.05743726277677266,0.7308397958719064
+loyalty,values,glove,negdiff_cos,Loyalty,Values Essay,GloVe,Cosine (Anchored Vector),0.009776925402725142,0.09887833636709893,0.05716697431617538,0.08471283431598281
+loyalty,values,glove,negdiff_euc,Loyalty,Values Essay,GloVe,Euclidean (Anchored Vector),0.014531965996596717,-0.12054860429136768,0.057029551542916335,0.0353500131846446
+loyalty,values,glove,anchoredvec_norm,Loyalty,Values Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.008338008552691338,0.09131269655798882,0.057208494587442316,0.11150021823646307
+loyalty,values,sbert,mean_dot,Loyalty,Values Essay,SBERT,Dot,8.344227296666697e-4,-0.028886376194785512,0.057424525793500124,0.6153071981297287
+loyalty,values,sbert,mean_cos,Loyalty,Values Essay,SBERT,Cosine,0.002397307024567343,-0.04896230207585567,0.05737959679739648,0.3941641820307794
+loyalty,values,sbert,mean_euc,Loyalty,Values Essay,SBERT,Euclidean,0.007302138444443003,-0.08545255083637358,0.05723836620825196,0.13649749749931775
+loyalty,values,sbert,negdiff_dot,Loyalty,Values Essay,SBERT,Dot (Anchored Vector),0.022119367658353557,0.14872581369202045,0.05680958387111628,0.00928978303134179
+loyalty,values,sbert,negdiff_cos,Loyalty,Values Essay,SBERT,Cosine (Anchored Vector),0.021908361806015332,0.14801473509760896,0.056815712690777766,0.00963597443059714
+loyalty,values,sbert,negdiff_euc,Loyalty,Values Essay,SBERT,Euclidean (Anchored Vector),8.224613168273293e-4,-0.02867858638125886,0.05742486951851431,0.6178526056599827
+loyalty,values,sbert,anchoredvec_norm,Loyalty,Values Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.0211898083767491,0.1455671954004374,0.056836578644601156,0.01091666762558134
+loyalty,values,ddr,mean_dot,Loyalty,Values Essay,DDR,Dot,0.019033512816421915,0.13796199772554013,0.05689914901843186,0.015906683446775358
+loyalty,values,ddr,mean_cos,Loyalty,Values Essay,DDR,Cosine,2.9813774486980643e-4,0.017266665713733118,0.05743993454078734,0.7639227443094927
+loyalty,values,ddr,mean_euc,Loyalty,Values Essay,DDR,Euclidean,0.00663753562274433,-0.08147107230633663,0.05725752330342649,0.1557972131898145
+loyalty,values,ddr,negdiff_dot,Loyalty,Values Essay,DDR,Dot (Anchored Vector),0.020799592005350673,0.14422063654467315,0.056847906864139076,0.011683609044354698
+loyalty,values,ddr,negdiff_cos,Loyalty,Values Essay,DDR,Cosine (Anchored Vector),0.009853525777886729,0.09926492722954434,0.05716476314957989,0.08349705863528804
+loyalty,values,ddr,negdiff_euc,Loyalty,Values Essay,DDR,Euclidean (Anchored Vector),0.012725042731470368,-0.11280533113053809,0.05708181139649809,0.04903838361207615
+loyalty,values,ddr,anchoredvec_norm,Loyalty,Values Essay,DDR,Dot (Pre-normalized Anchored Vector),0.020211508123839053,0.14216718370931827,0.05686497503498882,0.012944795629426773
+nfc,behaviors,glove,mean_dot,Need for Cognition,Behaviors Essay,GloVe,Dot,0.029956681131464317,0.17307998478005585,0.05658147310362313,0.002419553177247796
+nfc,behaviors,glove,mean_cos,Need for Cognition,Behaviors Essay,GloVe,Cosine,7.98381373169949e-4,0.028255643209276763,0.05742556147726928,0.6230477254757154
+nfc,behaviors,glove,mean_euc,Need for Cognition,Behaviors Essay,GloVe,Euclidean,8.870158115117969e-4,0.029782810671791827,0.057423014446133194,0.6043789759431746
+nfc,behaviors,glove,negdiff_dot,Need for Cognition,Behaviors Essay,GloVe,Dot (Anchored Vector),0.049514432274260924,0.22251838637348798,0.056008178555470314,8.876601197355797e-5
+nfc,behaviors,glove,negdiff_cos,Need for Cognition,Behaviors Essay,GloVe,Cosine (Anchored Vector),0.04987496332994382,0.22332703224183095,0.0559975552469083,8.353564751937047e-5
+nfc,behaviors,glove,negdiff_euc,Need for Cognition,Behaviors Essay,GloVe,Euclidean (Anchored Vector),0.030667847731448414,-0.17512237929930127,0.05656072854983065,0.0021436162188654875
+nfc,behaviors,glove,anchoredvec_norm,Need for Cognition,Behaviors Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.05260894872919254,0.22936640715063877,0.0559169307053563,5.270473491912437e-5
+nfc,behaviors,sbert,mean_dot,Need for Cognition,Behaviors Essay,SBERT,Dot,3.226581256555441e-4,0.01796268703884645,0.05743923010191559,0.7547046754169799
+nfc,behaviors,sbert,mean_cos,Need for Cognition,Behaviors Essay,SBERT,Cosine,0.0023538536673162213,0.04851652983588405,0.05738084644767595,0.3984889540796588
+nfc,behaviors,sbert,mean_euc,Need for Cognition,Behaviors Essay,SBERT,Euclidean,0.0015869449225303924,0.03983647728565358,0.05740289706116542,0.48822629113811633
+nfc,behaviors,sbert,negdiff_dot,Need for Cognition,Behaviors Essay,SBERT,Dot (Anchored Vector),0.01982221831846097,0.14079140001598456,0.056876270716056415,0.013855417708503261
+nfc,behaviors,sbert,negdiff_cos,Need for Cognition,Behaviors Essay,SBERT,Cosine (Anchored Vector),0.01843505369869717,0.135775747829637,0.05691650262991801,0.017669043017063946
+nfc,behaviors,sbert,negdiff_euc,Need for Cognition,Behaviors Essay,SBERT,Euclidean (Anchored Vector),0.001456529879065897,0.0381645107274533,0.05740664598893976,0.506677701160374
+nfc,behaviors,sbert,anchoredvec_norm,Need for Cognition,Behaviors Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.01946378011235468,0.13951265215870104,0.05688666921997389,0.01475179503787947
+nfc,behaviors,ddr,mean_dot,Need for Cognition,Behaviors Essay,DDR,Dot,0.026740388021786767,0.16352488502300416,0.05667519675590759,0.00419105332994333
+nfc,behaviors,ddr,mean_cos,Need for Cognition,Behaviors Essay,DDR,Cosine,0.008512037983132636,-0.09226070660434288,0.05720347453088409,0.10781778445693618
+nfc,behaviors,ddr,mean_euc,Need for Cognition,Behaviors Essay,DDR,Euclidean,0.025571508122298577,-0.1599109380946112,0.05670921985672249,0.005121463274320653
+nfc,behaviors,ddr,negdiff_dot,Need for Cognition,Behaviors Essay,DDR,Dot (Anchored Vector),0.06591963642269211,0.25674819653250186,0.055522729374129595,5.575854429683634e-6
+nfc,behaviors,ddr,negdiff_cos,Need for Cognition,Behaviors Essay,DDR,Cosine (Anchored Vector),0.042982863053356905,0.207323088567957,0.05620028824804941,2.668073006384551e-4
+nfc,behaviors,ddr,negdiff_euc,Need for Cognition,Behaviors Essay,DDR,Euclidean (Anchored Vector),0.023985381654028057,-0.15487214615297398,0.05675535532068733,0.006728532888567872
+nfc,behaviors,ddr,anchoredvec_norm,Need for Cognition,Behaviors Essay,DDR,Dot (Pre-normalized Anchored Vector),0.06400358826504222,0.2529893046455568,0.05557964617044813,7.70922527158791e-6
+nfc,values,glove,mean_dot,Need for Cognition,Values Essay,GloVe,Dot,6.7497520720132e-5,-0.00821568747702422,0.05744656011380065,0.8863738365173499
+nfc,values,glove,mean_cos,Need for Cognition,Values Essay,GloVe,Cosine,0.0069992374863133405,-0.08366144563843805,0.057247098086445326,0.1449393893835982
+nfc,values,glove,mean_euc,Need for Cognition,Values Essay,GloVe,Euclidean,0.016141248552894193,-0.12704821349745216,0.05698296750463258,0.026507882592945026
+nfc,values,glove,negdiff_dot,Need for Cognition,Values Essay,GloVe,Dot (Anchored Vector),0.005399853124259953,0.07348369291387007,0.05729318227820392,0.20061587696071123
+nfc,values,glove,negdiff_cos,Need for Cognition,Values Essay,GloVe,Cosine (Anchored Vector),0.00411566625594188,0.06415345864364515,0.05733015764894599,0.2640189231621786
+nfc,values,glove,negdiff_euc,Need for Cognition,Values Essay,GloVe,Euclidean (Anchored Vector),2.8920788924587137e-4,-0.017006113290398535,0.05744019108186044,0.7673821482418453
+nfc,values,glove,anchoredvec_norm,Need for Cognition,Values Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.005408493659958023,0.07354246161203762,0.057292933411931646,0.20025507624658098
+nfc,values,sbert,mean_dot,Need for Cognition,Values Essay,SBERT,Dot,9.9834881804317e-4,0.03159665833665282,0.05741981498068153,0.5825365552142752
+nfc,values,sbert,mean_cos,Need for Cognition,Values Essay,SBERT,Cosine,4.607320749846227e-5,0.0067877247659625896,0.05744717552859216,0.9060223927290072
+nfc,values,sbert,mean_euc,Need for Cognition,Values Essay,SBERT,Euclidean,0.0056111458971708095,-0.07490758237435523,0.05728709627550784,0.1920063561839649
+nfc,values,sbert,negdiff_dot,Need for Cognition,Values Essay,SBERT,Dot (Anchored Vector),0.023073329310112505,0.15189907606734337,0.05678186709962753,0.007875815107249884
+nfc,values,sbert,negdiff_cos,Need for Cognition,Values Essay,SBERT,Cosine (Anchored Vector),0.020467904665055995,0.1430660849574631,0.05685753417555644,0.01237866640579819
+nfc,values,sbert,negdiff_euc,Need for Cognition,Values Essay,SBERT,Euclidean (Anchored Vector),0.007511112515267866,-0.08666667476757066,0.0572323412310548,0.13099332829996846
+nfc,values,sbert,anchoredvec_norm,Need for Cognition,Values Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.022968143250715608,0.15155244389555564,0.05678492387976437,0.008020333306815768
+nfc,values,ddr,mean_dot,Need for Cognition,Values Essay,DDR,Dot,7.43650838268285e-5,0.008623519225167115,0.05744636284120815,0.8807743322261057
+nfc,values,ddr,mean_cos,Need for Cognition,Values Essay,DDR,Cosine,2.2076859270899176e-4,-0.014858283639404385,0.057442157199973275,0.7960692426849272
+nfc,values,ddr,mean_euc,Need for Cognition,Values Essay,DDR,Euclidean,3.471465954470404e-4,-0.018631870422666657,0.05743852657118296,0.7458746898446766
+nfc,values,ddr,negdiff_dot,Need for Cognition,Values Essay,DDR,Dot (Anchored Vector),0.005540961734084378,0.07443763654284266,0.05728911790716082,0.19481746171100667
+nfc,values,ddr,negdiff_cos,Need for Cognition,Values Essay,DDR,Cosine (Anchored Vector),0.003063069057498517,0.05534500029359944,0.05736044712342885,0.33538263218246966
+nfc,values,ddr,negdiff_euc,Need for Cognition,Values Essay,DDR,Euclidean (Anchored Vector),1.348838629109513e-4,-0.011613951218726137,0.05744462439375478,0.8399144464822144
+nfc,values,ddr,anchoredvec_norm,Need for Cognition,Values Essay,DDR,Dot (Pre-normalized Anchored Vector),0.005445956877762446,0.07379672674151926,0.05729185437705074,0.19869948878477608
+po,behaviors,glove,mean_dot,Power,Behaviors Essay,GloVe,Dot,0.029682825508466504,0.1722870439367585,0.05658945937640077,0.002535130795662269
+po,behaviors,glove,mean_cos,Power,Behaviors Essay,GloVe,Cosine,0.007348750046583408,-0.08572485081108876,0.05723702239389754,0.13524784479821952
+po,behaviors,glove,mean_euc,Power,Behaviors Essay,GloVe,Euclidean,1.931798574442282e-4,-0.013898915693111889,0.05744294974771058,0.8089745717078012
+po,behaviors,glove,negdiff_dot,Power,Behaviors Essay,GloVe,Dot (Anchored Vector),0.018582121542550598,-0.13631625560640445,0.0569122385713258,0.017218188691900643
+po,behaviors,glove,negdiff_cos,Power,Behaviors Essay,GloVe,Cosine (Anchored Vector),5.518327241829938e-4,-0.02349112011341735,0.05743264579392538,0.6828136914200382
+po,behaviors,glove,negdiff_euc,Power,Behaviors Essay,GloVe,Euclidean (Anchored Vector),0.03974918592205896,-0.1993719787785108,0.056295156105275135,4.6036822502793407e-4
+po,behaviors,glove,anchoredvec_norm,Power,Behaviors Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.0034209753169238653,-0.058489104258176695,0.057350149829121524,0.3086086244871316
+po,behaviors,sbert,mean_dot,Power,Behaviors Essay,SBERT,Dot,0.009129903340128814,0.09555052768105891,0.0571856480142654,0.09577729179567426
+po,behaviors,sbert,mean_cos,Power,Behaviors Essay,SBERT,Cosine,0.0015602023921778777,0.03949939736474314,0.05740366582537069,0.4919169644593153
+po,behaviors,sbert,mean_euc,Power,Behaviors Essay,SBERT,Euclidean,0.004325625628967116,-0.06576948858678393,0.057324113955895505,0.25215172153541826
+po,behaviors,sbert,negdiff_dot,Power,Behaviors Essay,SBERT,Dot (Anchored Vector),0.009803450450686018,-0.0990123752400981,0.05716620864683822,0.08428969659809812
+po,behaviors,sbert,negdiff_cos,Power,Behaviors Essay,SBERT,Cosine (Anchored Vector),0.018922783879049828,-0.13756011005756663,0.056902360241550994,0.0162186127805981
+po,behaviors,sbert,negdiff_euc,Power,Behaviors Essay,SBERT,Euclidean (Anchored Vector),0.028246568131580406,-0.1680671536368139,0.0566313255704771,0.0032391177443948996
+po,behaviors,sbert,anchoredvec_norm,Power,Behaviors Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.00787115107859289,-0.08871950788069614,0.057221959392389915,0.12207854313059165
+po,behaviors,ddr,mean_dot,Power,Behaviors Essay,DDR,Dot,0.03837272802846893,0.19588958121469582,0.056335489402708466,5.808378650690487e-4
+po,behaviors,ddr,mean_cos,Power,Behaviors Essay,DDR,Cosine,0.0027468822444282337,-0.05241070734523848,0.0573695425729968,0.3616727273975715
+po,behaviors,ddr,mean_euc,Power,Behaviors Essay,DDR,Euclidean,0.02459497865880416,-0.15682786314556557,0.05673762848652187,0.006057764806698256
+po,behaviors,ddr,negdiff_dot,Power,Behaviors Essay,DDR,Dot (Anchored Vector),0.016082719916362266,0.12681766405498196,0.056984662405343306,0.02678546541788888
+po,behaviors,ddr,negdiff_cos,Power,Behaviors Essay,DDR,Cosine (Anchored Vector),0.0018910713250646807,-0.04348644990183363,0.05739415365274271,0.4492309242701502
+po,behaviors,ddr,negdiff_euc,Power,Behaviors Essay,DDR,Euclidean (Anchored Vector),0.040938976249842565,-0.2023338237908893,0.056260269286287086,3.7661910291023217e-4
+po,behaviors,ddr,anchoredvec_norm,Power,Behaviors Essay,DDR,Dot (Pre-normalized Anchored Vector),0.0020230741054298213,0.044978596081134234,0.05739035825619283,0.43381023972074995
+po,values,glove,mean_dot,Power,Values Essay,GloVe,Dot,0.002397070567077303,0.04895988732704881,0.057379603597616013,0.39418753292327735
+po,values,glove,mean_cos,Power,Values Essay,GloVe,Cosine,0.011970627570509412,-0.10941036317693774,0.057103616446933125,0.056306273979815503
+po,values,glove,mean_euc,Power,Values Essay,GloVe,Euclidean,0.006222973633896661,-0.07888582657167681,0.057269469756797614,0.16938979631683132
+po,values,glove,negdiff_dot,Power,Values Essay,GloVe,Dot (Anchored Vector),0.0017050275340941736,0.04129197905276733,0.05739950243186289,0.47246208422860836
+po,values,glove,negdiff_cos,Power,Values Essay,GloVe,Cosine (Anchored Vector),0.016061608516287587,0.12673440147129597,0.0569852737471591,0.026886326097371988
+po,values,glove,negdiff_euc,Power,Values Essay,GloVe,Euclidean (Anchored Vector),0.006192629875453368,-0.07869326448593536,0.05727034407651198,0.17043658701863904
+po,values,glove,anchoredvec_norm,Power,Values Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.007356410361330774,0.08576951883583585,0.05723680154369833,0.13504369448103845
+po,values,sbert,mean_dot,Power,Values Essay,SBERT,Dot,0.00901992439719414,0.09497328254406141,0.05718882150927589,0.09780878738758303
+po,values,sbert,mean_cos,Power,Values Essay,SBERT,Cosine,4.441371577437628e-6,0.0021074561863625198,0.05744837138693571,0.9707608430864314
+po,values,sbert,mean_euc,Power,Values Essay,SBERT,Euclidean,0.005037843284313091,-0.07097776612653497,0.05730360797986912,0.2164425667708816
+po,values,sbert,negdiff_dot,Power,Values Essay,SBERT,Dot (Anchored Vector),0.04585050099586408,0.21412730091201362,0.05611602487292201,1.645521203570928e-4
+po,values,sbert,negdiff_cos,Power,Values Essay,SBERT,Cosine (Anchored Vector),0.03595267662724957,0.18961191056273197,0.05640633239773288,8.744862699274861e-4
+po,values,sbert,negdiff_euc,Power,Values Essay,SBERT,Euclidean (Anchored Vector),0.0052192688411795,-0.07224450734263124,0.05729838325202934,0.20833388330199312
+po,values,sbert,anchoredvec_norm,Power,Values Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.04494606028144336,0.21200485909866143,0.056142614833932306,1.9164147085930027e-4
+po,values,ddr,mean_dot,Power,Values Essay,DDR,Dot,0.005417989357695623,0.07360699258695222,0.057292659913880814,0.19985944222439
+po,values,ddr,mean_cos,Power,Values Essay,DDR,Cosine,9.626949586259561e-4,-0.031027325998641175,0.057420839613495075,0.5893529275960414
+po,values,ddr,mean_euc,Power,Values Essay,DDR,Euclidean,0.004598859831842847,-0.06781489387916838,0.05731624793880618,0.23766906835234444
+po,values,ddr,negdiff_dot,Power,Values Essay,DDR,Dot (Anchored Vector),0.0018067838371998179,-0.04250627997366759,0.057396576988895796,0.45952666519952656
+po,values,ddr,negdiff_cos,Power,Values Essay,DDR,Cosine (Anchored Vector),0.020551712636110525,-0.14335868524826306,0.056855101781288664,0.01219915358292983
+po,values,ddr,negdiff_euc,Power,Values Essay,DDR,Euclidean (Anchored Vector),0.009981740531909613,-0.09990866094543348,0.0571610618773321,0.08150383863073035
+po,values,ddr,anchoredvec_norm,Power,Values Essay,DDR,Dot (Pre-normalized Anchored Vector),0.008956249642064578,-0.09463746426265114,0.05719065879430415,0.09900630254111029
+proportionality,behaviors,glove,mean_dot,Proportionality,Behaviors Essay,GloVe,Dot,0.004636444029212933,0.06809143873654695,0.057315165859721205,0.23575677182812357
+proportionality,behaviors,glove,mean_cos,Proportionality,Behaviors Essay,GloVe,Cosine,0.003919928813016272,0.06260933487121763,0.05733579138910069,0.27571094022003567
+proportionality,behaviors,glove,mean_euc,Proportionality,Behaviors Essay,GloVe,Euclidean,0.005643292052401043,0.07512184803638042,0.05728617029229441,0.19073456636353545
+proportionality,behaviors,glove,negdiff_dot,Proportionality,Behaviors Essay,GloVe,Dot (Anchored Vector),0.002063246230174784,-0.04542297029229581,0.05738920316143428,0.4292773573016141
+proportionality,behaviors,glove,negdiff_cos,Proportionality,Behaviors Essay,GloVe,Cosine (Anchored Vector),2.103453482407978e-4,-0.014503287497695003,0.057442456632121844,0.8008383543494837
+proportionality,behaviors,glove,negdiff_euc,Proportionality,Behaviors Essay,GloVe,Euclidean (Anchored Vector),0.0026404405436773865,-0.05138521717067449,0.0573726041571815,0.3711558608344788
+proportionality,behaviors,glove,anchoredvec_norm,Proportionality,Behaviors Essay,GloVe,Dot (Pre-normalized Anchored Vector),2.6333633564445844e-4,0.016227641099200375,0.05744093432549643,0.7777453277829078
+proportionality,behaviors,sbert,mean_dot,Proportionality,Behaviors Essay,SBERT,Dot,0.004900505102920722,0.07000360778503281,0.05730756275427566,0.222830337323199
+proportionality,behaviors,sbert,mean_cos,Proportionality,Behaviors Essay,SBERT,Cosine,0.006139905985709395,0.0783575521931957,0.05727186322164534,0.172273081046132
+proportionality,behaviors,sbert,mean_euc,Proportionality,Behaviors Essay,SBERT,Euclidean,0.0047905430917177545,0.0692137492967817,0.05731072901092175,0.22810730566322143
+proportionality,behaviors,sbert,negdiff_dot,Proportionality,Behaviors Essay,SBERT,Dot (Anchored Vector),1.61195365997543e-6,0.001269627370520797,0.05744845265996487,0.9823825030391236
+proportionality,behaviors,sbert,negdiff_cos,Proportionality,Behaviors Essay,SBERT,Cosine (Anchored Vector),2.0004836066674832e-4,-0.01414384532815409,0.05744275243571236,0.8056747320720545
+proportionality,behaviors,sbert,negdiff_euc,Proportionality,Behaviors Essay,SBERT,Euclidean (Anchored Vector),0.0012388812572887928,0.03519774505971647,0.05741290199931152,0.540294349928806
+proportionality,behaviors,sbert,anchoredvec_norm,Proportionality,Behaviors Essay,SBERT,Dot (Pre-normalized Anchored Vector),1.259216030206297e-6,0.0011221479537950486,0.057448462792095804,0.9844286690399208
+proportionality,behaviors,ddr,mean_dot,Proportionality,Behaviors Essay,DDR,Dot,0.007141411844821558,0.08450687454178826,0.0572429997206103,0.14090638079155152
+proportionality,behaviors,ddr,mean_cos,Proportionality,Behaviors Essay,DDR,Cosine,0.0035108066860987507,0.05925206060635157,0.05734756500721806,0.30232972229002125
+proportionality,behaviors,ddr,mean_euc,Proportionality,Behaviors Essay,DDR,Euclidean,7.190427281120921e-10,-2.6814972088598782e-5,0.057448498941488624,0.9996278822544175
+proportionality,behaviors,ddr,negdiff_dot,Proportionality,Behaviors Essay,DDR,Dot (Anchored Vector),0.010804816646628976,0.10394621997277698,0.057137295806883696,0.0698623176873226
+proportionality,behaviors,ddr,negdiff_cos,Proportionality,Behaviors Essay,DDR,Cosine (Anchored Vector),0.012294062776313439,0.11087859476162858,0.057094269137935416,0.053060417751946046
+proportionality,behaviors,ddr,negdiff_euc,Proportionality,Behaviors Essay,DDR,Euclidean (Anchored Vector),0.002016883178419294,-0.04490972253776782,0.057390536265803475,0.4345152469093674
+proportionality,behaviors,ddr,anchoredvec_norm,Proportionality,Behaviors Essay,DDR,Dot (Pre-normalized Anchored Vector),0.0077080627044137165,0.08779557337596093,0.057226662336393966,0.12603068263745756
+proportionality,values,glove,mean_dot,Proportionality,Values Essay,GloVe,Dot,0.011492689253000652,0.10720396099492156,0.05711742611061575,0.061491963839169245
+proportionality,values,glove,mean_cos,Proportionality,Values Essay,GloVe,Cosine,0.0039162644286720415,0.06258006414723494,0.05733589685260162,0.2759359189966619
+proportionality,values,glove,mean_euc,Proportionality,Values Essay,GloVe,Euclidean,0.0017845912573077728,0.04224442279529653,0.0573972150272134,0.46229931148276715
+proportionality,values,glove,negdiff_dot,Proportionality,Values Essay,GloVe,Dot (Anchored Vector),0.0012263348580228866,-0.03501906420826941,0.057413262607526924,0.542353874088775
+proportionality,values,glove,negdiff_cos,Proportionality,Values Essay,GloVe,Cosine (Anchored Vector),0.0011573013292061186,0.03401913181146915,0.05741524672653847,0.5539507571038974
+proportionality,values,glove,negdiff_euc,Proportionality,Values Essay,GloVe,Euclidean (Anchored Vector),0.008657959497924335,-0.09304815687548229,0.05719926493625403,0.10483245366351772
+proportionality,values,glove,anchoredvec_norm,Proportionality,Values Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.003108574827619576,0.05575459467720636,0.057359137982887,0.33181274500022706
+proportionality,values,sbert,mean_dot,Proportionality,Values Essay,SBERT,Dot,8.285304373794716e-6,0.002878420465080547,0.05744826097249982,0.9600720697555307
+proportionality,values,sbert,mean_cos,Proportionality,Values Essay,SBERT,Cosine,7.618662963331179e-6,-0.0027601925591036833,0.05744828012135016,0.9617107848096136
+proportionality,values,sbert,mean_euc,Proportionality,Values Essay,SBERT,Euclidean,8.112886023814804e-6,-0.0028483128381228016,0.057448265925107794,0.9604893652329993
+proportionality,values,sbert,negdiff_dot,Proportionality,Values Essay,SBERT,Dot (Anchored Vector),0.004146818353079233,0.06439579452945061,0.057329260974228746,0.2622153279926367
+proportionality,values,sbert,negdiff_cos,Proportionality,Values Essay,SBERT,Cosine (Anchored Vector),0.0050818037133080855,0.07128677095582375,0.05730234204276863,0.214444021929098
+proportionality,values,sbert,negdiff_euc,Proportionality,Values Essay,SBERT,Euclidean (Anchored Vector),4.5116333977455303e-4,0.02124060591825364,0.05743553817179092,0.7117776115632192
+proportionality,values,sbert,anchoredvec_norm,Proportionality,Values Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.004152496919829425,0.0644398705758276,0.0573290975221731,0.26188820256507767
+proportionality,values,ddr,mean_dot,Proportionality,Values Essay,DDR,Dot,0.012610637841342772,0.11229709631750417,0.05708511860546664,0.05007376391841167
+proportionality,values,ddr,mean_cos,Proportionality,Values Essay,DDR,Cosine,7.797639774562838e-5,0.008830424550701314,0.05744625910497527,0.8779357833365664
+proportionality,values,ddr,mean_euc,Proportionality,Values Essay,DDR,Euclidean,0.0036361113842258686,-0.06030017731504502,0.057343959275573154,0.29384286642092433
+proportionality,values,ddr,negdiff_dot,Proportionality,Values Essay,DDR,Dot (Anchored Vector),0.004789443124783882,0.0692058026814507,0.05731076068259096,0.22816084250405788
+proportionality,values,ddr,negdiff_cos,Proportionality,Values Essay,DDR,Cosine (Anchored Vector),2.2640531193406045e-4,0.01504677081416682,0.057441995271340376,0.7935401212621045
+proportionality,values,ddr,negdiff_euc,Proportionality,Values Essay,DDR,Euclidean (Anchored Vector),0.008985563301825423,-0.09479221118755192,0.057189812979016104,0.09845304221598745
+proportionality,values,ddr,anchoredvec_norm,Proportionality,Values Essay,DDR,Dot (Pre-normalized Anchored Vector),6.68736898711751e-4,0.025859947770862868,0.057429286784116594,0.6528219245422617
+purity,behaviors,glove,mean_dot,Purity,Behaviors Essay,GloVe,Dot,0.007565412738488568,0.08697938111120686,0.05723077558560955,0.12960380843030395
+purity,behaviors,glove,mean_cos,Purity,Behaviors Essay,GloVe,Cosine,0.002209373426829067,-0.04700397245796433,0.0573850012767153,0.4133739515216297
+purity,behaviors,glove,mean_euc,Purity,Behaviors Essay,GloVe,Euclidean,0.010156985106943425,-0.10078186893952408,0.057156002571996635,0.07886167879009594
+purity,behaviors,glove,negdiff_dot,Purity,Behaviors Essay,GloVe,Dot (Anchored Vector),0.001405283334569739,-0.03748710891186113,0.057408119061761145,0.5142558400545773
+purity,behaviors,glove,negdiff_cos,Purity,Behaviors Essay,GloVe,Cosine (Anchored Vector),0.012289508893138968,0.11085805741189468,0.05709440075622482,0.05310472365820692
+purity,behaviors,glove,negdiff_euc,Purity,Behaviors Essay,GloVe,Euclidean (Anchored Vector),0.010056935896166658,-0.10028427541826616,0.057158891044396566,0.08035867036995416
+purity,behaviors,glove,anchoredvec_norm,Purity,Behaviors Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.008870043148153739,0.09418090649464862,0.05719314612090696,0.10065301331347591
+purity,behaviors,sbert,mean_dot,Purity,Behaviors Essay,SBERT,Dot,0.02359681446143144,0.15361254656254955,0.05676665180854892,0.007194981378008615
+purity,behaviors,sbert,mean_cos,Purity,Behaviors Essay,SBERT,Cosine,0.013969761735504212,0.11819374660067347,0.057045816751044226,0.03911970105572492
+purity,behaviors,sbert,mean_euc,Purity,Behaviors Essay,SBERT,Euclidean,0.00348419402420816,-0.05902706179548635,0.057348330776269316,0.3041725391414593
+purity,behaviors,sbert,negdiff_dot,Purity,Behaviors Essay,SBERT,Dot (Anchored Vector),0.01156466383709922,0.10753912700547291,0.05711534667337787,0.06067977011640431
+purity,behaviors,sbert,negdiff_cos,Purity,Behaviors Essay,SBERT,Cosine (Anchored Vector),0.0026930182616176487,0.0518942989317482,0.05737109188393626,0.3664291310615466
+purity,behaviors,sbert,negdiff_euc,Purity,Behaviors Essay,SBERT,Euclidean (Anchored Vector),0.012280617011203762,-0.1108179453482321,0.05709465775234506,0.053191347442413536
+purity,behaviors,sbert,anchoredvec_norm,Purity,Behaviors Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.01716229129464071,0.1310049285127881,0.05695339153736545,0.022115453198663523
+purity,behaviors,ddr,mean_dot,Purity,Behaviors Essay,DDR,Dot,0.0036053724060504185,0.06004475335989326,0.057344843832479384,0.29589629609166335
+purity,behaviors,ddr,mean_cos,Purity,Behaviors Essay,DDR,Cosine,0.01331220598912063,-0.11537853348487594,0.05706483470379879,0.04406682841977802
+purity,behaviors,ddr,mean_euc,Purity,Behaviors Essay,DDR,Euclidean,0.016437238077654934,-0.12820779257773254,0.05697439532382934,0.02514893743410049
+purity,behaviors,ddr,negdiff_dot,Purity,Behaviors Essay,DDR,Dot (Anchored Vector),5.344879240186215e-5,-0.007310868101796182,0.05744696366517999,0.8988167251463732
+purity,behaviors,ddr,negdiff_cos,Purity,Behaviors Essay,DDR,Cosine (Anchored Vector),0.006395614018854611,-0.07997258291973942,0.05726449507310245,0.16357184239818273
+purity,behaviors,ddr,negdiff_euc,Purity,Behaviors Essay,DDR,Euclidean (Anchored Vector),0.014106081833679032,-0.11876902724902255,0.0570418732816482,0.038168754540223206
+purity,behaviors,ddr,anchoredvec_norm,Purity,Behaviors Essay,DDR,Dot (Pre-normalized Anchored Vector),6.451855340249124e-5,-0.008032344203437156,0.05744664568522536,0.8888929856830585
+purity,values,glove,mean_dot,Purity,Values Essay,GloVe,Dot,0.0021130875200515865,0.04596833170837931,0.057387770010678296,0.42375195790990006
+purity,values,glove,mean_cos,Purity,Values Essay,GloVe,Cosine,0.01962713667353282,-0.1400968831685158,0.05688193038547283,0.014336137304843613
+purity,values,glove,mean_euc,Purity,Values Essay,GloVe,Euclidean,0.04757277818766481,-0.21811184788466867,0.05606535618719592,1.2310951897190139e-4
+purity,values,glove,negdiff_dot,Purity,Values Essay,GloVe,Dot (Anchored Vector),0.0019647694705134844,0.04432572019170676,0.05739203468524039,0.4405196485980163
+purity,values,glove,negdiff_cos,Purity,Values Essay,GloVe,Cosine (Anchored Vector),0.03972486518959619,0.19931097608911588,0.05629586900795711,4.622622032970357e-4
+purity,values,glove,negdiff_euc,Purity,Values Essay,GloVe,Euclidean (Anchored Vector),0.006373739478711292,-0.0798357030326112,0.05726512541834834,0.1642962688442758
+purity,values,glove,anchoredvec_norm,Purity,Values Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.02730202073716423,0.16523323133426954,0.05665884179898808,0.0038068108973772653
+purity,values,sbert,mean_dot,Purity,Values Essay,SBERT,Dot,0.014501326060533207,-0.12042145182870546,0.05703043811060326,0.035545378282181135
+purity,values,sbert,mean_cos,Purity,Values Essay,SBERT,Cosine,0.04470075255997517,-0.21142552485443925,0.05614982454853945,1.9972973836880574e-4
+purity,values,sbert,mean_euc,Purity,Values Essay,SBERT,Euclidean,0.05986554885000925,-0.24467437309618123,0.05570236946658003,1.5506414827900515e-5
+purity,values,sbert,negdiff_dot,Purity,Values Essay,SBERT,Dot (Anchored Vector),0.03049357976210105,0.174624109910691,0.05656581260709209,0.0022081500384216936
+purity,values,sbert,negdiff_cos,Purity,Values Essay,SBERT,Cosine (Anchored Vector),0.015214551511873857,0.12334728011542802,0.057009797330897345,0.03127527254951592
+purity,values,sbert,negdiff_euc,Purity,Values Essay,SBERT,Euclidean (Anchored Vector),0.03096510059785106,-0.17596903306505673,0.056552055502211804,0.0020378950956025494
+purity,values,sbert,anchoredvec_norm,Purity,Values Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.023440422296673605,0.15310265280743385,0.056771197832275036,0.007391871139308288
+purity,values,ddr,mean_dot,Purity,Values Essay,DDR,Dot,0.006702102528095986,0.08186636994575971,0.05725566245137297,0.1537935617087296
+purity,values,ddr,mean_cos,Purity,Values Essay,DDR,Cosine,8.924005474958181e-4,-0.029873073954580217,0.05742285970478075,0.6032834166496883
+purity,values,ddr,mean_euc,Purity,Values Essay,DDR,Euclidean,0.006669273862986874,-0.08166562228371776,0.057256608598265396,0.1548086450725913
+purity,values,ddr,negdiff_dot,Purity,Values Essay,DDR,Dot (Anchored Vector),0.024962930934400357,0.15799661684479313,0.056726925902332394,0.005686135026932621
+purity,values,ddr,negdiff_cos,Purity,Values Essay,DDR,Cosine (Anchored Vector),0.022238803509009974,0.14912680345601853,0.056806114476211575,0.00909946840321555
+purity,values,ddr,negdiff_euc,Purity,Values Essay,DDR,Euclidean (Anchored Vector),0.004349544836850422,-0.06595107911816465,0.057323425399642226,0.25084172577666225
+purity,values,ddr,anchoredvec_norm,Purity,Values Essay,DDR,Dot (Pre-normalized Anchored Vector),0.025046487117450666,0.15826081990641486,0.05672449523220411,0.005605015829467692
+religiosity,behaviors,glove,mean_dot,Religiosity,Behaviors Essay,GloVe,Dot,0.0014040045469635378,0.03747004866508105,0.057408155819800424,0.5144474484080261
+religiosity,behaviors,glove,mean_cos,Religiosity,Behaviors Essay,GloVe,Cosine,0.004838403580857409,-0.0695586341215626,0.05730935093292896,0.22579236908911463
+religiosity,behaviors,glove,mean_euc,Religiosity,Behaviors Essay,GloVe,Euclidean,0.005514875171980317,-0.07426220554212148,0.05728986930378652,0.19587451191391858
+religiosity,behaviors,glove,negdiff_dot,Religiosity,Behaviors Essay,GloVe,Dot (Anchored Vector),8.62262896199119e-4,0.02936431331053244,0.05742372576619028,0.609470002162326
+religiosity,behaviors,glove,negdiff_cos,Religiosity,Behaviors Essay,GloVe,Cosine (Anchored Vector),0.0017121709586863279,0.04137838757958447,0.05739929706683437,0.4715350667222502
+religiosity,behaviors,glove,negdiff_euc,Religiosity,Behaviors Essay,GloVe,Euclidean (Anchored Vector),0.0028795179757402016,-0.05366114027618305,0.057365727340873036,0.350315975478551
+religiosity,behaviors,glove,anchoredvec_norm,Religiosity,Behaviors Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.0015187891305726473,0.03897164521254717,0.05740485630695254,0.49772508727561504
+religiosity,behaviors,sbert,mean_dot,Religiosity,Behaviors Essay,SBERT,Dot,0.013812646098234405,0.11752721428773179,0.057050361455910574,0.040246449129235515
+religiosity,behaviors,sbert,mean_cos,Religiosity,Behaviors Essay,SBERT,Cosine,0.007258501445185867,0.08519683940843029,0.05723962423609322,0.1376790764423736
+religiosity,behaviors,sbert,mean_euc,Religiosity,Behaviors Essay,SBERT,Euclidean,2.942537124099204e-6,-0.0017153825008140793,0.05744841443990998,0.9761987417077833
+religiosity,behaviors,sbert,negdiff_dot,Religiosity,Behaviors Essay,SBERT,Dot (Anchored Vector),5.028024244656016e-7,-7.090856256232882e-4,0.057448484519518485,0.9901600979646852
+religiosity,behaviors,sbert,negdiff_cos,Religiosity,Behaviors Essay,SBERT,Cosine (Anchored Vector),8.793269511515604e-4,-0.029653447542428525,0.057423235400468196,0.6059506519182334
+religiosity,behaviors,sbert,negdiff_euc,Religiosity,Behaviors Essay,SBERT,Euclidean (Anchored Vector),0.005538514180017117,-0.07442119442750911,0.0572891884068606,0.19491635561331666
+religiosity,behaviors,sbert,anchoredvec_norm,Religiosity,Behaviors Essay,SBERT,Dot (Pre-normalized Anchored Vector),4.477887816439472e-5,-0.006691702187365648,0.057447212708075325,0.9073458421234263
+religiosity,behaviors,ddr,mean_dot,Religiosity,Behaviors Essay,DDR,Dot,0.0024155897890663198,0.049148649921094675,0.05737907100568141,0.3923646907860828
+religiosity,behaviors,ddr,mean_cos,Religiosity,Behaviors Essay,DDR,Cosine,6.612029739713488e-4,-0.025713867347626807,0.05742950326243814,0.6546560014888312
+religiosity,behaviors,ddr,mean_euc,Religiosity,Behaviors Essay,DDR,Euclidean,0.0024226082602134547,-0.049219998579982195,0.057378869161076304,0.39167701794009335
+religiosity,behaviors,ddr,negdiff_dot,Religiosity,Behaviors Essay,DDR,Dot (Anchored Vector),0.017495629524418087,0.13227104567673945,0.05694373259137094,0.020849932636827107
+religiosity,behaviors,ddr,negdiff_cos,Religiosity,Behaviors Essay,DDR,Cosine (Anchored Vector),0.02026509362557947,0.1423555184233457,0.056863420015763874,0.01282432977490479
+religiosity,behaviors,ddr,negdiff_euc,Religiosity,Behaviors Essay,DDR,Euclidean (Anchored Vector),0.0016307762778773832,-0.040382871095024656,0.05740163702435938,0.4822755518203443
+religiosity,behaviors,ddr,anchoredvec_norm,Religiosity,Behaviors Essay,DDR,Dot (Pre-normalized Anchored Vector),0.031129581775600903,0.17643577238077565,0.05654725580746116,0.0019816704523894745
+religiosity,values,glove,mean_dot,Religiosity,Values Essay,GloVe,Dot,4.197501417159463e-4,0.02048780470709213,0.05743644068885393,0.7215617301776986
+religiosity,values,glove,mean_cos,Religiosity,Values Essay,GloVe,Cosine,0.006575944514030214,-0.08109219761500014,0.0572592983351026,0.15773606109143734
+religiosity,values,glove,mean_euc,Religiosity,Values Essay,GloVe,Euclidean,0.006637154640713929,-0.08146873412981155,0.05725753428334879,0.15580912310256514
+religiosity,values,glove,negdiff_dot,Religiosity,Values Essay,GloVe,Dot (Anchored Vector),0.01351215196431043,0.11624178235174489,0.05705905249883651,0.042496847447415435
+religiosity,values,glove,negdiff_cos,Religiosity,Values Essay,GloVe,Cosine (Anchored Vector),0.018809791607251776,0.13714879367771257,0.056905636916278785,0.016543386001625995
+religiosity,values,glove,negdiff_euc,Religiosity,Values Essay,GloVe,Euclidean (Anchored Vector),0.0013553995352139651,-0.03681575118361656,0.057409552926412054,0.521823815426711
+religiosity,values,glove,anchoredvec_norm,Religiosity,Values Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.01619029603503338,0.1272410941285612,0.056981547124974274,0.026277556468618124
+religiosity,values,sbert,mean_dot,Religiosity,Values Essay,SBERT,Dot,0.03526078376887788,0.18777854981034917,0.056426570065383534,9.83141642323247e-4
+religiosity,values,sbert,mean_cos,Religiosity,Values Essay,SBERT,Cosine,0.01718152494208513,0.13107831606366155,0.05695283425979909,0.02204032575135888
+religiosity,values,sbert,mean_euc,Religiosity,Values Essay,SBERT,Euclidean,0.0021415058860896666,0.04627640744579964,0.057386952844802455,0.420649035698063
+religiosity,values,sbert,negdiff_dot,Religiosity,Values Essay,SBERT,Dot (Anchored Vector),0.06465934479217841,0.25428201822421176,0.05556017328510915,6.9003353090755264e-6
+religiosity,values,sbert,negdiff_cos,Religiosity,Values Essay,SBERT,Cosine (Anchored Vector),0.06573413136807657,0.2563866832892778,0.05552824240920875,5.753585457600047e-6
+religiosity,values,sbert,negdiff_euc,Religiosity,Values Essay,SBERT,Euclidean (Anchored Vector),0.004078100631165561,-0.06386000807364148,0.057331238910498496,0.26621431370293347
+religiosity,values,sbert,anchoredvec_norm,Religiosity,Values Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.06265812073654264,0.2503160417083624,0.055619578884822,9.677078976523898e-6
+religiosity,values,ddr,mean_dot,Religiosity,Values Essay,DDR,Dot,0.014269120958213899,0.11945342589567644,0.057037156525902875,0.037062978847614274
+religiosity,values,ddr,mean_cos,Religiosity,Values Essay,DDR,Cosine,0.022186051811392368,0.14894982984680574,0.05680764684350508,0.009183031073471452
+religiosity,values,ddr,mean_euc,Religiosity,Values Essay,DDR,Euclidean,0.0030000308194299023,0.05477253709141012,0.05736226060041566,0.3404131046255737
+religiosity,values,ddr,negdiff_dot,Religiosity,Values Essay,DDR,Dot (Anchored Vector),0.09787724100058481,0.3128533857905085,0.0545646665433004,2.376858616670643e-8
+religiosity,values,ddr,negdiff_cos,Religiosity,Values Essay,DDR,Cosine (Anchored Vector),0.0789247381390386,0.28093546970619165,0.05513485602934056,6.13323700926152e-7
+religiosity,values,ddr,negdiff_euc,Religiosity,Values Essay,DDR,Euclidean (Anchored Vector),7.232233225124537e-6,0.002689281172567182,0.05744829122129558,0.962693740046513
+religiosity,values,ddr,anchoredvec_norm,Religiosity,Values Essay,DDR,Dot (Pre-normalized Anchored Vector),0.08696906226066992,0.2949051750320259,0.05489356451244786,1.551972533487105e-7
+sd,behaviors,glove,mean_dot,Self-Direction,Behaviors Essay,GloVe,Dot,0.018750526793273718,0.13693256293984152,0.05690735546739826,0.016716389082446305
+sd,behaviors,glove,mean_cos,Self-Direction,Behaviors Essay,GloVe,Cosine,0.004887411197851479,0.0699100221559932,0.057307939790603106,0.22345099413100797
+sd,behaviors,glove,mean_euc,Self-Direction,Behaviors Essay,GloVe,Euclidean,0.011154360562734795,0.10561420625434245,0.05712719984244946,0.06546722694892426
+sd,behaviors,glove,negdiff_dot,Self-Direction,Behaviors Essay,GloVe,Dot (Anchored Vector),0.022066738815167092,-0.14854877587905976,0.05681111257633635,0.009374926053894532
+sd,behaviors,glove,negdiff_cos,Self-Direction,Behaviors Essay,GloVe,Cosine (Anchored Vector),0.013531077336163325,-0.11632315907059673,0.057058505168746484,0.042351307130091886
+sd,behaviors,glove,negdiff_euc,Self-Direction,Behaviors Essay,GloVe,Euclidean (Anchored Vector),0.016047762792115877,-0.1266797647302671,0.05698567468669617,0.026952687829821926
+sd,behaviors,glove,anchoredvec_norm,Self-Direction,Behaviors Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.010667536606492214,-0.10328376739106776,0.05714126041279388,0.07167343137771102
+sd,behaviors,sbert,mean_dot,Self-Direction,Behaviors Essay,SBERT,Dot,0.0017230300114279323,-0.041509396664224485,0.057398984880473417,0.4701314661462963
+sd,behaviors,sbert,mean_cos,Self-Direction,Behaviors Essay,SBERT,Cosine,3.494306382184061e-4,0.018693063906658147,0.0574384609523404,0.7450688667652926
+sd,behaviors,sbert,mean_euc,Self-Direction,Behaviors Essay,SBERT,Euclidean,0.0051438620559867065,0.07172072263988065,0.05730055488888651,0.21165976481690324
+sd,behaviors,sbert,negdiff_dot,Self-Direction,Behaviors Essay,SBERT,Dot (Anchored Vector),7.784388864469603e-4,0.027900517673458365,0.057426134536180486,0.6274243030996866
+sd,behaviors,sbert,negdiff_cos,Self-Direction,Behaviors Essay,SBERT,Cosine (Anchored Vector),0.0026847067914227245,0.05181415628399943,0.05737133094629889,0.3671707529254291
+sd,behaviors,sbert,negdiff_euc,Self-Direction,Behaviors Essay,SBERT,Euclidean (Anchored Vector),0.009399552509261657,0.09695128936358552,0.05717786641315145,0.09098722472309201
+sd,behaviors,sbert,anchoredvec_norm,Self-Direction,Behaviors Essay,SBERT,Dot (Pre-normalized Anchored Vector),5.217601921435034e-4,0.022842070662343728,0.05743350983677682,0.6911215797348562
+sd,behaviors,ddr,mean_dot,Self-Direction,Behaviors Essay,DDR,Dot,0.020712833761334298,0.14391953919233558,0.05685042520221078,0.011861471106563165
+sd,behaviors,ddr,mean_cos,Self-Direction,Behaviors Essay,DDR,Cosine,2.4785711713684377e-5,-0.004978525054038045,0.05744778700676419,0.930997631168655
+sd,behaviors,ddr,mean_euc,Self-Direction,Behaviors Essay,DDR,Euclidean,0.006425376643341019,-0.0801584471115865,0.05726363741061094,0.1625920088055831
+sd,behaviors,ddr,negdiff_dot,Self-Direction,Behaviors Essay,DDR,Dot (Anchored Vector),0.020502679263744064,0.14318756672191904,0.05685652491026977,0.012303855565145445
+sd,behaviors,ddr,negdiff_cos,Self-Direction,Behaviors Essay,DDR,Cosine (Anchored Vector),6.890355573351883e-4,0.02624948680136783,0.05742870352236425,0.6479413845010948
+sd,behaviors,ddr,negdiff_euc,Self-Direction,Behaviors Essay,DDR,Euclidean (Anchored Vector),0.014638383413027346,-0.12098918717400886,0.05702647224395585,0.03468011178966565
+sd,behaviors,ddr,anchoredvec_norm,Self-Direction,Behaviors Essay,DDR,Dot (Pre-normalized Anchored Vector),0.007157697203269476,0.08460317490064699,0.057242530254664706,0.1404524931764454
+sd,values,glove,mean_dot,Self-Direction,Values Essay,GloVe,Dot,0.00247411011125679,0.049740427332872796,0.057377387994733284,0.38668306825070065
+sd,values,glove,mean_cos,Self-Direction,Values Essay,GloVe,Cosine,0.002462121972799739,0.04961977400996221,0.05737773277074951,0.38783738188621053
+sd,values,glove,mean_euc,Self-Direction,Values Essay,GloVe,Euclidean,0.0037524920489050134,0.06125758768434333,0.05734061013623494,0.28623075398166736
+sd,values,glove,negdiff_dot,Self-Direction,Values Essay,GloVe,Dot (Anchored Vector),0.001519134327774019,-0.038976073786029665,0.05740484638388277,0.4976761983963609
+sd,values,glove,negdiff_cos,Self-Direction,Values Essay,GloVe,Cosine (Anchored Vector),0.0011808866033155073,-0.03436403066166,0.05741456886088061,0.5499371200994626
+sd,values,glove,negdiff_euc,Self-Direction,Values Essay,GloVe,Euclidean (Anchored Vector),0.0018777836887634491,-0.04333340153696034,0.057394535690253504,0.4508299196315112
+sd,values,glove,anchoredvec_norm,Self-Direction,Values Essay,GloVe,Dot (Pre-normalized Anchored Vector),3.1430041957589475e-4,-0.01772851994882534,0.05743947020898767,0.7578021659781631
+sd,values,sbert,mean_dot,Self-Direction,Values Essay,SBERT,Dot,0.008221834807011044,0.0906743337831111,0.05721184549254922,0.11403500319999577
+sd,values,sbert,mean_cos,Self-Direction,Values Essay,SBERT,Cosine,0.012713841994335383,0.1127556738897667,0.05708213519512507,0.04913875124787426
+sd,values,sbert,mean_euc,Self-Direction,Values Essay,SBERT,Euclidean,0.0070572065815627276,0.08400718172610437,0.05724542708525335,0.14327959343889307
+sd,values,sbert,negdiff_dot,Self-Direction,Values Essay,SBERT,Dot (Anchored Vector),0.0024343340680102765,0.04933897108787603,0.057378531936328574,0.3905319566075659
+sd,values,sbert,negdiff_cos,Self-Direction,Values Essay,SBERT,Cosine (Anchored Vector),0.002712126741887112,0.05207808312416179,0.05737054226398539,0.36473194722001145
+sd,values,sbert,negdiff_euc,Self-Direction,Values Essay,SBERT,Euclidean (Anchored Vector),0.0016473157741781254,0.04058713803876944,0.05740116154991937,0.48006101144417224
+sd,values,sbert,anchoredvec_norm,Self-Direction,Values Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.0028945597638824713,0.053801113035721375,0.05736529465175121,0.3490588654514154
+sd,values,ddr,mean_dot,Self-Direction,Values Essay,DDR,Dot,0.0011773195670818826,0.03431209068363356,0.057414671381778505,0.5505406400611195
+sd,values,ddr,mean_cos,Self-Direction,Values Essay,DDR,Cosine,0.0015126120288747817,-0.03889231323635539,0.057405033874183206,0.49860129698234024
+sd,values,ddr,mean_euc,Self-Direction,Values Essay,DDR,Euclidean,0.0013722218478688934,-0.03704351289860209,0.05740906938826681,0.5192499659427269
+sd,values,ddr,negdiff_dot,Self-Direction,Values Essay,DDR,Dot (Anchored Vector),4.1041071798634854e-4,0.020258596150433315,0.057436709012484925,0.7245498543814335
+sd,values,ddr,negdiff_cos,Self-Direction,Values Essay,DDR,Cosine (Anchored Vector),0.0027547455669261773,-0.052485670110289845,0.057369316393656694,0.3609854941582067
+sd,values,ddr,negdiff_euc,Self-Direction,Values Essay,DDR,Euclidean (Anchored Vector),0.0020099990440739235,-0.04483301288195923,0.05739073420676748,0.4353012410957471
+sd,values,ddr,anchoredvec_norm,Self-Direction,Values Essay,DDR,Dot (Pre-normalized Anchored Vector),5.74975139689221e-5,-0.0075827115182447785,0.057446847365465785,0.895075647001919
+se,behaviors,glove,mean_dot,Safety,Behaviors Essay,GloVe,Dot,1.666245284909495e-4,0.0129083123796625,0.05744371259822681,0.8223545096868602
+se,behaviors,glove,mean_cos,Safety,Behaviors Essay,GloVe,Cosine,0.0011556939413796868,-0.0339954988399889,0.057415292924268904,0.554226298865403
+se,behaviors,glove,mean_euc,Safety,Behaviors Essay,GloVe,Euclidean,9.165194148380162e-4,-0.030274071659392315,0.057422166594902006,0.5984271393595355
+se,behaviors,glove,negdiff_dot,Safety,Behaviors Essay,GloVe,Dot (Anchored Vector),3.514674462453243e-4,0.018747465061851015,0.05743840243630421,0.7443527210843692
+se,behaviors,glove,negdiff_cos,Safety,Behaviors Essay,GloVe,Cosine (Anchored Vector),0.003742186107720818,0.06117341013643782,0.05734090672288766,0.2868946626557984
+se,behaviors,glove,negdiff_euc,Safety,Behaviors Essay,GloVe,Euclidean (Anchored Vector),4.54179930009605e-4,-0.021311497601285718,0.057435451502882,0.710858634908152
+se,behaviors,glove,anchoredvec_norm,Safety,Behaviors Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.001605460083291659,0.04006819291272893,0.05740236480210226,0.4856978907924838
+se,behaviors,sbert,mean_dot,Safety,Behaviors Essay,SBERT,Dot,7.517169748709883e-5,0.008670161329934936,0.05744633967096994,0.880134311455579
+se,behaviors,sbert,mean_cos,Safety,Behaviors Essay,SBERT,Cosine,1.0609516179111504e-4,-0.01030025056933646,0.05744545137741092,0.8578181457475398
+se,behaviors,sbert,mean_euc,Safety,Behaviors Essay,SBERT,Euclidean,6.374941974106168e-4,-0.025248647437251324,0.057430184500467316,0.6605107448524521
+se,behaviors,sbert,negdiff_dot,Safety,Behaviors Essay,SBERT,Dot (Anchored Vector),1.2305259073593143e-6,0.001109290722650871,0.05744846361619856,0.9846070584767992
+se,behaviors,sbert,negdiff_cos,Safety,Behaviors Essay,SBERT,Cosine (Anchored Vector),1.6138961667210347e-4,-0.012703921310843512,0.05744386297947232,0.8251217369694572
+se,behaviors,sbert,negdiff_euc,Safety,Behaviors Essay,SBERT,Euclidean (Anchored Vector),0.001136581485527797,-0.0337132241935979,0.057415842230099316,0.5575225470316321
+se,behaviors,sbert,anchoredvec_norm,Safety,Behaviors Essay,SBERT,Dot (Pre-normalized Anchored Vector),1.2743598811089205e-6,0.0011288754940687058,0.057448462357099814,0.984335327157418
+se,behaviors,ddr,mean_dot,Safety,Behaviors Essay,DDR,Dot,3.4265709280783077e-4,0.01851099923850227,0.05743865555102142,0.7474671877280037
+se,behaviors,ddr,mean_cos,Safety,Behaviors Essay,DDR,Cosine,8.207480284741141e-5,-0.009059514492919132,0.0574461413766539,0.8747947043259596
+se,behaviors,ddr,mean_euc,Safety,Behaviors Essay,DDR,Euclidean,4.706823508073286e-4,-0.021695214928811563,0.057434977373591135,0.7058917502578306
+se,behaviors,ddr,negdiff_dot,Safety,Behaviors Essay,DDR,Dot (Anchored Vector),0.0020480227757017594,0.045255085633570176,0.057389640893878935,0.43098665297216465
+se,behaviors,ddr,negdiff_cos,Safety,Behaviors Essay,DDR,Cosine (Anchored Vector),0.001924481377533009,0.04386891128730016,0.05739319305732234,0.44524912999170485
+se,behaviors,ddr,negdiff_euc,Safety,Behaviors Essay,DDR,Euclidean (Anchored Vector),3.298097452646535e-4,-0.018160664780361248,0.05743902464349328,0.7520889430777093
+se,behaviors,ddr,anchoredvec_norm,Safety,Behaviors Essay,DDR,Dot (Pre-normalized Anchored Vector),0.0019610150280982043,0.04428334933243202,0.05739214263477968,0.4409571173479445
+se,values,glove,mean_dot,Safety,Values Essay,GloVe,Dot,1.0271252782140332e-5,-0.003204879526930818,0.05744820392735759,0.9555480291412808
+se,values,glove,mean_cos,Safety,Values Essay,GloVe,Cosine,5.037641187207925e-6,0.0022444690212181538,0.05744835425949814,0.9688608381763035
+se,values,glove,mean_euc,Safety,Values Essay,GloVe,Euclidean,3.405148092686552e-4,-0.018453043360612768,0.0574387170970208,0.7482311470809617
+se,values,glove,negdiff_dot,Safety,Values Essay,GloVe,Dot (Anchored Vector),4.509077275611313e-5,-0.006714966325761685,0.057447203748935964,0.9070251760891579
+se,values,glove,negdiff_cos,Safety,Values Essay,GloVe,Cosine (Anchored Vector),4.4335420942994677e-4,-0.021055977997470145,0.05743576253337863,0.7141729167765349
+se,values,glove,negdiff_euc,Safety,Values Essay,GloVe,Euclidean (Anchored Vector),3.8584413736903525e-7,6.211635351250231e-4,0.05744848787905826,0.9913801324200562
+se,values,glove,anchoredvec_norm,Safety,Values Essay,GloVe,Dot (Pre-normalized Anchored Vector),1.2910096803181163e-4,-0.011362260691949143,0.057444790514033686,0.843338518206222
+se,values,sbert,mean_dot,Safety,Values Essay,SBERT,Dot,0.007107489316558915,0.084305926936123,0.0572439776094622,0.1418571094637405
+se,values,sbert,mean_cos,Safety,Values Essay,SBERT,Cosine,0.003051648843368687,0.05524173099540495,0.05736077566312498,0.3362865632711084
+se,values,sbert,mean_euc,Safety,Values Essay,SBERT,Euclidean,3.2919382119781724e-4,0.018143699214818836,0.057439042338365325,0.7523129859706845
+se,values,sbert,negdiff_dot,Safety,Values Essay,SBERT,Dot (Anchored Vector),0.008248537616155249,0.09082146010803414,0.05721107529648737,0.11344683337528218
+se,values,sbert,negdiff_cos,Safety,Values Essay,SBERT,Cosine (Anchored Vector),0.0073043780449560175,0.08546565418316301,0.05723830164120107,0.13643716059142966
+se,values,sbert,negdiff_euc,Safety,Values Essay,SBERT,Euclidean (Anchored Vector),5.135410934768165e-5,0.007166178154894088,0.05744702383495516,0.9008088498315445
+se,values,sbert,anchoredvec_norm,Safety,Values Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.008260058941811449,0.09088486640696251,0.05721074298069604,0.11319408710925621
+se,values,ddr,mean_dot,Safety,Values Essay,DDR,Dot,7.90015889005627e-5,0.00888828379950616,0.057446229655973076,0.8771422858968039
+se,values,ddr,mean_cos,Safety,Values Essay,DDR,Cosine,7.433405738316792e-4,0.027264272846193396,0.05742714309264158,0.6352980335061789
+se,values,ddr,mean_euc,Safety,Values Essay,DDR,Euclidean,2.0190309135283832e-4,0.014209260760251976,0.057442699154611025,0.8047939956607978
+se,values,ddr,negdiff_dot,Safety,Values Essay,DDR,Dot (Anchored Vector),5.962668922558393e-5,0.007721831986360779,0.05744678620471369,0.893161979497336
+se,values,ddr,negdiff_cos,Safety,Values Essay,DDR,Cosine (Anchored Vector),3.223238979002316e-5,-0.005677357641546182,0.05744757310347619,0.9213411672258562
+se,values,ddr,negdiff_euc,Safety,Values Essay,DDR,Euclidean (Anchored Vector),4.2026831619983376e-8,2.0500446731709082e-4,0.057448497754953365,0.9971551101423659
+se,values,ddr,anchoredvec_norm,Safety,Values Essay,DDR,Dot (Pre-normalized Anchored Vector),5.401855868145161e-5,0.007349731878201536,0.05744694729863147,0.8982817472179134
+st,behaviors,glove,mean_dot,Stimulation,Behaviors Essay,GloVe,Dot,0.03765855255547446,0.19405811643802598,0.05635640496877913,6.553367295653607e-4
+st,behaviors,glove,mean_cos,Stimulation,Behaviors Essay,GloVe,Cosine,0.002220637626684679,-0.04712364190811954,0.05738467736209325,0.412184490292027
+st,behaviors,glove,mean_euc,Stimulation,Behaviors Essay,GloVe,Euclidean,0.0010875714426225387,0.0329783480881402,0.057417250790230086,0.566148295943439
+st,behaviors,glove,negdiff_dot,Stimulation,Behaviors Essay,GloVe,Dot (Anchored Vector),0.005318957356052365,-0.0729311823300045,0.05729551220031859,0.2040310272965775
+st,behaviors,glove,negdiff_cos,Stimulation,Behaviors Essay,GloVe,Cosine (Anchored Vector),0.0010803001015410889,0.032867919032714694,0.05741745976733495,0.5674499652442577
+st,behaviors,glove,negdiff_euc,Stimulation,Behaviors Essay,GloVe,Euclidean (Anchored Vector),0.04543227115488196,-0.21314847209136206,0.056128322120327964,1.765663071687149e-4
+st,behaviors,glove,anchoredvec_norm,Stimulation,Behaviors Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.0022454464941242883,0.04738614242713044,0.057383963949009645,0.40958243549569984
+st,behaviors,sbert,mean_dot,Stimulation,Behaviors Essay,SBERT,Dot,4.308902846921501e-5,0.006564223371368111,0.0574472612488058,0.909103237998617
+st,behaviors,sbert,mean_cos,Stimulation,Behaviors Essay,SBERT,Cosine,0.008277769854875673,-0.09098225021879641,0.05721023213154242,0.1128067617235768
+st,behaviors,sbert,mean_euc,Stimulation,Behaviors Essay,SBERT,Euclidean,0.02010591612050417,-0.14179533180081857,0.056868039127349536,0.01318557402814342
+st,behaviors,sbert,negdiff_dot,Stimulation,Behaviors Essay,SBERT,Dot (Anchored Vector),3.281001032618244e-5,0.005728002298025207,0.05744755651149002,0.920641790714727
+st,behaviors,sbert,negdiff_cos,Stimulation,Behaviors Essay,SBERT,Cosine (Anchored Vector),5.8457869358896123e-5,-0.007645774608167268,0.0574468197791783,0.8942081085578121
+st,behaviors,sbert,negdiff_euc,Stimulation,Behaviors Essay,SBERT,Euclidean (Anchored Vector),0.02029271461526395,-0.142452499505147,0.056862618454546904,0.012762682955936749
+st,behaviors,sbert,anchoredvec_norm,Stimulation,Behaviors Essay,SBERT,Dot (Pre-normalized Anchored Vector),3.464247853798164e-5,0.005885786144431464,0.05744750387432829,0.9184632713228222
+st,behaviors,ddr,mean_dot,Stimulation,Behaviors Essay,DDR,Dot,0.045769467399816535,0.21393799896188756,0.0561184077210778,1.6681420636741683e-4
+st,behaviors,ddr,mean_cos,Stimulation,Behaviors Essay,DDR,Cosine,0.006141662341672553,-0.07836875870953,0.05727181261601999,0.17221153977081216
+st,behaviors,ddr,mean_euc,Stimulation,Behaviors Essay,DDR,Euclidean,0.03196167662017796,-0.17877828900674175,0.056522968355780745,0.0017202966404211105
+st,behaviors,ddr,negdiff_dot,Stimulation,Behaviors Essay,DDR,Dot (Anchored Vector),0.01922495965815457,0.13865410076212856,0.05689359648730435,0.015381792572237513
+st,behaviors,ddr,negdiff_cos,Stimulation,Behaviors Essay,DDR,Cosine (Anchored Vector),0.0060372909201284455,-0.07770000592103209,0.05727481977677117,0.17591276078799908
+st,behaviors,ddr,negdiff_euc,Stimulation,Behaviors Essay,DDR,Euclidean (Anchored Vector),0.04643707428860676,-0.21549263163413884,0.05609877326719188,1.4906771638338587e-4
+st,behaviors,ddr,anchoredvec_norm,Stimulation,Behaviors Essay,DDR,Dot (Pre-normalized Anchored Vector),5.443157514272519e-4,0.023330575462839558,0.057432861772520334,0.6848651677718991
+st,values,glove,mean_dot,Stimulation,Values Essay,GloVe,Dot,0.006703723154725753,0.08187626734729501,0.057255615743285956,0.15374364590062223
+st,values,glove,mean_cos,Stimulation,Values Essay,GloVe,Cosine,0.003307246888438451,-0.057508667941784664,0.05735342210165691,0.31680241428480627
+st,values,glove,mean_euc,Stimulation,Values Essay,GloVe,Euclidean,4.717748309714472e-4,-0.021720378241905623,0.05743494598552199,0.7055664656640399
+st,values,glove,negdiff_dot,Stimulation,Values Essay,GloVe,Dot (Anchored Vector),0.005380035820274081,0.07334872746185912,0.05729375305569545,0.20144626157110157
+st,values,glove,negdiff_cos,Stimulation,Values Essay,GloVe,Cosine (Anchored Vector),0.01943796438006125,0.13942010034446706,0.05688741807622606,0.01481860276465698
+st,values,glove,negdiff_euc,Stimulation,Values Essay,GloVe,Euclidean (Anchored Vector),0.009626819493331294,-0.09811635691020787,0.05717130706488315,0.0871508624565155
+st,values,glove,anchoredvec_norm,Stimulation,Values Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.017526174842062713,0.13238646019160222,0.05694284741570596,0.020737759496448592
+st,values,sbert,mean_dot,Stimulation,Values Essay,SBERT,Dot,0.031193034052070218,0.17661549776865637,0.05654540410944781,0.00196040074425156
+st,values,sbert,mean_cos,Stimulation,Values Essay,SBERT,Cosine,0.015826553006733923,0.1258036287502625,0.05699208001815916,0.02803621559663349
+st,values,sbert,mean_euc,Stimulation,Values Essay,SBERT,Euclidean,8.572115885066428e-4,-0.029278175976427193,0.05742387092362471,0.610520213820775
+st,values,sbert,negdiff_dot,Stimulation,Values Essay,SBERT,Dot (Anchored Vector),0.034848243612165423,0.1866768427314043,0.05643863329327399,0.0010542835555453825
+st,values,sbert,negdiff_cos,Stimulation,Values Essay,SBERT,Cosine (Anchored Vector),0.028329263549039436,0.16831299281112977,0.05662891587960642,0.00319368519491033
+st,values,sbert,negdiff_euc,Stimulation,Values Essay,SBERT,Euclidean (Anchored Vector),0.013141073706511247,-0.11463452231553649,0.05706978318500773,0.04545877324750184
+st,values,sbert,anchoredvec_norm,Stimulation,Values Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.0362663503662646,0.19043726097133556,0.05639715513837638,8.292840090116136e-4
+st,values,ddr,mean_dot,Stimulation,Values Essay,DDR,Dot,0.012557093342445319,0.11205843717652555,0.0570866664004652,0.050566218242120896
+st,values,ddr,mean_cos,Stimulation,Values Essay,DDR,Cosine,5.95434013252797e-4,-0.02440151661788256,0.057431393020252346,0.6712248706477315
+st,values,ddr,mean_euc,Stimulation,Values Essay,DDR,Euclidean,0.008314511776039809,-0.09118394472734678,0.05720917234219595,0.11200786687451801
+st,values,ddr,negdiff_dot,Stimulation,Values Essay,DDR,Dot (Anchored Vector),0.01967222721045287,0.14025771711550453,0.05688062227793029,0.01422352997141533
+st,values,ddr,negdiff_cos,Stimulation,Values Essay,DDR,Cosine (Anchored Vector),0.0020708833773863933,0.04550695965878619,0.05738898356303293,0.42842370396610685
+st,values,ddr,negdiff_euc,Stimulation,Values Essay,DDR,Euclidean (Anchored Vector),0.009871249470282882,-0.09935416181661884,0.05716425152062482,0.08321843495796695
+st,values,ddr,anchoredvec_norm,Stimulation,Values Essay,DDR,Dot (Pre-normalized Anchored Vector),0.008151308219342911,0.09028459569241529,0.057213879659386284,0.11560461490047919
+tightness,behaviors,glove,mean_dot,Tightness,Behaviors Essay,GloVe,Dot,0.02094445871060502,0.14472200492877735,0.05684370155871007,0.01139266446181669
+tightness,behaviors,glove,mean_cos,Tightness,Behaviors Essay,GloVe,Cosine,0.0011390598444640618,0.033749960658703886,0.05741577100056427,0.5570930218521746
+tightness,behaviors,glove,mean_euc,Tightness,Behaviors Essay,GloVe,Euclidean,1.227655186679512e-4,0.011079960228626786,0.057444972506521676,0.8471825223029716
+tightness,behaviors,glove,negdiff_dot,Tightness,Behaviors Essay,GloVe,Dot (Anchored Vector),0.005297993854941514,-0.07278731932789888,0.05729611596582419,0.2049271333133126
+tightness,behaviors,glove,negdiff_cos,Tightness,Behaviors Essay,GloVe,Cosine (Anchored Vector),0.0025902387061512576,0.050894387766739685,0.05737404805666714,0.375748594985727
+tightness,behaviors,glove,negdiff_euc,Tightness,Behaviors Essay,GloVe,Euclidean (Anchored Vector),0.020429460721679782,-0.14293166451727815,0.056858649915606324,0.012461912091577492
+tightness,behaviors,glove,anchoredvec_norm,Tightness,Behaviors Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.003036829405674776,0.05510743512154034,0.05736120198976521,0.33746440527369415
+tightness,behaviors,sbert,mean_dot,Tightness,Behaviors Essay,SBERT,Dot,0.0011426107727865139,0.033802526130254265,0.05741566894458215,0.5564787019576293
+tightness,behaviors,sbert,mean_cos,Tightness,Behaviors Essay,SBERT,Cosine,0.002000723365699467,0.044729446293235935,0.057391000911220895,0.4363637148646575
+tightness,behaviors,sbert,mean_euc,Tightness,Behaviors Essay,SBERT,Euclidean,0.004671293721003795,0.06834686328577054,0.05731416249098382,0.23400016782505284
+tightness,behaviors,sbert,negdiff_dot,Tightness,Behaviors Essay,SBERT,Dot (Anchored Vector),0.0062394540809479135,0.07899021509622527,0.05726899488650391,0.16882433687949527
+tightness,behaviors,sbert,negdiff_cos,Tightness,Behaviors Essay,SBERT,Cosine (Anchored Vector),0.012286250170286785,0.11084335871078077,0.05709449494104768,0.053136452533370286
+tightness,behaviors,sbert,negdiff_euc,Tightness,Behaviors Essay,SBERT,Euclidean (Anchored Vector),0.004274329726764629,0.06537835824464117,0.05732559057031255,0.25498943863976664
+tightness,behaviors,sbert,anchoredvec_norm,Tightness,Behaviors Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.006035352077001342,0.07768752845213543,0.057274875637436606,0.17598237405304415
+tightness,behaviors,ddr,mean_dot,Tightness,Behaviors Essay,DDR,Dot,0.021230587663613108,0.14570719839326116,0.05683539466669318,0.010839541524408153
+tightness,behaviors,ddr,mean_cos,Tightness,Behaviors Essay,DDR,Cosine,8.933983449990338e-4,-0.029889769905421394,0.05742283103099206,0.6030808690730047
+tightness,behaviors,ddr,mean_euc,Tightness,Behaviors Essay,DDR,Euclidean,0.013211579534936575,-0.11494163534131834,0.05706774448215688,0.04487980052978827
+tightness,behaviors,ddr,negdiff_dot,Tightness,Behaviors Essay,DDR,Dot (Anchored Vector),0.02081661857681504,0.14427965406395696,0.05684741261947346,0.011649023903036187
+tightness,behaviors,ddr,negdiff_cos,Tightness,Behaviors Essay,DDR,Cosine (Anchored Vector),0.010663083247221967,0.10326220628682103,0.057141389019852176,0.07173301560323207
+tightness,behaviors,ddr,negdiff_euc,Tightness,Behaviors Essay,DDR,Euclidean (Anchored Vector),0.0184975497564429,-0.136005697514637,0.056914690669502416,0.01747599164752896
+tightness,behaviors,ddr,anchoredvec_norm,Tightness,Behaviors Essay,DDR,Dot (Pre-normalized Anchored Vector),0.021379330526869307,0.14621672451149134,0.05683107588617318,0.010562902371411227
+tightness,values,glove,mean_dot,Tightness,Values Essay,GloVe,Dot,9.161646890160007e-4,0.030268212517689255,0.05742217678880667,0.5984979692003493
+tightness,values,glove,mean_cos,Tightness,Values Essay,GloVe,Cosine,3.5096423449042984e-4,0.018734039460042543,0.05743841689322322,0.7445294374816429
+tightness,values,glove,mean_euc,Tightness,Values Essay,GloVe,Euclidean,7.290994843287531e-4,0.02700184223953531,0.05742755230791337,0.638557753758012
+tightness,values,glove,negdiff_dot,Tightness,Values Essay,GloVe,Dot (Anchored Vector),0.0014756213967921838,0.03841381778464852,0.0574060971969888,0.5039034645614308
+tightness,values,glove,negdiff_cos,Tightness,Values Essay,GloVe,Cosine (Anchored Vector),0.0053532544677947404,0.07316593789322146,0.0572945244025023,0.20257486014137457
+tightness,values,glove,negdiff_euc,Tightness,Values Essay,GloVe,Euclidean (Anchored Vector),8.079991588213762e-4,-0.028425326010819638,0.05742528510258183,0.6209612054584472
+tightness,values,glove,anchoredvec_norm,Tightness,Values Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.0070728404507445115,0.08410018103871424,0.05724497641929003,0.14283561205792836
+tightness,values,sbert,mean_dot,Tightness,Values Essay,SBERT,Dot,0.0019659984556244224,0.04433958113947874,0.05739199934882363,0.4403765914753094
+tightness,values,sbert,mean_cos,Tightness,Values Essay,SBERT,Cosine,0.003883452635883939,0.06231735421119825,0.05733684118991343,0.277960720760167
+tightness,values,sbert,mean_euc,Tightness,Values Essay,SBERT,Euclidean,6.078694912180803e-4,0.0246550094548366,0.057431035712977425,0.6680117064754204
+tightness,values,sbert,negdiff_dot,Tightness,Values Essay,SBERT,Dot (Anchored Vector),0.008490035343925088,0.09214138779031435,0.05720410924379899,0.10827592437563553
+tightness,values,sbert,negdiff_cos,Tightness,Values Essay,SBERT,Cosine (Anchored Vector),0.011909609334825029,0.1091311565723788,0.057105379708344874,0.05694176974679682
+tightness,values,sbert,negdiff_euc,Tightness,Values Essay,SBERT,Euclidean (Anchored Vector),5.176353100612085e-4,0.022751600164850134,0.05743362835171888,0.6922825822533643
+tightness,values,sbert,anchoredvec_norm,Tightness,Values Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.008113372869408787,0.09007426308002055,0.05721497378181201,0.11645869206879704
+tightness,values,ddr,mean_dot,Tightness,Values Essay,DDR,Dot,9.97647686240028e-4,0.03158556135705093,0.05741983513022355,0.5826690640330656
+tightness,values,ddr,mean_cos,Tightness,Values Essay,DDR,Cosine,1.7715945112640986e-5,0.004209031374632539,0.057447990082661625,0.9416421388169837
+tightness,values,ddr,mean_euc,Tightness,Values Essay,DDR,Euclidean,2.6677565533017155e-4,-0.0163332683603182,0.05744083552052445,0.7763368419377388
+tightness,values,ddr,negdiff_dot,Tightness,Values Essay,DDR,Dot (Anchored Vector),0.0019049841361470892,-0.04364612395330309,0.05739375363788632,0.44756612348741076
+tightness,values,ddr,negdiff_cos,Tightness,Values Essay,DDR,Cosine (Anchored Vector),0.004957900845242606,-0.07041236287217331,0.0573059100263062,0.22013388013720236
+tightness,values,ddr,negdiff_euc,Tightness,Values Essay,DDR,Euclidean (Anchored Vector),0.001354519935002408,-0.036803803268173355,0.05740957820940258,0.5219590143336698
+tightness,values,ddr,anchoredvec_norm,Tightness,Values Essay,DDR,Dot (Pre-normalized Anchored Vector),0.0017635284338649842,-0.0419943857422035,0.05739782057838922,0.46495544812531575
+tr,behaviors,glove,mean_dot,Tradition,Behaviors Essay,GloVe,Dot,0.012295060423882346,0.11088309349888455,0.05709424030345599,0.05305071658102263
+tr,behaviors,glove,mean_cos,Tradition,Behaviors Essay,GloVe,Cosine,0.0025189692795946597,-0.050189334321095236,0.05737609783731941,0.3824066391079667
+tr,behaviors,glove,mean_euc,Tradition,Behaviors Essay,GloVe,Euclidean,0.0018591238539075372,-0.04311755853370572,0.05739507218144415,0.45309041090687807
+tr,behaviors,glove,negdiff_dot,Tradition,Behaviors Essay,GloVe,Dot (Anchored Vector),0.005446464852436031,-0.07380016837674583,0.057291839745963066,0.198678493417532
+tr,behaviors,glove,negdiff_cos,Tradition,Behaviors Essay,GloVe,Cosine (Anchored Vector),4.307145795254337e-4,0.02075366424334346,0.05743612567662316,0.7181010899610445
+tr,behaviors,glove,negdiff_euc,Tradition,Behaviors Essay,GloVe,Euclidean (Anchored Vector),0.015572576283720121,-0.12479012895145264,0.05699943325861153,0.029336027789963498
+tr,behaviors,glove,anchoredvec_norm,Tradition,Behaviors Essay,GloVe,Dot (Pre-normalized Anchored Vector),5.713949956161642e-6,0.002390386988786933,0.057448334832984116,0.96683753631234
+tr,behaviors,sbert,mean_dot,Tradition,Behaviors Essay,SBERT,Dot,0.013601079190307144,0.11662366479538859,0.05705648063866436,0.04181748986588962
+tr,behaviors,sbert,mean_cos,Tradition,Behaviors Essay,SBERT,Cosine,0.003959022026785822,0.06292075990311809,0.05733466624745437,0.27332499527079995
+tr,behaviors,sbert,mean_euc,Tradition,Behaviors Essay,SBERT,Euclidean,0.001672080151082012,-0.0408910766681683,0.05740044962073995,0.47677612745637876
+tr,behaviors,sbert,negdiff_dot,Tradition,Behaviors Essay,SBERT,Dot (Anchored Vector),0.006489462812082327,0.08055720211180588,0.057261790611074455,0.16050473928762124
+tr,behaviors,sbert,negdiff_cos,Tradition,Behaviors Essay,SBERT,Cosine (Anchored Vector),9.401688323298951e-4,0.030662172661602094,0.057421486967596684,0.5937439285980786
+tr,behaviors,sbert,negdiff_euc,Tradition,Behaviors Essay,SBERT,Euclidean (Anchored Vector),0.008025736659557853,-0.08958647587419588,0.057217501284736266,0.11845838305134167
+tr,behaviors,sbert,anchoredvec_norm,Tradition,Behaviors Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.00693549867265481,0.08327964140565701,0.057248935347655926,0.14678932590737975
+tr,behaviors,ddr,mean_dot,Tradition,Behaviors Essay,DDR,Dot,0.012569443549546411,0.11211352973457948,0.05708630940040352,0.050452182106785454
+tr,behaviors,ddr,mean_cos,Tradition,Behaviors Essay,DDR,Cosine,0.0038854627292036832,-0.06233348000235262,0.05733678333902245,0.2778361441802616
+tr,behaviors,ddr,mean_euc,Tradition,Behaviors Essay,DDR,Euclidean,0.012656149085324912,-0.1124995514894391,0.057083802992397445,0.04965915589313822
+tr,behaviors,ddr,negdiff_dot,Tradition,Behaviors Essay,DDR,Dot (Anchored Vector),0.027709670083899213,0.16646221818748916,0.05664696793845898,0.0035504025400327098
+tr,behaviors,ddr,negdiff_cos,Tradition,Behaviors Essay,DDR,Cosine (Anchored Vector),0.018118124973107053,0.13460358454776408,0.05692569051854229,0.018682290512993034
+tr,behaviors,ddr,negdiff_euc,Tradition,Behaviors Essay,DDR,Euclidean (Anchored Vector),0.013609717913410712,-0.11666069566658133,0.057056230792376844,0.04175210226985331
+tr,behaviors,ddr,anchoredvec_norm,Tradition,Behaviors Essay,DDR,Dot (Pre-normalized Anchored Vector),0.02466204460941265,0.15704153784719763,0.056735677897629795,0.005988238034605014
+tr,values,glove,mean_dot,Tradition,Values Essay,GloVe,Dot,0.02263180877997615,0.15043872101283032,0.056794696889635454,0.008500790086196095
+tr,values,glove,mean_cos,Tradition,Values Essay,GloVe,Cosine,2.3030467013277135e-4,0.015175792240696092,0.05744188325241198,0.7918101543904656
+tr,values,glove,mean_euc,Tradition,Values Essay,GloVe,Euclidean,6.072799197455238e-4,0.02464305013072708,0.057431052653122566,0.668163162213537
+tr,values,glove,negdiff_dot,Tradition,Values Essay,GloVe,Dot (Anchored Vector),2.2390765972566908e-4,0.014963544357058838,0.05744206702260367,0.7946565894448698
+tr,values,glove,negdiff_cos,Tradition,Values Essay,GloVe,Cosine (Anchored Vector),0.019545345143642336,0.13980466781778925,0.056884303137336,0.01454273438524603
+tr,values,glove,negdiff_euc,Tradition,Values Essay,GloVe,Euclidean (Anchored Vector),0.022660802994452743,-0.150535055699504,0.05679385445898831,0.008458242404714942
+tr,values,glove,anchoredvec_norm,Tradition,Values Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.01805931317784767,0.13438494401475082,0.05692739533253775,0.018876785885873174
+tr,values,sbert,mean_dot,Tradition,Values Essay,SBERT,Dot,0.005452463238616349,0.0738407965735496,0.057291666975425454,0.1984307669438714
+tr,values,sbert,mean_cos,Tradition,Values Essay,SBERT,Cosine,4.3743446170690735e-4,0.02091493393981699,0.05743593261114392,0.7160046700536061
+tr,values,sbert,mean_euc,Tradition,Values Essay,SBERT,Euclidean,1.8097191552978993e-4,-0.013452580255467373,0.05744330044448484,0.8149965332552012
+tr,values,sbert,negdiff_dot,Tradition,Values Essay,SBERT,Dot (Anchored Vector),0.033010617194097286,0.18168824176070758,0.05649233666321169,0.0014396433456853718
+tr,values,sbert,negdiff_cos,Tradition,Values Essay,SBERT,Cosine (Anchored Vector),0.031126320526977426,0.1764265301109147,0.05654735097731139,0.001982769911215017
+tr,values,sbert,negdiff_euc,Tradition,Values Essay,SBERT,Euclidean (Anchored Vector),2.2111756650541246e-7,-4.702313967669604e-4,0.05744849261070616,0.9934745592127474
+tr,values,sbert,anchoredvec_norm,Tradition,Values Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.0324609850116845,0.18016932317041265,0.05650838937067995,0.0015804212783547726
+tr,values,ddr,mean_dot,Tradition,Values Essay,DDR,Dot,0.026661797111609938,0.1632844055983607,0.05667748497650558,0.0042478656821812524
+tr,values,ddr,mean_cos,Tradition,Values Essay,DDR,Cosine,0.002021832632713028,-0.04496479325775922,0.057390393952680425,0.43395147620728336
+tr,values,ddr,mean_euc,Tradition,Values Essay,DDR,Euclidean,0.014826515069374338,-0.1217641781041305,0.057021028051369625,0.03352791885202939
+tr,values,ddr,negdiff_dot,Tradition,Values Essay,DDR,Dot (Anchored Vector),0.050661683573437935,0.22508150428997495,0.05597436696545464,7.316745386276005e-5
+tr,values,ddr,negdiff_cos,Tradition,Values Essay,DDR,Cosine (Anchored Vector),0.03092195160069345,0.1758463863737141,0.05655331455764963,0.002052909132976808
+tr,values,ddr,negdiff_euc,Tradition,Values Essay,DDR,Euclidean (Anchored Vector),0.019740413653080657,-0.1405005823940979,0.056878644085105776,0.01405496024382798
+tr,values,ddr,anchoredvec_norm,Tradition,Values Essay,DDR,Dot (Pre-normalized Anchored Vector),0.04560628868010963,0.21355628925440176,0.05612320579562899,1.7146429360094276e-4
+un,behaviors,glove,mean_dot,Universalism,Behaviors Essay,GloVe,Dot,0.007294264105492355,0.08540646407323244,0.05723859322264376,0.13670987574439944
+un,behaviors,glove,mean_cos,Universalism,Behaviors Essay,GloVe,Cosine,0.01580711330952893,0.1257263429418388,0.056992642877943124,0.028133564463761532
+un,behaviors,glove,mean_euc,Universalism,Behaviors Essay,GloVe,Euclidean,0.02017154086373132,0.1420265498550579,0.05686613483329744,0.013035398758892975
+un,behaviors,glove,negdiff_dot,Universalism,Behaviors Essay,GloVe,Dot (Anchored Vector),4.30599922596007e-4,-0.020750901729708147,0.05743612897076661,0.7181370196195049
+un,behaviors,glove,negdiff_cos,Universalism,Behaviors Essay,GloVe,Cosine (Anchored Vector),2.9358727338962083e-4,0.017134388620246136,0.05744006526900551,0.7656784311949983
+un,behaviors,glove,negdiff_euc,Universalism,Behaviors Essay,GloVe,Euclidean (Anchored Vector),0.0035228786064625517,-0.05935384239004691,0.05734721763900802,0.3014985278076388
+un,behaviors,glove,anchoredvec_norm,Universalism,Behaviors Essay,GloVe,Dot (Pre-normalized Anchored Vector),0.0021157240049133083,0.04599699995557648,0.05738769419943903,0.4234626518455622
+un,behaviors,sbert,mean_dot,Universalism,Behaviors Essay,SBERT,Dot,0.0012281539975367323,0.03504502814290103,0.057413210322016205,0.5420543650132763
+un,behaviors,sbert,mean_cos,Universalism,Behaviors Essay,SBERT,Cosine,0.006671156618904915,0.08167714869475354,0.0572565543362421,0.1547502249364441
+un,behaviors,sbert,mean_euc,Universalism,Behaviors Essay,SBERT,Euclidean,0.024856384907257927,0.1576590780997334,0.05673002520166878,0.005791302994161409
+un,behaviors,sbert,negdiff_dot,Universalism,Behaviors Essay,SBERT,Dot (Anchored Vector),0.003793225223454443,0.06158916482186158,0.057339437892923,0.2836256556268893
+un,behaviors,sbert,negdiff_cos,Universalism,Behaviors Essay,SBERT,Cosine (Anchored Vector),0.013644166426691058,0.11680824639849291,0.05705523447300861,0.04149241782082085
+un,behaviors,sbert,negdiff_euc,Universalism,Behaviors Essay,SBERT,Euclidean (Anchored Vector),0.03229203532261433,0.17969984786474982,0.05651332284515985,0.00162641984462322
+un,behaviors,sbert,anchoredvec_norm,Universalism,Behaviors Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.003752213682929176,0.06125531554835996,0.05734061814713259,0.28624866075472594
+un,behaviors,ddr,mean_dot,Universalism,Behaviors Essay,DDR,Dot,0.006697386691570349,0.08183756283987408,0.0572557983663006,0.15393891505639642
+un,behaviors,ddr,mean_cos,Universalism,Behaviors Essay,DDR,Cosine,7.406963162953136e-4,0.027215736556178326,0.05742721907515009,0.6359003882650482
+un,behaviors,ddr,mean_euc,Universalism,Behaviors Essay,DDR,Euclidean,2.741737721902195e-4,-0.01655819350624391,0.05744062298642543,0.773340021949846
+un,behaviors,ddr,negdiff_dot,Universalism,Behaviors Essay,DDR,Dot (Anchored Vector),0.007533567852207032,0.08679612809455846,0.0572316937785785,0.13041671056635087
+un,behaviors,ddr,negdiff_cos,Universalism,Behaviors Essay,DDR,Cosine (Anchored Vector),0.008731523579744048,0.09344262185825065,0.05719714261656071,0.10336173145223922
+un,behaviors,ddr,negdiff_euc,Universalism,Behaviors Essay,DDR,Euclidean (Anchored Vector),0.002140910619032213,-0.046269975351540885,0.05738696996173715,0.4207136834167493
+un,behaviors,ddr,anchoredvec_norm,Universalism,Behaviors Essay,DDR,Dot (Pre-normalized Anchored Vector),0.006159692558954223,0.07848370887613694,0.05727129311144378,0.17158122844951612
+un,values,glove,mean_dot,Universalism,Values Essay,GloVe,Dot,0.006365708673447141,0.07978539135359998,0.05726535683541105,0.1645631431235705
+un,values,glove,mean_cos,Universalism,Values Essay,GloVe,Cosine,0.019766526260486788,0.14059347872674124,0.05687788650027048,0.013990947461824015
+un,values,glove,mean_euc,Universalism,Values Essay,GloVe,Euclidean,0.019011760046092892,0.13788313909283045,0.05689977987956471,0.015967473139767225
+un,values,glove,negdiff_dot,Universalism,Values Essay,GloVe,Dot (Anchored Vector),6.159128439606853e-4,-0.024817591421422917,0.05743080460298858,0.6659540660700562
+un,values,glove,negdiff_cos,Universalism,Values Essay,GloVe,Cosine (Anchored Vector),2.721067961077737e-4,-0.016495659917316892,0.057440682366872234,0.7741728612266823
+un,values,glove,negdiff_euc,Universalism,Values Essay,GloVe,Euclidean (Anchored Vector),0.0027222537818361475,-0.05217522191458448,0.05737025097635216,0.36383688130361547
+un,values,glove,anchoredvec_norm,Universalism,Values Essay,GloVe,Dot (Pre-normalized Anchored Vector),6.412442505320806e-4,0.025322801000917713,0.05743007674855372,0.6595761319785165
+un,values,sbert,mean_dot,Universalism,Values Essay,SBERT,Dot,0.0373196264212303,0.19318288335468575,0.05636632814992329,6.93976801500973e-4
+un,values,sbert,mean_cos,Universalism,Values Essay,SBERT,Cosine,0.05543911563101465,0.2354551244526534,0.05583334715636444,3.271311928276311e-5
+un,values,sbert,mean_euc,Universalism,Values Essay,SBERT,Euclidean,0.04400245161388931,0.20976761335794714,0.05617034289032065,2.246746840702459e-4
+un,values,sbert,negdiff_dot,Universalism,Values Essay,SBERT,Dot (Anchored Vector),0.015956886953369054,0.12632057217005072,0.05698830616677289,0.027392475619580248
+un,values,sbert,negdiff_cos,Universalism,Values Essay,SBERT,Cosine (Anchored Vector),0.02913743950818419,0.17069692296050334,0.056605360755935585,0.002782172905921102
+un,values,sbert,negdiff_euc,Universalism,Values Essay,SBERT,Euclidean (Anchored Vector),0.022068243841268296,0.14855384155675083,0.0568110688605514,0.009372480216739166
+un,values,sbert,anchoredvec_norm,Universalism,Values Essay,SBERT,Dot (Pre-normalized Anchored Vector),0.015207955740561472,0.12332054062710507,0.05700998824707945,0.03131222040749919
+un,values,ddr,mean_dot,Universalism,Values Essay,DDR,Dot,0.007121516334101803,0.08438907710184876,0.05724357325294544,0.14146311422426552
+un,values,ddr,mean_cos,Universalism,Values Essay,DDR,Cosine,0.002965062862708976,0.05445239078965184,0.057363266529964506,0.34324722744964864
+un,values,ddr,mean_euc,Universalism,Values Essay,DDR,Euclidean,9.130409134116252e-5,0.009555317438011258,0.057445876260776935,0.8680034736811602
+un,values,ddr,negdiff_dot,Universalism,Values Essay,DDR,Dot (Anchored Vector),0.005472725619222983,0.07397787249727432,0.05729108335753286,0.19759661826010605
+un,values,ddr,negdiff_cos,Universalism,Values Essay,DDR,Cosine (Anchored Vector),0.009795113788330142,0.09897026719338557,0.05716644929319104,0.08442244073201664
+un,values,ddr,negdiff_euc,Universalism,Values Essay,DDR,Euclidean (Anchored Vector),0.0014430640816013823,-0.03798768328815777,0.0574070330645578,0.5086502316213343
+un,values,ddr,anchoredvec_norm,Universalism,Values Essay,DDR,Dot (Pre-normalized Anchored Vector),0.003905097183320446,0.06249077678602212,0.057336218252404675,0.2766229634063895

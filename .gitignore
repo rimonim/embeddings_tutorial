@@ -1,0 +1,17 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+benchmarks/DDR/txt_sentoken/
+benchmarks/CCR/CCR_clean_behavioral.csv
+example_data/reddit_emotion.csv
+example_data/preprocess_data.R
+example_data/power_narratives.csv
+_extensions/
+embeddings_paper_files/
+Makefile
+references.bib
+Report/
+embeddings_paper.tex
+embeddings_paper.pdf
