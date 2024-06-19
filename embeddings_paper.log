@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.6.17)  19 JUN 2024 11:13
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.6.17)  19 JUN 2024 15:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1481,13 +1481,19 @@ Package longtable Warning: Column widths have changed
 (longtable)                in table 4 on input line 659.
 
 
+LaTeX Warning: Reference `tbl-skipgram2' on page 10 undefined on input line 667.
+
+
 Package longtable Warning: Column widths have changed
-(longtable)                in table 6 on input line 691.
+(longtable)                in table 6 on input line 692.
+
+
+LaTeX Warning: Reference `tbl-skipgram2' on page 10 undefined on input line 698.
 
 LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/b/n' will be
-(Font)              scaled to size 10.0pt on input line 708.
+(Font)              scaled to size 10.0pt on input line 709.
 
-LaTeX Warning: Reference `sec-embedding-magnitude' on page 10 undefined on input line 708.
+LaTeX Warning: Reference `sec-embedding-magnitude' on page 10 undefined on input line 709.
 
 
 
@@ -1507,11 +1513,6 @@ Overfull \hbox (14.22499pt too wide) in paragraph at lines 783--783
 [14]
 
 [15]
-Underfull \vbox (badness 2042) has occurred while \output is active []
-
-
-
-[16]
 Missing character: There is no מ (U+05DE) in font [lmmono12-regular]:!
 Missing character: There is no ח (U+05D7) in font [lmmono12-regular]:!
 Missing character: There is no ש (U+05E9) in font [lmmono12-regular]:!
@@ -1643,6 +1644,11 @@ Missing character: There is no ב (U+05D1) in font [lmmono12-regular]:!
 Missing character: There is no ו (U+05D5) in font [lmmono12-regular]:!
 Missing character: There is no ת (U+05EA) in font [lmmono12-regular]:!
 
+Underfull \vbox (badness 4531) has occurred while \output is active []
+
+
+
+[16]
 
 [17]
 File: embeddings_paper_files/figure-pdf/fig-dotprod-1.pdf Graphic file (type pdf)
@@ -1655,26 +1661,15 @@ File: embeddings_paper_files/figure-pdf/fig-dotprod-1.pdf Graphic file (type pdf
 
 [20]
 
-LaTeX Font Warning: Font shape `TU/lmtt/bx/it' in size <12> not available
-(Font)              Font shape `TU/lmtt/b/sl' tried instead on input line 1096.
-
-
-
 [21]
 
 [22]
 
 [23]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
 
 [24]
 
 [25]
-Underfull \vbox (badness 2529) has occurred while \output is active []
-
-
 
 [26]
 
@@ -1682,38 +1677,41 @@ Underfull \vbox (badness 2529) has occurred while \output is active []
 
 [28]
 LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/it' will be
-(Font)              scaled to size 10.0pt on input line 1455.
+(Font)              scaled to size 10.0pt on input line 1434.
 
 
 [29]
 
 [30]
 
-LaTeX Warning: Reference `fig-parallelogram' on page 31 undefined on input line 1518.
+LaTeX Warning: Reference `fig-parallelogram' on page 31 undefined on input line 1497.
 
 File: embeddings_paper_files/figure-pdf/fig-parallelogram-1.pdf Graphic file (type pdf)
 <use embeddings_paper_files/figure-pdf/fig-parallelogram-1.pdf>
 
-LaTeX Warning: Reference `fig-parallelogram' on page 31 undefined on input line 1544.
+LaTeX Warning: Reference `fig-parallelogram' on page 31 undefined on input line 1523.
+
+
+LaTeX Warning: Reference `fig-parallelogram' on page 31 undefined on input line 1560.
 
 
 
 [31]
-
-LaTeX Warning: Reference `fig-parallelogram' on page 32 undefined on input line 1581.
+Underfull \vbox (badness 2035) has occurred while \output is active []
 
 
 
 [32]
 
-LaTeX Warning: Reference `fig-projection' on page 33 undefined on input line 1602.
+LaTeX Warning: Reference `fig-projection' on page 33 undefined on input line 1581.
 
 File: embeddings_paper_files/figure-pdf/fig-projection-1.pdf Graphic file (type pdf)
 <use embeddings_paper_files/figure-pdf/fig-projection-1.pdf>
 
 
 [33]
-Underfull \vbox (badness 1281) has occurred while \output is active []
+Overfull \vbox (2.10355pt too high) detected at line 1642
+ []
 
 
 
@@ -1817,14 +1815,14 @@ Package longtable Warning: Table widths have changed. Rerun LaTeX.
 ! Missing \endcsname inserted.
 <to be read again> 
                    \protect 
-l.156 ...f1\_by\_dictsize}}}{figure.caption.44}{}}
+l.157 ...f1\_by\_dictsize}}}{figure.caption.44}{}}
                                                    
 Here is how much of TeX's memory you used:
- 38414 strings out of 476194
- 781026 string characters out of 5783861
+ 38411 strings out of 476194
+ 780960 string characters out of 5783861
  1939557 words of memory out of 5000000
- 60300 multiletter control sequences out of 15000+600000
- 592301 words of font info for 137 fonts, out of 8000000 for 9000
+ 60299 multiletter control sequences out of 15000+600000
+ 592293 words of font info for 136 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  99i,12n,125p,907b,741s stack positions out of 10000i,1000n,20000p,200000b,200000s
 

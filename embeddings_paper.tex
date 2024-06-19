@@ -608,7 +608,7 @@ Algorithms that learn the meanings of tokens (or at least the relations
 between their meanings) from these patterns of co-occurrence are called
 Distributional Semantic Models (DSMs).
 
-\subsubsection{A Common Misconception}\label{a-common-misconception}
+\paragraph{A Common Misconception.}\label{a-common-misconception}
 
 Two words are NOT considered similar based on whether they appear
 together often. Words are similar when they tend to appear in similar
@@ -663,7 +663,8 @@ frustrating & is \\
 The negative sampling method adds more rows to the training set, this
 time from words and contexts that do not go together, drawn at random
 from other parts of the corpus. A third column indicates whether the
-pair of words are in fact neighbors or not:
+pair of words are in fact neighbors or not, as shown in
+Table~\ref{tbl-skipgram2}.
 
 \begin{table}
 
@@ -693,26 +694,26 @@ is & jump & 0 \\
 \end{table}
 
 The word2vec model takes the first two columns as input and tries to
-predict whether the two words are neighbors or not. It does this by
-learning two separate sets of embeddings: word embeddings and context
-embeddings. For each row of the training set, the model looks up the
-embedding for the target word and the embedding for the context word,
-and computes the dot product between the two vectors. The dot product is
-closely related to the cosine similarity---it measures how similar the
-two embeddings are. If the dot product is large (i.e.~the word embedding
-and the context embedding are very similar), the model predicts that the
-two words are likely to be real neighbors. If the dot product is small,
-the model predicts that the two words were probably sampled at
-random.\footnote{To learn why models like word2vec use dot products
-  instead of cosine similarity, see
+predict whether the two words are neighbors or not
+see~\ref{tbl-skipgram2}. It does this by learning two separate sets of
+embeddings: word embeddings and context embeddings. For each row of the
+training set, the model looks up the embedding for the target word and
+the embedding for the context word, and computes the dot product between
+the two vectors. The dot product is closely related to the cosine
+similarity---it measures how similar the two embeddings are. If the dot
+product is large (i.e.~the word embedding and the context embedding are
+very similar), the model predicts that the two words are likely to be
+real neighbors. If the dot product is small, the model predicts that the
+two words were probably sampled at random.\footnote{To learn why models
+  like word2vec use dot products instead of cosine similarity, see
   Section~\ref{sec-embedding-magnitude} below.} During training, the
 model learns which word embeddings and context embeddings will do best
 at this binary prediction task.
 
 Note that word2vec (as well as fastText and GloVe) give each word two
 embeddings: one for when the word is the target and another for when it
-is the context (Goldberg \& Levy, 2014). This may seem strange, but it
-in fact overcomes two important challenges of semantic embedding:
+is the context (Goldberg \& Levy, 2014). This overcomes two important
+challenges of semantic embedding:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -725,7 +726,7 @@ in fact overcomes two important challenges of semantic embedding:
   analysis (Deerwester et al., 1990), which are based directly on broad
   patterns of covariance in word frequencies, will pick up on the fact
   that ``fridge'' and ``refrigerator'' are negatively correlated and
-  push them further apart than they should be. word2vec, on the other
+  push them further apart than they should be. Word2vec, on the other
   hand, can learn a \emph{context embedding} for ``refrigerator'' that
   is not so close to the \emph{word embedding} for ``fridge'', even when
   the word embeddings of the two words are very close. This allows
@@ -749,9 +750,9 @@ in fact overcomes two important challenges of semantic embedding:
   the \emph{context embedding} of ``tiger'', allowing for the asymmetry
   observed in mental associations.\footnote{To the best of our
     knowledge, pretrained context embeddings are not available online.
-    If you are interested in associative (rather than conceptual)
-    relationships between words, we recommend training your own model. A
-    guide on training a custom GloVe model in R can be found at
+    For associative (rather than conceptual) relationships between
+    words, we recommend training a new model. A guide on training a
+    custom GloVe model in R can be found at
     https://quanteda.io/articles/pkgdown/replication/text2vec.html.}
   Since older models like latent semantic analysis only produce one
   embedding per word, they cannot capture this asymmetry.
@@ -763,23 +764,22 @@ Internet\footnote{See for example
   and
   https://www.kaggle.com/datasets/pkugoodspeed/nlpword2vecembeddingspretrained}.
 Because these models are trained on very large datasets and are already
-known to perform well, it almost never makes sense to train your own
-word2vec from scratch.\footnote{Training a custom word embeddings may be
-  useful in certain specialized cases. For example, a researcher who is
-  interested in quantifying differences in individual word use between
-  multiple large groups of text might train a GloVe model on texts
-  written by conservatives and another on texts written by liberals, and
+known to perform well, it not necessary to train a new word2vec from
+scratch.\footnote{Training custom word embeddings may be useful in
+  certain specialized cases. For example, a researcher who is interested
+  in quantifying differences in individual word use between multiple
+  large groups of text might train a GloVe model on texts written by
+  conservatives and another on texts written by liberals, and
   demonstrate that the word ``skirt'' is closer to the word ``woman'' in
   conservative language than it is in liberal language. A guide on
   training custom GloVe models in R can be found at
   https://quanteda.io/articles/pkgdown/replication/text2vec.html.}
 
 A downloaded pretrained model (generally a .bin file), can be opened in
-R with the \texttt{word2vec} package.\footnote{Available at
+R with the word2vec package.\footnote{Available at
   https://cran.r-project.org/web/packages/word2vec/readme/README.html}
-In the example code below, we use a model trained on the entirety of
-Google news, which uses 300-dimensional embeddings.\footnote{Available
-  at
+In the example code below, we use a model trained on Google news, which
+uses 300-dimensional embeddings.\footnote{Available at
   https://www.kaggle.com/datasets/pkugoodspeed/nlpword2vecembeddingspretrained/download?datasetVersionNumber=1}
 
 \begin{Shaded}
@@ -794,43 +794,43 @@ Google news, which uses 300-dimensional embeddings.\footnote{Available
 \end{Highlighting}
 \end{Shaded}
 
-To find embeddings of specific words using the \texttt{word2vec}
-package, use
+To find embeddings of specific words using the word2vec package, use
 \texttt{predict(word2vec\_mod,\ c("word1",\ "word2"),\ type\ =\ "embedding")}.
 To get embeddings for full documents, average the embeddings of the
-words in the document. In our supplementary materials, we provide the
+words in the document. In our github repo, we provide the
 \texttt{textstat\_embedding} to compute document embeddings directly
-from a document-feature matrix (DFM).
+from a document-feature matrix (DFM).\footnote{https://github.com/rimonim/embeddings\_tutorial/blob/master/embedding\_scripts.R}
 
 \paragraph{Advantages and Disadvantages of
 Word2vec.}\label{advantages-and-disadvantages-of-word2vec}
 
-By distinguishing between target and context words, word2vec stays true
-to the distributional hypothesis. Since it is not based on counts, it
-also avoids problems with non-linear relationships. Word2vec, like other
-word embedding models, is also efficient for use on large datasets,
-since pretrained embeddings need only to be looked up for each word. The
-main disadvantage of word2vec is that it assumes that each word has only
-one meaning. This means that it has trouble with words that can mean
-more than one thing (e.g.~deep learning \emph{model} vs.~fashion
-\emph{model}). word2vec will learn the average of these meanings.
-Furthermore, word2vec is primarily effective in English. This is because
-English words are generally spelled the same no matter where they are in
-a sentence. word2vec does not work as well for languages that have more
-prefixes, suffixes, conjugations, etc., since it has to relearn the
-meaning for each form of the word. Finally, word2vec is made less
-appealing to researchers due to the relative paucity of pretrained
+By distinguishing between target and context words, word2vec allows
+greater fidelity to the distributional hypothesis. Since it is not based
+on counts, it also avoids problems with non-linear relationships and
+irregular distributional properties of word frequencies (see Baayen,
+2001). Word2vec, like other word embedding models, is also efficient for
+use on large datasets, since pretrained embeddings can be looked up for
+each word. The main disadvantage of word2vec is that it assumes that
+each word has only one meaning. This means that it has trouble with
+words that can mean more than one thing (e.g.~deep learning \emph{model}
+vs.~fashion \emph{model}). Word2vec will learn the average of these
+meanings. Furthermore, word2vec is primarily effective in English. This
+is because English words are generally spelled the same no matter where
+they are in a sentence. Word2vec does not work as well for languages
+that have more prefixes, suffixes, conjugations, etc., since it has to
+relearn the meaning for each form of the word. Finally, word2vec is made
+less appealing to researchers due to the relative paucity of pretrained
 models available online.
 
 \subsubsection{GloVe}\label{glove}
 
-word2vec produces spectacularly rich and reliable vector embeddings, but
+Word2vec produces spectacularly rich and reliable vector embeddings, but
 their reliance on randomly sampled pairs of words and contexts makes
 them somewhat noisy and overly sensitive to frequent tokens. The
 developers of word2vec managed to fix these problems by strategically
 filtering the training dataset. Pennington et al. (2014), in contrast,
 developed a refactored model that corrects for frequency internally:
-Global Vectors (GloVe) is designed on the same principles of word2vec,
+Global Vectors (GloVe) is designed on the same principles as word2vec,
 but it is computed from global patterns of co-occurrence rather than
 individual examples.
 
@@ -840,9 +840,9 @@ embeddings are so similar to word2vec embeddings, we will not go into
 detail here about the way the GloVe algorithm works. Nevertheless, GloVe
 does have one very important advantage over word2vec: Better pretrained
 models are available online. Whereas the most easily available word2vec
-model is trained on news, the GloVe website\footnote{https://nlp.stanford.edu/projects/glove/}
+model is trained on news articles, the GloVe website\footnote{https://nlp.stanford.edu/projects/glove/}
 offers models trained on social media (\texttt{glove.twitter.27B.zip})
-and on large portions of the Internet (Common Crawl). These models
+and on large portions of the Internet (Rana, 2010). These models
 generalize better to social media texts (since they were trained on
 similar texts) and are likely to have richer representations of
 emotional or social content, since more examples of that content appear
@@ -869,20 +869,12 @@ loads a downloaded pretrained model for use.
 GloVe.}\label{advantages-and-disadvantages-of-glove}
 
 GloVe's efficient training procedure has made it a popular choice for
-researchers who wish to train their own models.\footnote{Training a
-  custom word embeddings may be useful in certain specialized cases. For
-  example, a researcher who is interested in quantifying differences in
-  individual word use between multiple large groups of text might train
-  a GloVe model on texts written by conservatives and another on texts
-  written by liberals, and demonstrate that the word ``skirt'' is closer
-  to the word ``woman'' in conservative language than it is in liberal
-  language. A guide on training custom GloVe models in R can be found at
-  https://quanteda.io/articles/pkgdown/replication/text2vec.html.} GloVe
-is also appealing for researchers looking for high quality,
-psychologically sensitive, pretrained models, since a number of such
-models are available for download online. Like word2vec, GloVe's primary
-downsides are that it relies on word-level meaning and that it has
-limited applicability to languages other than English.
+researchers who wish to train their own models. GloVe is also appealing
+for researchers looking for high quality, psychologically sensitive,
+pretrained models, since a number of such models are available for
+download online. Like word2vec, GloVe's primary downsides are that it
+relies on word-level meaning and that it has limited applicability to
+languages other than English.
 
 \subsubsection{FastText}\label{fasttext}
 
@@ -912,11 +904,10 @@ appear in the training dataset (e.g.~it could quantify the meaning of
 ``morpheme'', and ``chronologically'').
 
 After downloading a pretrained model from Grave et al. (2018), you can
-use fastText in R through the \texttt{fastTextR} package.\footnote{Available
-  at
+use fastText in R through the fastTextR package.\footnote{Available at
   https://cran.r-project.org/web/packages/fastTextR/vignettes/Word\_representations.html}
-Conveniently, \texttt{fastTextR} includes a dedicated function for
-obtaining full text embeddings, \texttt{ft\_sentence\_vectors()}.
+FastTextR includes a dedicated function for obtaining full text
+embeddings, \texttt{ft\_sentence\_vectors()}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -940,7 +931,7 @@ obtaining full text embeddings, \texttt{ft\_sentence\_vectors()}.
 \paragraph{Advantages and Disadvantages of
 FastText.}\label{advantages-and-disadvantages-of-fasttext}
 
-Relative to word2vec and GloVe fastText performs much better on
+Relative to word2vec and GloVe, fastText performs much better on
 morphologically rich languages. Pretrained models for 157 languages are
 available online.\footnote{https://fasttext.cc/docs/en/crawl-vectors.html}
 Furthermore, fastText has increased performance for rare words, and is
@@ -992,14 +983,13 @@ magnitude because it does not indicate a specific context, while the
 word ``psychology'' has a very high magnitude because its use is
 associated with a very specific context. Therefore, the magnitude of the
 embedding measures how representative it is of certain contexts as
-opposed to others, similar to averaging the TF-IDF of a word across a
-corpus.
+opposed to others.
 
 This is the reason why an accurate embedding of a full text can be
-obtained by averaging the embeddings of each of its words. You might
-think that averaging word embeddings will lead to overvaluing common
+obtained by averaging the embeddings of each of its words. One may
+assume that averaging word embeddings will lead to overvaluing common
 words, like ``the'' and ``I'', which appear more frequently but are not
-very informative about the text's meaning. Don't worry, because the
+very informative about the text's meaning. In fact, however, the
 magnitude of a word embedding is smaller for common words, which means
 that common words have less impact on the average (Ethayarajh et al.,
 2019).
@@ -1008,11 +998,10 @@ Once average embeddings are computed, most researchers use cosine
 similarity to assess the relationships between embeddings. The cosine
 similarity measures only the meanings of the two embeddings, while
 ignoring how specific they are to those meanings. If the specificity of
-texts to your construct of interest is important to your analysis,
-consider using the dot product instead of cosine similarity. Despite its
-unpopularity as a similarity metric, the dot product may sometimes be
-optimal for analyzing texts with decontextualized embeddings (See
-Appendix A).
+texts to a construct of interest is important to the analysis, the dot
+product may be more appropriate than the cosine similarity. For this
+reason, the dot product may sometimes be optimal for analyzing texts
+with decontextualized embeddings (See Appendix A).
 
 \subsection{Contextualization With Large Language
 Models}\label{contextualization-with-large-language-models}
@@ -1021,12 +1010,12 @@ The models we have discussed so far represent the meaning of each token
 as a point in multidimensional space: a word embedding. Word embeddings
 generated by models like word2vec or GloVe are often referred to as
 \textbf{decontextualized embeddings}. This name may be confusing, since
-the whole purpose of those models is to associate tokens with the
-contexts in which they tend to appear. A better name might be
-\emph{average context embeddings}, since the best they can hope to
-represent is the average of the contexts in which a token appears
-throughout the training corpus. For example, consider the following uses
-of the token ``short''.
+the purpose of these models is to associate tokens with the contexts in
+which they tend to appear. Nevertheless, these models are
+decontextualized in that they can allow only one context representation
+per token---they therefore represent the average of the contexts in
+which a token appears throughout the training corpus. For example,
+consider the following uses of the token ``short''.
 
 \begin{quote}
 My dad is very \emph{short}.
@@ -1051,71 +1040,63 @@ single word at a time, their representation of the word \emph{short}
 will only capture that word's average meaning.
 
 How can we move beyond the average meaning and capture the different
-meanings words take on in different contexts? You are probably already
-familiar with Large Language Models (LLMs) like ChatGPT and Claude. At
-their core, much of what these models do is exactly this: They find the
+meanings words take on in different contexts? Readers may be familiar
+with Large Language Models (LLMs) like ChatGPT and Claude. At their
+core, much of what these models do is exactly this: They find the
 intricate relationships between tokens in a text and use them to develop
 a new understanding of what these tokens mean in the particular context
 of that text. For this reason, embeddings produced by these models are
 often referred to as \textbf{contextualized embeddings}.
 
-Even readers who are familiar with ChatGPT may not have realized that it
-uses embeddings. What do embeddings have to do with generating text? The
-core of all modern LLMs is a model called the \emph{transformer}. We
+The core of all modern LLMs is a model called the \emph{transformer}. We
 will not cover exactly how transformers work. For the purposes of this
-guide, the offer only the broad overview necessary to make proper use of
-them in research: Transformers start by converting all the words in a
-text into word embeddings, just like word2vec or GloVe. At the start,
-these word embeddings represent the average meaning of each word. The
-transformer then estimates how each word in the text might be relevant
-for better understanding the meaning of the other words. For example, if
-``circuit'' appears right after ``short'', the embedding of ``short''
-should probably be tweaked. Once it has identified this connection, the
-transformer computes what ``circuit'' should add to a word that it is
-associated with, moving the ``short'' embedding closer to embeddings for
-electrical concepts. A full LLM has many \emph{layers}. In each layer,
-the LLM identifies more connections between embeddings and shifts the
-embeddings in the vector space to add more nuance to their
-representations. When it gets to the final layer, the LLM uses the
-enriched embeddings of the words in the text for whatever task it was
-trained to do (e.g.~predicting what the next word will be, or
-identifying whether the text is spam or not).
+guide, we offer only the broad overview necessary to make proper use of
+them in research: In processing a text, transformers first convert all
+the words into word embeddings, as word2vec or GloVe would do. At the
+start, these word embeddings represent the average meaning of each word.
+The transformer then estimates how each word in the text might be
+relevant for better understanding the meaning of the other words. For
+example, if ``circuit'' appears immediately following ``short'', the
+embedding of ``short'' should probably be tweaked. Once it has
+identified this connection, the transformer computes what ``circuit''
+should add to a word that it is associated with, moving the ``short''
+embedding closer to embeddings for electrical concepts. A full LLM has
+many \emph{layers}. In each layer, the LLM identifies more connections
+between embeddings and shifts the embeddings in the vector space to add
+more nuance to their representations. When it gets to the final layer,
+the LLM uses the enriched embeddings of the words in the text for
+whatever task it was trained to do (e.g.~predicting what the next word
+will be, or identifying whether the text is spam or not).
 
-Even though LLMs can be extremely complex and capture many nonlinear
-relationships between concepts, the transformer architecture forces them
-to organize their embeddings in a roughly linear space in which each
-direction has a consistent meaning---a critical property for analyzing
-embeddings with cosine similarity and other straightforward methods. In
-order to extract an LLM's rich, contextualized embeddings, all we need
-to do is run it on a text and stop it before it finishes predicting the
-next word (or whatever else it was trained to do). This way, we can read
-the LLM's mind, capturing all of the rich associations it has with the
-text.
+In order to extract an LLM's rich, contextualized embeddings,
+researchers can run it on a text and stop it before it finishes
+predicting the next word (or anything else it was trained to do). This
+way, we can read the LLM's mind, capturing all of the rich associations
+it has with the text.
 
-\subsubsection{\texorpdfstring{Hugging Face and the \texttt{text}
-Package}{Hugging Face and the text Package}}\label{hugging-face-and-the-text-package}
+\subsubsection{Hugging Face and the text
+Package}\label{hugging-face-and-the-text-package}
 
 Leading commercial LLMs like GPT-4 are hidden behind APIs so that their
-inner workings are kept secret. We therefore cannot access the
+inner workings are kept secret. Researchers therefore cannot access the
 embeddings of these high profile models. Nevertheless, plenty of models
 that are almost as good are open source and easily accessible through
 Hugging Face Transformers.\footnote{https://huggingface.co/docs/transformers/index}
-New open source models are added to Hugging Face every day, often by
-leading companies like Google and Meta. Any text-based transformer model
-can be accessed in R using the \texttt{text} package (Kjell et al.,
-2021).\footnote{The \texttt{text} package runs Python code behind the
-  scenes, so new users will have to set up a Python environment for it
-  to run properly. For instructions on how to do this, see
-  \href{https://www.r-text.org/articles/huggingface_in_r_extended_installation_guide.html}{here}.}
+Any text-based transformer model can be accessed in R using the
+\texttt{text} package (Kjell et al., 2021).\footnote{The \texttt{text}
+  package runs Python code behind the scenes, so new users will have to
+  set up a Python environment for it to run properly. For instructions
+  on how to do this, see
+  https://www.r-text.org/articles/huggingface\_in\_r\_extended\_installation\_guide.html.}
 
 The key tool provided by the \texttt{text} package is
 \texttt{textEmbed()}. This function takes in raw texts and generates
 contextualized embeddings using a specified open source model. Here we
 use \texttt{BAAI/bge-base-en-v1.5} (Xiao et al., 2023), a relatively
-lightweight model that nonetheless achieves state of the art performance
+lightweight model that nonetheless achieves state-of-the-art performance
 on the MTEB benchmark, a leading resource for evaluating text embedding
 models (Muennighoff et al., 2022).\footnote{The current MTEB leaderboard
-  can be found at https://huggingface.co/spaces/mteb/leaderboard} By
+  can be found at https://huggingface.co/spaces/mteb/leaderboard.} By
 default, \texttt{textEmbed()} creates the full text embedding by
 averaging the contextualized embeddings of each token in the text.
 However, \texttt{BAAI/bge-base-en-v1.5} is trained to provide optimal
@@ -1161,18 +1142,16 @@ computation.
 Load}\label{managing-computational-load}
 
 Running large neural networks on a personal computer can be time
-consuming at best. At worst, the computer runs out of memory and your R
-session crashes. For readers who encounter problems like these, the
-following are some ways to lessen the computational load when calling
-\texttt{textEmbed()}:
+consuming. The following are some ways to lessen the computational load
+when calling \texttt{textEmbed()}:
 
 \begin{itemize}
 \tightlist
 \item
   Use a smaller model. Hugging Face model pages generally state how many
-  parameters the model has. This is generally a good indication of how
-  much computational capacity the model needs. For example, consider
-  using \texttt{distilbert-base-uncased} (67M params) or
+  parameters the model has. This is a good indication of how much
+  computational capacity the model needs. For example, consider using
+  \texttt{distilbert-base-uncased} (67M params) or
   \texttt{albert-base-v2} (11.8M params) instead of
   \texttt{bert-base-uncased} (110M params).
 \item
@@ -1181,14 +1160,14 @@ following are some ways to lessen the computational load when calling
   If individual token embeddings are not needed, set
   \texttt{keep\_token\_embeddings\ =\ FALSE}.
 \item
-  To avoid aggregation costs, only ask for individual token embeddings
+  To avoid aggregation costs, only querry individual token embeddings
   (e.g.~\texttt{tokens\_select\ =\ "{[}CLS{]}"}).
 \item
   Run the model on the GPU with
   \texttt{device\ =\ \textquotesingle{}gpu\textquotesingle{}} (not
   available for Apple M1 and M2 chips).
 \item
-  Break it up the dataset into smaller groups of texts, run each on its
+  Break up the dataset into smaller groups of texts, run each on its
   own, and join them back together afterward.
 \end{itemize}
 
@@ -1221,7 +1200,7 @@ encourage embeddings to spread out evenly in the embedding space, or
 that explicitly optimize for reliable cosine similarity metrics. Many of
 these models can be found on the leaderboard for the MTEB benchmark
 (Muennighoff et al., 2022).\footnote{The current MTEB leaderboard can be
-  found at https://huggingface.co/spaces/mteb/leaderboard}
+  found at https://huggingface.co/spaces/mteb/leaderboard.}
 
 \paragraph{Advantages and Disadvantages of Contextualized
 Embeddings.}\label{advantages-and-disadvantages-of-contextualized-embeddings}
@@ -1625,10 +1604,10 @@ and sad, we create a scale from happy to sad.\footnote{Taking the dot
   product with an anchored vector yields an unstandardized version of
   this scale. For a standardized version of this function, in which
   ``sad'' is at 0 and ``happy'' is at 1 on the scale, use the
-  \texttt{anchored\_sim()} function included in
-  \href{https://github.com/rimonim/ds4psych/blob/master/vector_scripts.R}{our
-  Github repo}.} This is sometimes referred to as \textbf{semantic
-projection} (Grand et al., 2022).
+  \texttt{anchored\_sim()} function included in our Github repo at
+  https://github.com/rimonim/embeddings\_tutorial/blob/master/embedding\_scripts.R.}
+This is sometimes referred to as \textbf{semantic projection} (Grand et
+al., 2022).
 
 Anchored vectors can be applied to any construct that has a clear
 opposite, whether operationalized through CCR, DDR, or other methods.
@@ -2048,6 +2027,11 @@ alignment: Differences between spoken and text-based conversation.
 \emph{Lingua}, \emph{293}, 103592.
 https://doi.org/\url{https://doi.org/10.1016/j.lingua.2023.103592}
 
+\bibitem[\citeproctext]{ref-rana_2010}
+Rana, A. (2010). \emph{Common crawl -- building an open web-scale crawl
+using hadoop}.
+\url{https://www.slideshare.net/hadoopusergroup/common-crawlpresentation}
+
 \bibitem[\citeproctext]{ref-reif_etal_2019}
 Reif, E., Yuan, A., Wattenberg, M., Viegas, F. B., Coenen, A., Pearce,
 A., \& Kim, B. (2019). Visualizing and measuring the geometry of BERT.
@@ -2359,8 +2343,9 @@ The anchored vector is equivalent to the embedding of the questionnaire
 the collectivism, and vice versa. To obtain negated versions of the
 remaining questionnaires, we queried GPT-4o and manually curated the
 results.\footnote{All matrials, including original and negated
-  questionnaire items, are available on our Github repo.} We
-investigated the following metrics:
+  questionnaire items, are available on our Github repo at
+  https://github.com/rimonim/embeddings\_tutorial.} We investigated the
+following metrics:
 
 \begin{itemize}
 \tightlist
