@@ -58,7 +58,7 @@ A second barrier to the use of naturalistic language in psychology is the proble
 
 Nuanced quantitative measures of language can also solve a third historical problem with naturalistic language in psychology: its social nature. People do not write or speak in a vacuum, they participate in conversations or group discussions, considering their audiences as they form their words. For the researcher, this means that language is full of uncontrolled, confounding variables: Is the speaker responding to another speaker? Who is the other speaker? How many participants are there in the conversation? Researchers in the field of psycholinguistics have tried to solve these problems by isolating speakers in a laboratory setting, contriving situations in which participants process and produce speech without the uncontrolled variability of conversational partners [@oconnell_kowal_2003]. Nevertheless, the inherently social nature of language has made it difficult to analyze language behavior in even remotely naturalistic settings. A few decades ago the question "How similar are Daniel's utterances to Amos's utterances?" would have seemed hopelessly ill-defined. Similar in what way? Today, answering this question is simple with vector-based text embeddings. 
 
-In this guide, we introduce state of the art methods for using neural text embeddings to quantify psychological dimensions of text. We aim to explain the conceptual foundations of these methods in a way that is accessible to psychology researchers with no background in machine learning or mathematics. We note methodological concerns and give concrete recommendations regarding proper usage of the techniques discussed. Throughout, we provide example code in R using the tidyverse [@wickham_etal_2019] and Quanteda [@benoit_etal_2018] packages. 
+In this guide, we introduce state of the art methods for using neural text embeddings to quantify psychological dimensions of text. We aim to explain the conceptual foundations of these methods in a way that is accessible to psychology researchers with no background in machine learning or mathematics. We note methodological concerns and give concrete recommendations regarding proper usage of the techniques discussed. Throughout, we provide example code in R using the tidyverse [@wickham_etal_2019] and Quanteda [@benoit_etal_2018] packages. Other packages are used more sparingly and will be noted as they become relevant.
 
 ```{r}
 #| eval: false
@@ -67,7 +67,7 @@ library(tidyverse)
 library(quanteda)
 ```
 
-We assume that the reader has basic proficiency in both of these frameworks. For a broader introduction to text analysis using the tidyverse and Quanteda, see @teitelbaum_simchon_2024. To follow along with the example code for this guide, please also load our suite of custom functions, available on our Github repo.[^intro-1] For readers who are primarily interested in the example code, the Github repo offers full example workflows for each method discussed. 
+We assume that the reader has basic proficiency in both of these frameworks. For a broader introduction to psychological text analysis using the tidyverse and Quanteda, see @teitelbaum_simchon_2024. To follow along with the example code for this guide, please also load our suite of custom functions, available on our Github repo.[^intro-1] For readers who are primarily interested in the example code, the Github repo offers full example workflows for each method discussed. 
 
 [^intro-1]: https://github.com/rimonim/embeddings_tutorial/blob/master/embedding_scripts.R
 
@@ -78,7 +78,7 @@ source("embedding_scripts.R")
 
 ## Abstract Embedding Spaces
 
-The modern ability to generate nuanced, quantitative representations of language relies on a key assumption: The meaning of any word (or other subcomponent of text, called a "token") can be represented as a point in a single, continuous space. This space is referred to as the _semantic embedding space_, since tokens are "embedded" into it according to their semantic content. Points close to each other in the embedding space have similar meanings, while those far away convey different meanings. While certain directions in this space may correspond to a familiar scale along which meaning can vary (e.g. largeness vs. smallness), the dimensions of the space are essentially abstract; points are only defined relative to each other, through the use of distance metrics. Embedding spaces can be difficult to imagine, not only because of their abstract nature but also because they have many more than three dimensions---often hundreds or even thousands. This high dimensionality is necessary to represent the many ways in which linguistic meaning can vary.
+The modern ability to generate nuanced, quantitative representations of language relies on a key assumption: The meaning of any word (or other subcomponent of text, called a "token") can be represented as a point in a single, continuous space. This space is referred to as the *semantic embedding space*, since tokens are "embedded" into it according to their semantic content. Points close to each other in the embedding space have similar meanings, while those far away convey different meanings. While certain directions in this space may correspond to a familiar scale along which meaning can vary (e.g. largeness vs. smallness), the dimensions of the space are essentially abstract; points are only defined relative to each other, through the use of distance metrics. Embedding spaces can be difficult to imagine, not only because of their abstract nature but also because they have many more than three dimensions---often hundreds or even thousands. This high dimensionality is necessary to represent the many ways in which linguistic meaning can vary.
 
 ## Distance and Similarity
 
@@ -92,7 +92,7 @@ $$
 d\left( A,B\right)   = \sqrt {\sum _{i=1}^{n}  \left( A_{i}-B_{i}\right)^2 }
 $$
 
-A low Euclidean distance means two vectors are very similar. 
+A low Euclidean distance means two vectors are very similar.
 
 ### Cosine Similarity
 
@@ -155,7 +155,7 @@ euc_plot <- example_vecs |>
 euc_plot + cos_plot
 ```
 
-The cosine is convenient because it is always between -1 and 1: When the two vectors are pointing in a similar direction, the cosine is close to 1, and when they are pointing in a near-opposite direction (180°), the cosine is close to -1. 
+The cosine is convenient because it is always between -1 and 1: When the two vectors are pointing in a similar direction, the cosine is close to 1, and when they are pointing in a near-opposite direction (180°), the cosine is close to -1.
 
 Looking at @fig-distmeasures, a question arises: Why should the angle be fixed at the zero point? What does the zero point have to do with anything? Indeed, cosine similarity works best when the vector space is centered at zero (or close to it). In other words, it works best when zero represents a medium level of each variable. This fact is sometimes taken for granted because, in practice, many vector spaces are already centered at zero. In the case of neural word embeddings, as we shall see, this property is guaranteed by the model's architecture. In the case of transformer neural networks however, the use of specialized models may be necessary to guarantee zero-centered embedding spaces.
 
@@ -179,7 +179,7 @@ cos_sim <- function(x, y){
 }
 ```
 
-Readers comfortable with cosines may be satisfied with the explanation we have given so far. Nevertheless, many psychologists might find it helpful to consider the relationship between cosine similarity and a more familiar statistic that ranges between -1 and 1: the Pearson correlation coefficient (i.e. regular old correlation). Cosine similarity measures the similarity between two _vectors_, while the correlation coefficient measures the similarity between two _variables_. Now just imagine our vectors as variables, with each dimension as an observation, as shown in @fig-cosineintuition A.
+Readers comfortable with cosines may be satisfied with the explanation we have given so far. Nevertheless, many psychologists might find it helpful to consider the relationship between cosine similarity and a more familiar statistic that ranges between -1 and 1: the Pearson correlation coefficient. Cosine similarity measures the similarity between two _vectors_, while the correlation coefficient measures the similarity between two _variables_. Now just imagine our vectors as variables, with each dimension as an observation, as shown in @fig-cosineintuition A.
 
 ```{r}
 #| echo: false
@@ -275,26 +275,26 @@ bind_rows(
 
 The word2vec model takes the first two columns as input and tries to predict whether the two words are neighbors or not. It does this by learning two separate sets of embeddings: word embeddings and context embeddings. For each row of the training set, the model looks up the embedding for the target word and the embedding for the context word, and computes the dot product between the two vectors. The dot product is closely related to the cosine similarity---it measures how similar the two embeddings are. If the dot product is large (i.e. the word embedding and the context embedding are very similar), the model predicts that the two words are likely to be real neighbors. If the dot product is small, the model predicts that the two words were probably sampled at random.[^word2vec-3] During training, the model learns which word embeddings and context embeddings will do best at this binary prediction task.
 
-[^word2vec-3]:    To learn why models like word2vec use dot products instead of cosine similarity, see @sec-embedding-magnitude below.
+[^word2vec-3]: To learn why models like word2vec use dot products instead of cosine similarity, see @sec-embedding-magnitude below.
 
 Note that word2vec (as well as fastText and GloVe) give each word two embeddings: one for when the word is the target and another for when it is the context [@goldberg_levy_2014]. This may seem strange, but it in fact overcomes two important challenges of semantic embedding:
 
-1.    **A Nuance of the Distributional Hypothesis.** Recall the case of "fridge" and "refrigerator", which almost never appear together in the same sentence, but do tend to appear next to similar groupings of other words. Earlier word embedding models such as latent semantic analysis [@deerwester_etal_1990], which are based directly on broad patterns of covariance in word frequencies, will pick up on the fact that "fridge" and "refrigerator" are negatively correlated and push them further apart than they should be. word2vec, on the other hand, can learn a _context embedding_ for "refrigerator" that is not so close to the _word embedding_ for "fridge", even when the word embeddings of the two words are very close. This allows word2vec to recognize that "refrigerator" and "fridge" tend to appear in similar contexts, but are unlikely to appear together.
-2.    **Associative Asymmetry.** The cosine similarity between two word embeddings gives the best estimate of _conceptual similarity_ [@torabi-asr_etal_2018]. This is because conceptual similarity is not the same as association in language (or in the mind). In fact, psycholinguists have long known that human associations between two words are asymmetric. For example, people prompted with "leopard" are much more likely to think of "tiger" than people prompted with "tiger" are to think of "leopard" [@tversky_gati_1982]. These sorts of associative connections are closely tied to probabilities of co-occurrence in language and are therefore much better represented by the cosine similarity (or even the dot product) between a word embedding and a context embedding [@torabi-asr_etal_2018]. Thus the association between "leopard" and "tiger" would be represented by the similarity between the _word embedding_ of "leopard" and the _context embedding_ of "tiger", allowing for the asymmetry observed in mental associations.[^word2vec-4] Since older models like latent semantic analysis only produce one embedding per word, they cannot capture this asymmetry.
+1.  **A Nuance of the Distributional Hypothesis.** Recall the case of "fridge" and "refrigerator", which almost never appear together in the same sentence, but do tend to appear next to similar groupings of other words. Earlier word embedding models such as latent semantic analysis [@deerwester_etal_1990], which are based directly on broad patterns of covariance in word frequencies, will pick up on the fact that "fridge" and "refrigerator" are negatively correlated and push them further apart than they should be. word2vec, on the other hand, can learn a *context embedding* for "refrigerator" that is not so close to the *word embedding* for "fridge", even when the word embeddings of the two words are very close. This allows word2vec to recognize that "refrigerator" and "fridge" tend to appear in similar contexts, but are unlikely to appear together.
+2.  **Associative Asymmetry.** The cosine similarity between two word embeddings gives the best estimate of *conceptual similarity* [@torabi-asr_etal_2018]. This is because conceptual similarity is not the same as association in language (or in the mind). In fact, psycholinguists have long known that human associations between two words are asymmetric. For example, people prompted with "leopard" are much more likely to think of "tiger" than people prompted with "tiger" are to think of "leopard" [@tversky_gati_1982]. These sorts of associative connections are closely tied to probabilities of co-occurrence in language and are therefore much better represented by the cosine similarity (or even the dot product) between a word embedding and a context embedding [@torabi-asr_etal_2018]. Thus the association between "leopard" and "tiger" would be represented by the similarity between the *word embedding* of "leopard" and the *context embedding* of "tiger", allowing for the asymmetry observed in mental associations.[^word2vec-4] Since older models like latent semantic analysis only produce one embedding per word, they cannot capture this asymmetry.
 
 [^word2vec-4]:    To the best of our knowledge, pretrained context embeddings are not available online. If you are interested in associative (rather than conceptual) relationships between words, we recommend training your own model. A guide on training a custom GloVe model in R can be found at https://quanteda.io/articles/pkgdown/replication/text2vec.html.
 
-word2vec was revolutionary when it came out. The main reason for this is the efficiency of the training process. This efficiency means that the model can be trained on massive datasets. Larger and more diverse datasets result in more reliable embeddings. A few pretrained models can be easily downloaded from the Internet[^word2vec-5]. Because these models are trained on very large datasets and are already known to perform well, it almost never makes sense to train your own word2vec from scratch.[^word2vec-6]
+Some pretrained word2vec models can be easily downloaded from the Internet[^6]. Because these models are trained on very large datasets and are already known to perform well, it almost never makes sense to train your own word2vec from scratch.[^word2vec-6]
 
-[^word2vec-5]:    See for example https://github.com/maxoodf/word2vec?tab=readme-ov-file#basic-usage and  https://www.kaggle.com/datasets/pkugoodspeed/nlpword2vecembeddingspretrained
+[^6]: See for example https://github.com/maxoodf/word2vec?tab=readme-ov-file#basic-usage and https://www.kaggle.com/datasets/pkugoodspeed/nlpword2vecembeddingspretrained
 
 [^word2vec-6]:    Training a custom word embeddings may be useful in certain specialized cases. For example, a researcher who is interested in quantifying differences in individual word use between multiple large groups of text might train a GloVe model on texts written by conservatives and another on texts written by liberals, and demonstrate that the word "skirt" is closer to the word "woman" in conservative language than it is in liberal language. A guide on training custom GloVe models in R can be found at https://quanteda.io/articles/pkgdown/replication/text2vec.html.
 
-A downloaded pretrained model (generally a .bin file), can be opened in R with the `word2vec` package.[^word2vec-7] In the example code below, we use a model trained on the entirety of Google news, which uses 300-dimensional embeddings.[^word2vec-8]
+A downloaded pretrained model (generally a .bin file), can be opened in R with the `word2vec` package.[^8] In the example code below, we use a model trained on the entirety of Google news, which uses 300-dimensional embeddings.[^9]
 
-[^word2vec-7]:    Available at https://cran.r-project.org/web/packages/word2vec/readme/README.html
+[^8]: Available at https://cran.r-project.org/web/packages/word2vec/readme/README.html
 
-[^word2vec-8]:    Available at https://www.kaggle.com/datasets/pkugoodspeed/nlpword2vecembeddingspretrained/download?datasetVersionNumber=1
+[^9]: Available at https://www.kaggle.com/datasets/pkugoodspeed/nlpword2vecembeddingspretrained/download?datasetVersionNumber=1
 
 ```{r}
 #| eval: false
@@ -322,14 +322,14 @@ To find embeddings of specific words using the `word2vec` package, use `predict(
 ::: {.callout-important icon="false"}
 ## Disadvantages of word2vec
 
--   **Relies on Word-Level Meaning:** word2vec assumes that each word has only one meaning. This means that it has trouble with words that can mean more than one thing (e.g. deep learning _model_ vs. fashion _model_). word2vec will learn the average of these meanings.
+-   **Relies on Word-Level Meaning:** word2vec assumes that each word has only one meaning. This means that it has trouble with words that can mean more than one thing (e.g. deep learning *model* vs. fashion *model*). word2vec will learn the average of these meanings.
 -   **Works Best in English:** English words are generally spelled the same no matter where they are in a sentence. word2vec doesn't work as well for languages that have more prefixes, suffixes, conjugations, etc., since it has to relearn the meaning for each form of the word.
 -   **Not Many Pretrained Models Available**
 :::
 
 ### GloVe
 
-word2vec produces spectacularly rich and reliable vector embeddings, but their reliance on randomly sampled pairs of words and contexts makes them somewhat noisy and overly sensitive to frequent tokens. The developers of word2vec managed to fix these problems by strategically filtering the training dataset, but @pennington_etal_2014 came up with a more elegant solution: Global Vectors (GloVe) is designed on the same principles of word2vec, but it is computed from global patterns of co-occurrence rather than individual examples.
+word2vec produces spectacularly rich and reliable vector embeddings, but their reliance on randomly sampled pairs of words and contexts makes them somewhat noisy and overly sensitive to frequent tokens. The developers of word2vec managed to fix these problems by strategically filtering the training dataset. @pennington_etal_2014, in contrast, developed a refactored model that corrects for frequency internally: Global Vectors (GloVe) is designed on the same principles of word2vec, but it is computed from global patterns of co-occurrence rather than individual examples.
 
 Although GloVe uses a different method of training, the embeddings it generates are very similar to those generated by word2vec. Because GloVe embeddings are so similar to word2vec embeddings, we will not go into detail here about the way the GloVe algorithm works. Nevertheless, GloVe does have one very important advantage over word2vec: Better pretrained models are available online. Whereas the most easily available word2vec model is trained on news, the GloVe website[^glove-1] offers models trained on social media (`glove.twitter.27B.zip`) and on large portions of the Internet (Common Crawl). These models generalize better to social media texts (since they were trained on similar texts) and are likely to have richer representations of emotional or social content, since more examples of that content appear on social media than in the news or on Wikipedia.[^glove-2]
 
@@ -406,7 +406,7 @@ text_vecs <- ft_sentence_vectors(heb_model, heb_texts)
 
 ### Interpreting Advanced Word Embeddings {#sec-embedding-magnitude}
 
-Advanced word embedding algorithms like word2vec, GloVe, and fastText use the dot product of embeddings to measure how likely two words are to appear together. The dot product is the same as cosine similarity, except that it gets larger as the vectors get farther away from the origin (i.e. cosine similarity is the dot product of two normalized vectors). 
+Advanced word embedding algorithms like word2vec, GloVe, and fastText use the dot product of embeddings to measure how likely two words are to appear together. The dot product is the same as cosine similarity, except that it gets larger as the vectors get farther away from the origin (i.e. cosine similarity is the dot product of two normalized vectors).
 
 ```{r}
 #| echo: true
@@ -1072,7 +1072,7 @@ new_scores <- function(dat, cols, pos_mean, neg_mean, prefix = "",
 
 ## Benchmark 1: Negative Sentiment in Movie Reviews
 
-As an initial benchmark, we used the same data used by @garten_etal_2018 in their investigation of dictionary size: a set of 2000 movie reviews, half labeled as negative and half as positive [@pang_lee_2005]. For vector representations of words and texts, we used a publicly available GloVe model trained on 2B Tweets to produce 100-dimensional embeddings [@pennington_etal_2014]. For construct representations, we used the positive tone and negative tone dictionaries from LIWC-22 [@boyd_etal_2022], expanded on the movie reviews dataset. The primary DDR was the average embedding of the negative tone dictionary, while for anchored vectors the average embedding of the positive tone dictionary was used as a second anchor. 
+As an initial benchmark, we used the same data used by @garten_etal_2018 in their investigation of dictionary size: a set of 2000 movie reviews, half labeled as negative and half as positive [@pang_lee_2005]. For vector representations of words and texts, we used a publicly available GloVe model trained on 2B Tweets to produce 100-dimensional embeddings [@pennington_etal_2014]. For construct representations, we used the positive tone and negative tone dictionaries from LIWC-22 [@boyd_etal_2022], expanded on the movie reviews dataset. The primary DDR was the average embedding of the negative tone dictionary, while for anchored vectors the average embedding of the positive tone dictionary was used as a second anchor.
 
 We investigated the following metrics:
 
@@ -1084,7 +1084,7 @@ We investigated the following metrics:
 -   **Euclidean distance** from the negative tone DDR
 -   **Euclidean distance from the anchored vector**
 
-To evaluate the predictive value of each metric, we trained a univariate logistic regression model for each metric at each dictionary size. We then computed an F1 score for the model's predictions on the training set, with the model's threshold set at 0.5 (i.e. any text given a probability of greater than 0.5 of being negative was considered as having been predicted to be negative). 
+To evaluate the predictive value of each metric, we trained a univariate logistic regression model for each metric at each dictionary size. We then computed an F1 score for the model's predictions on the training set, with the model's threshold set at 0.5 (i.e. any text given a probability of greater than 0.5 of being negative was considered as having been predicted to be negative).
 
 ```{r}
 #| echo: false
@@ -1281,7 +1281,6 @@ When using only the primary DDR, we found that the performance of equal weightin
 results_grid <- read_csv("benchmarks/DDR/results1.csv")
 ```
 
-
 ```{r}
 #| echo: false
 #| label: fig-f1_by_dictsize
@@ -1341,7 +1340,6 @@ results_grid |>
     theme_bw() +
     theme(plot.caption = element_text(hjust = 0))
 ```
-
 
 ```{r}
 #| echo: false
@@ -1581,7 +1579,6 @@ Curiously, anchored vector metrics did not perform as well as simple similarity 
 results_grid <- read_csv("benchmarks/DDR/results2.csv")
 ```
 
-
 ```{r}
 #| echo: false
 #| warning: false
@@ -1629,7 +1626,7 @@ results_grid |>
     theme(plot.caption = element_text(hjust = .1))
 ```
 
-For equal weighting, Euclidean distance from the anchored vector resulted in significant negative effects in 1/5 foundations. For frequency weighted aggregation, the dot product with the pre-normalized anchored vector resulted in significant negative effects in 3/5 foundations. Otherwise no negative effects were observed. 
+For equal weighting, Euclidean distance from the anchored vector resulted in significant negative effects in 1/5 foundations. For frequency weighted aggregation, the dot product with the pre-normalized anchored vector resulted in significant negative effects in 3/5 foundations. Otherwise no negative effects were observed.
 
 ```{r}
 #| echo: false
@@ -1651,9 +1648,9 @@ The results of our experiments support our suggestion that the diminishing perfo
 
 ## Benchmark 1: Prompted Essays
 
-The anchored vector is equivalent to the embedding of the questionnaire (positive CCR) minus the embedding of the negated questionnaire (negative CCR). The individualism items were used as a negated form of the collectivism, and vice versa. To obtain negated versions of the remaining questionnaires, we queried GPT-4o and manually curated the results.[^ccr-validation1] We investigated the following metrics:
+The anchored vector is equivalent to the embedding of the questionnaire (positive CCR) minus the embedding of the negated questionnaire (negative CCR). The individualism items were used as a negated form of the collectivism, and vice versa. To obtain negated versions of the remaining questionnaires, we queried GPT-4o and manually curated the results.[^11] We investigated the following metrics:
 
-[^ccr-validation1]: All matrials, including original and negated questionnaire items, are available on our Github repo.
+[^11]: All matrials, including original and negated questionnaire items, are available on our Github repo.
 
 -   **Cosine similarity** with the CCR
 -   **Cosine similarity with the anchored vector** (equivalent to projection of the normalized text vector onto the anchored vector)
@@ -2011,7 +2008,6 @@ scheme_agg <- results_grid |>
   mutate(scheme_disp = factor(scheme_disp))
 ```
 
-
 ```{r}
 #| echo: false
 #| warning: false
@@ -2142,7 +2138,7 @@ results_grid |>
     theme(plot.caption = element_text(hjust = .1))
 ```
 
-For behaviors essays, GloVe-based CCR was more consistently effective than SBERT, and DDR was most effective overall. While Euclidean distance from the anchored vector was most effective on average for both models, it was also most likely to result in significant negative effects. 
+For behaviors essays, GloVe-based CCR was more consistently effective than SBERT, and DDR was most effective overall. While Euclidean distance from the anchored vector was most effective on average for both models, it was also most likely to result in significant negative effects.
 
 ```{r}
 #| echo: false
@@ -2172,13 +2168,12 @@ results_grid |>
 
 ## Conclusions
 
-CCR [@atari_etal_2023] proposes to measure psychological constructs in texts by comparing text embeddings to embeddings of questionnaires. This approach to text analysis can be highly effective, but is sensitive to the nature of both questionnaires and texts. Some questionnaires do not appear to be amenable to CCR at all, including those used here for tightness, collectivism, individualism, proportionality, equality, and safety. Among those scales that were amenable to CCR metrics, the pattern of optimal metrics was greatly influenced by the content of the texts being analyzed. 
+CCR [@atari_etal_2023] proposes to measure psychological constructs in texts by comparing text embeddings to embeddings of questionnaires. This approach to text analysis can be highly effective, but is sensitive to the nature of both questionnaires and texts. Some questionnaires do not appear to be amenable to CCR at all, including those used here for tightness, collectivism, individualism, proportionality, equality, and safety. Among those scales that were amenable to CCR metrics, the pattern of optimal metrics was greatly influenced by the content of the texts being analyzed.
 
-Values essays tend to be similar in content to the values questionnaires being used, since the questionnaire items almost all consist of statements in the first person. Contextualized embeddings from an SBERT model appear to perform best in these sorts of situations. 
+Values essays tend to be similar in content to the values questionnaires being used, since the questionnaire items almost all consist of statements in the first person. Contextualized embeddings from an SBERT model appear to perform best in these sorts of situations.
 
-Behaviors essays, which bear little resemblance to questionnaire items in either tone or content, behave very differently. In particular, GloVe embeddings of the questionnaires tend to perform better. This may be due to the consistent geometric properties of GloVe embeddings, which can more reliably encode semantic relationships between very different contexts. Alternatively, this may be due to the datasets used to train SBERT models, which emphasize topical similarity rather than similarity in tone [@reimers_gurevych_2019]. Unsurprisingly, GloVe embeddings of dictionaries associated with the questionnaires performed best overall. 
+Behaviors essays, which bear little resemblance to questionnaire items in either tone or content, behave very differently. In particular, GloVe embeddings of the questionnaires tend to perform better. This may be due to the consistent geometric properties of GloVe embeddings, which can more reliably encode semantic relationships between very different contexts. Alternatively, this may be due to the datasets used to train SBERT models, which emphasize topical similarity rather than similarity in tone [@reimers_gurevych_2019]. Unsurprisingly, GloVe embeddings of dictionaries associated with the questionnaires performed best overall.
 
-Overall, the results of this analysis suggest that CCR is can be a powerful tool, but that it should be used primarily in contexts in which the content of the questionnaires is similar to that of the texts being analyzed. In such cases, we recommend negating the questionnaire items, computing an anchored vector, and scoring texts by the dot products of their embeddings with the anchored vector. 
+Overall, the results of this analysis suggest that CCR is can be a powerful tool, but that it should be used primarily in contexts in which the content of the questionnaires is similar to that of the texts being analyzed. In such cases, we recommend negating the questionnaire items, computing an anchored vector, and scoring texts by the dot products of their embeddings with the anchored vector.
 
 When the content of the questionnaires is not similar to that of the texts being analyzed, we recommend using DDR with negative and positive versions of each dictionary, and scoring texts by the dot products of their embeddings with the anchored vector. This approach appears to outperform CCR even with unvalidated dictionaries generated by GPT-4o.
-
