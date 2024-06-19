@@ -4,7 +4,6 @@ library(tidyverse)
 library(text)
 
 # 1. Embed Texts of Interest
-# @xiao_etal_2023
 
 reddit_emotion <- read_csv("example_data/reddit_emotion.csv")
 
@@ -23,8 +22,6 @@ write_csv(reddit_emotion_bge, "example_data/reddit_emotion_bge.csv")
 
 # 2. Embed Questionnaires
 
-  # Questionnaire: Rotter (1966)
-  # @rotter_1966
     # Positive (internal locus of control)
 
 internal_items = c(

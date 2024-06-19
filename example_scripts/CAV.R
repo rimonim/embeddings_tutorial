@@ -22,7 +22,7 @@ write_csv(reddit_emotion_bge, "example_data/reddit_emotion_bge.csv")
 # 2. Embed Training Data
 
 d_train <- read_csv("example_data/power_narratives.csv") |> 
-  mutate(condition = factor(condition, levels = c("Power", "Control")))
+  mutate(condition = factor(condition, levels = c("Control", "Power")))
 
 d_train_bge <- textEmbed(
   d_train$text,
@@ -56,13 +56,17 @@ write_csv(d_train_bge, "example_data/d_train_bge.csv")
     tuneLength = 1  # only 1 component (our anchored vector)
   )
   
-  control_anchored_pls <- pls_control$finalModel$projection[,1]
+  # Extract Projection 
+  # (multiplied by loading to ensure positive correlation with the outcome)
+  projection <- pls_control$finalModel$projection[,1]
+  power_loading <- pls_control$finalModel$Yloadings["Power",1]
+  power_cav <- projection*power_loading
 
 # 4. Calculate Distance Metrics
 
 reddit_emotion_control <- reddit_emotion_bge |> 
   rowwise() |> 
-  mutate(control = dot_prod(c_across(Dim1:Dim768), control_anchored_pls)) |> 
+  mutate(control = dot_prod(c_across(Dim1:Dim768), power_cav)) |> 
   pull(control)
 
 # 5. Test Hypothesis
