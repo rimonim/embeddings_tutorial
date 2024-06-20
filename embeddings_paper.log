@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.6.17)  19 JUN 2024 15:21
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.6.17)  20 JUN 2024 14:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1441,219 +1441,104 @@ LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/n' will be
 
 [5]
 LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/b/it' will be
-(Font)              scaled to size 12.0pt on input line 454.
+(Font)              scaled to size 12.0pt on input line 458.
 
-LaTeX Warning: Reference `tbl-example_vecs' on page 6 undefined on input line 475.
+LaTeX Warning: Reference `tbl-example_vecs' on page 6 undefined on input line 484.
 
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 2 on input line 491.
+(longtable)                in table 2 on input line 500.
 
 File: embeddings_paper_files/figure-pdf/fig-distmeasures-1.pdf Graphic file (type pdf)
 <use embeddings_paper_files/figure-pdf/fig-distmeasures-1.pdf>
 
+LaTeX Warning: Reference `fig-distmeasures' on page 6 undefined on input line 521.
+
+
 
 [6]
-
-LaTeX Warning: Reference `fig-distmeasures' on page 7 undefined on input line 512.
+Underfull \vbox (badness 4595) has occurred while \output is active []
 
 
 
 [7]
 
-LaTeX Warning: Reference `fig-cosineintuition' on page 8 undefined on input line 552.
+LaTeX Warning: Reference `fig-cosineintuition' on page 8 undefined on input line 561.
 
 File: embeddings_paper_files/figure-pdf/fig-cosineintuition-1.pdf Graphic file (type pdf)
 <use embeddings_paper_files/figure-pdf/fig-cosineintuition-1.pdf>
 
-LaTeX Warning: Reference `fig-cosineintuition' on page 8 undefined on input line 567.
+LaTeX Warning: Reference `fig-cosineintuition' on page 8 undefined on input line 576.
 
 
 
 [8]
+File: embeddings_paper_files/figure-pdf/fig-dotprod-1.pdf Graphic file (type pdf)
+<use embeddings_paper_files/figure-pdf/fig-dotprod-1.pdf>
+
 
 [9]
 
-LaTeX Warning: Reference `tbl-skipgram1' on page 10 undefined on input line 639.
+LaTeX Warning: Reference `fig-parallelogram' on page 10 undefined on input line 628.
 
+File: embeddings_paper_files/figure-pdf/fig-parallelogram-1.pdf Graphic file (type pdf)
+<use embeddings_paper_files/figure-pdf/fig-parallelogram-1.pdf>
 
-Package longtable Warning: Column widths have changed
-(longtable)                in table 4 on input line 659.
-
-
-LaTeX Warning: Reference `tbl-skipgram2' on page 10 undefined on input line 667.
-
-
-Package longtable Warning: Column widths have changed
-(longtable)                in table 6 on input line 692.
-
-
-LaTeX Warning: Reference `tbl-skipgram2' on page 10 undefined on input line 698.
-
-LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/b/n' will be
-(Font)              scaled to size 10.0pt on input line 709.
-
-LaTeX Warning: Reference `sec-embedding-magnitude' on page 10 undefined on input line 709.
+Underfull \vbox (badness 2990) has occurred while \output is active []
 
 
 
 [10]
 
+LaTeX Warning: Reference `fig-parallelogram' on page 11 undefined on input line 662.
+
+
+
 [11]
 
+LaTeX Warning: Reference `fig-projection' on page 12 undefined on input line 671.
+
+File: embeddings_paper_files/figure-pdf/fig-projection-1.pdf Graphic file (type pdf)
+<use embeddings_paper_files/figure-pdf/fig-projection-1.pdf>
+
+
 [12]
-Overfull \hbox (14.22499pt too wide) in paragraph at lines 783--783
+
+[13]
+
+LaTeX Warning: Reference `tbl-skipgram1' on page 14 undefined on input line 767.
+
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 4 on input line 787.
+
+
+LaTeX Warning: Reference `tbl-skipgram2' on page 14 undefined on input line 795.
+
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 6 on input line 818.
+
+
+LaTeX Warning: Reference `tbl-skipgram2' on page 14 undefined on input line 824.
+
+
+
+[14]
+Underfull \vbox (badness 1881) has occurred while \output is active []
+
+
+
+[15]
+
+[16]
+Overfull \hbox (14.22499pt too wide) in paragraph at lines 907--907
 \TU/TeXGyreTermesX(0)/m/n/10 https://www.kaggle.com/datasets/pkugoodspeed/nlpword2vecembeddingspretrained/download?datasetVersionNumber=1|  
  []
 
 
 
-[13]
-
-[14]
-
-[15]
-Missing character: There is no מ (U+05DE) in font [lmmono12-regular]:!
-Missing character: There is no ח (U+05D7) in font [lmmono12-regular]:!
-Missing character: There is no ש (U+05E9) in font [lmmono12-regular]:!
-Missing character: There is no ב (U+05D1) in font [lmmono12-regular]:!
-Missing character: There is no ו (U+05D5) in font [lmmono12-regular]:!
-Missing character: There is no ת (U+05EA) in font [lmmono12-regular]:!
-Missing character: There is no י (U+05D9) in font [lmmono12-regular]:!
-Missing character: There is no י (U+05D9) in font [lmmono12-regular]:!
-Missing character: There is no ך (U+05DA) in font [lmmono12-regular]:!
-Missing character: There is no מ (U+05DE) in font [lmmono12-regular]:!
-Missing character: There is no ח (U+05D7) in font [lmmono12-regular]:!
-Missing character: There is no ש (U+05E9) in font [lmmono12-regular]:!
-Missing character: There is no ב (U+05D1) in font [lmmono12-regular]:!
-Missing character: There is no ה (U+05D4) in font [lmmono12-regular]:!
-Missing character: There is no ה (U+05D4) in font [lmmono12-regular]:!
-Missing character: There is no ד (U+05D3) in font [lmmono12-regular]:!
-Missing character: There is no ב (U+05D1) in font [lmmono12-regular]:!
-Missing character: There is no ו (U+05D5) in font [lmmono12-regular]:!
-Missing character: There is no ר (U+05E8) in font [lmmono12-regular]:!
-Missing character: There is no מ (U+05DE) in font [lmmono12-regular]:!
-Missing character: There is no י (U+05D9) in font [lmmono12-regular]:!
-Missing character: There is no ח (U+05D7) in font [lmmono12-regular]:!
-Missing character: There is no ד (U+05D3) in font [lmmono12-regular]:!
-Missing character: There is no א (U+05D0) in font [lmmono12-regular]:!
-Missing character: There is no ת (U+05EA) in font [lmmono12-regular]:!
-Missing character: There is no ה (U+05D4) in font [lmmono12-regular]:!
-Missing character: There is no א (U+05D0) in font [lmmono12-regular]:!
-Missing character: There is no ד (U+05D3) in font [lmmono12-regular]:!
-Missing character: There is no ם (U+05DD) in font [lmmono12-regular]:!
-Missing character: There is no מ (U+05DE) in font [lmmono12-regular]:!
-Missing character: There is no ן (U+05DF) in font [lmmono12-regular]:!
-Missing character: There is no ה (U+05D4) in font [lmmono12-regular]:!
-Missing character: There is no ח (U+05D7) in font [lmmono12-regular]:!
-Missing character: There is no י (U+05D9) in font [lmmono12-regular]:!
-Missing character: There is no ה (U+05D4) in font [lmmono12-regular]:!
-Missing character: There is no ד (U+05D3) in font [lmmono12-regular]:!
-Missing character: There is no ו (U+05D5) in font [lmmono12-regular]:!
-Missing character: There is no מ (U+05DE) in font [lmmono12-regular]:!
-Missing character: There is no ם (U+05DD) in font [lmmono12-regular]:!
-Missing character: There is no ו (U+05D5) in font [lmmono12-regular]:!
-Missing character: There is no ה (U+05D4) in font [lmmono12-regular]:!
-Missing character: There is no צ (U+05E6) in font [lmmono12-regular]:!
-Missing character: There is no ו (U+05D5) in font [lmmono12-regular]:!
-Missing character: There is no מ (U+05DE) in font [lmmono12-regular]:!
-Missing character: There is no ח (U+05D7) in font [lmmono12-regular]:!
-Missing character: There is no ה (U+05D4) in font [lmmono12-regular]:!
-Missing character: There is no ל (U+05DC) in font [lmmono12-regular]:!
-Missing character: There is no ש (U+05E9) in font [lmmono12-regular]:!
-Missing character: There is no ו (U+05D5) in font [lmmono12-regular]:!
-Missing character: There is no ן (U+05DF) in font [lmmono12-regular]:!
-Missing character: There is no ה (U+05D4) in font [lmmono12-regular]:!
-Missing character: There is no י (U+05D9) in font [lmmono12-regular]:!
-Missing character: There is no א (U+05D0) in font [lmmono12-regular]:!
-Missing character: There is no נ (U+05E0) in font [lmmono12-regular]:!
-Missing character: There is no פ (U+05E4) in font [lmmono12-regular]:!
-Missing character: There is no ש (U+05E9) in font [lmmono12-regular]:!
-Missing character: There is no ח (U+05D7) in font [lmmono12-regular]:!
-Missing character: There is no י (U+05D9) in font [lmmono12-regular]:!
-Missing character: There is no ה (U+05D4) in font [lmmono12-regular]:!
-Missing character: There is no ר (U+05E8) in font [lmmono12-regular]:!
-Missing character: There is no ו (U+05D5) in font [lmmono12-regular]:!
-Missing character: There is no ח (U+05D7) in font [lmmono12-regular]:!
-Missing character: There is no מ (U+05DE) in font [lmmono12-regular]:!
-Missing character: There is no מ (U+05DE) in font [lmmono12-regular]:!
-Missing character: There is no ל (U+05DC) in font [lmmono12-regular]:!
-Missing character: There is no ל (U+05DC) in font [lmmono12-regular]:!
-Missing character: There is no ה (U+05D4) in font [lmmono12-regular]:!
-Missing character: There is no ל (U+05DC) in font [lmmono12-regular]:!
-Missing character: There is no ש (U+05E9) in font [lmmono12-regular]:!
-Missing character: There is no ו (U+05D5) in font [lmmono12-regular]:!
-Missing character: There is no ן (U+05DF) in font [lmmono12-regular]:!
-Missing character: There is no ה (U+05D4) in font [lmmono12-regular]:!
-Missing character: There is no י (U+05D9) in font [lmmono12-regular]:!
-Missing character: There is no א (U+05D0) in font [lmmono12-regular]:!
-Missing character: There is no ה (U+05D4) in font [lmmono12-regular]:!
-Missing character: There is no מ (U+05DE) in font [lmmono12-regular]:!
-Missing character: There is no ב (U+05D1) in font [lmmono12-regular]:!
-Missing character: There is no ד (U+05D3) in font [lmmono12-regular]:!
-Missing character: There is no ל (U+05DC) in font [lmmono12-regular]:!
-Missing character: There is no ת (U+05EA) in font [lmmono12-regular]:!
-Missing character: There is no ב (U+05D1) in font [lmmono12-regular]:!
-Missing character: There is no י (U+05D9) in font [lmmono12-regular]:!
-Missing character: There is no ן (U+05DF) in font [lmmono12-regular]:!
-Missing character: There is no א (U+05D0) in font [lmmono12-regular]:!
-Missing character: There is no ו (U+05D5) in font [lmmono12-regular]:!
-Missing character: There is no מ (U+05DE) in font [lmmono12-regular]:!
-Missing character: There is no ה (U+05D4) in font [lmmono12-regular]:!
-Missing character: There is no א (U+05D0) in font [lmmono12-regular]:!
-Missing character: There is no ח (U+05D7) in font [lmmono12-regular]:!
-Missing character: There is no ת (U+05EA) in font [lmmono12-regular]:!
-Missing character: There is no ל (U+05DC) in font [lmmono12-regular]:!
-Missing character: There is no ח (U+05D7) in font [lmmono12-regular]:!
-Missing character: There is no ב (U+05D1) in font [lmmono12-regular]:!
-Missing character: There is no ר (U+05E8) in font [lmmono12-regular]:!
-Missing character: There is no ת (U+05EA) in font [lmmono12-regular]:!
-Missing character: There is no ה (U+05D4) in font [lmmono12-regular]:!
-Missing character: There is no ו (U+05D5) in font [lmmono12-regular]:!
-Missing character: There is no ה (U+05D4) in font [lmmono12-regular]:!
-Missing character: There is no י (U+05D9) in font [lmmono12-regular]:!
-Missing character: There is no א (U+05D0) in font [lmmono12-regular]:!
-Missing character: There is no ה (U+05D4) in font [lmmono12-regular]:!
-Missing character: There is no ח (U+05D7) in font [lmmono12-regular]:!
-Missing character: There is no ו (U+05D5) in font [lmmono12-regular]:!
-Missing character: There is no ט (U+05D8) in font [lmmono12-regular]:!
-Missing character: There is no ש (U+05E9) in font [lmmono12-regular]:!
-Missing character: There is no ע (U+05E2) in font [lmmono12-regular]:!
-Missing character: There is no ל (U+05DC) in font [lmmono12-regular]:!
-Missing character: There is no י (U+05D9) in font [lmmono12-regular]:!
-Missing character: There is no ו (U+05D5) in font [lmmono12-regular]:!
-Missing character: There is no נ (U+05E0) in font [lmmono12-regular]:!
-Missing character: There is no ח (U+05D7) in font [lmmono12-regular]:!
-Missing character: There is no ר (U+05E8) in font [lmmono12-regular]:!
-Missing character: There is no ז (U+05D6) in font [lmmono12-regular]:!
-Missing character: There is no ו (U+05D5) in font [lmmono12-regular]:!
-Missing character: There is no ת (U+05EA) in font [lmmono12-regular]:!
-Missing character: There is no ת (U+05EA) in font [lmmono12-regular]:!
-Missing character: There is no מ (U+05DE) in font [lmmono12-regular]:!
-Missing character: There is no ו (U+05D5) in font [lmmono12-regular]:!
-Missing character: There is no ר (U+05E8) in font [lmmono12-regular]:!
-Missing character: There is no ו (U+05D5) in font [lmmono12-regular]:!
-Missing character: There is no ת (U+05EA) in font [lmmono12-regular]:!
-Missing character: There is no ה (U+05D4) in font [lmmono12-regular]:!
-Missing character: There is no נ (U+05E0) in font [lmmono12-regular]:!
-Missing character: There is no פ (U+05E4) in font [lmmono12-regular]:!
-Missing character: There is no ש (U+05E9) in font [lmmono12-regular]:!
-Missing character: There is no ה (U+05D4) in font [lmmono12-regular]:!
-Missing character: There is no ר (U+05E8) in font [lmmono12-regular]:!
-Missing character: There is no ב (U+05D1) in font [lmmono12-regular]:!
-Missing character: There is no ו (U+05D5) in font [lmmono12-regular]:!
-Missing character: There is no ת (U+05EA) in font [lmmono12-regular]:!
-
-Underfull \vbox (badness 4531) has occurred while \output is active []
-
-
-
-[16]
-
 [17]
-File: embeddings_paper_files/figure-pdf/fig-dotprod-1.pdf Graphic file (type pdf)
-<use embeddings_paper_files/figure-pdf/fig-dotprod-1.pdf>
-
 
 [18]
 
@@ -1664,6 +1549,12 @@ File: embeddings_paper_files/figure-pdf/fig-dotprod-1.pdf Graphic file (type pdf
 [21]
 
 [22]
+LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/it' will be
+(Font)              scaled to size 10.0pt on input line 1187.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 [23]
 
@@ -1671,49 +1562,31 @@ File: embeddings_paper_files/figure-pdf/fig-dotprod-1.pdf Graphic file (type pdf
 
 [25]
 
+LaTeX Warning: Reference `fig-parallelogram' on page 26 undefined on input line 1304.
+
+
+
 [26]
 
 [27]
 
 [28]
-LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/it' will be
-(Font)              scaled to size 10.0pt on input line 1434.
+Underfull \vbox (badness 2529) has occurred while \output is active []
+
 
 
 [29]
+Underfull \vbox (badness 1043) has occurred while \output is active []
+
+
 
 [30]
 
-LaTeX Warning: Reference `fig-parallelogram' on page 31 undefined on input line 1497.
-
-File: embeddings_paper_files/figure-pdf/fig-parallelogram-1.pdf Graphic file (type pdf)
-<use embeddings_paper_files/figure-pdf/fig-parallelogram-1.pdf>
-
-LaTeX Warning: Reference `fig-parallelogram' on page 31 undefined on input line 1523.
-
-
-LaTeX Warning: Reference `fig-parallelogram' on page 31 undefined on input line 1560.
-
-
-
 [31]
-Underfull \vbox (badness 2035) has occurred while \output is active []
-
-
 
 [32]
 
-LaTeX Warning: Reference `fig-projection' on page 33 undefined on input line 1581.
-
-File: embeddings_paper_files/figure-pdf/fig-projection-1.pdf Graphic file (type pdf)
-<use embeddings_paper_files/figure-pdf/fig-projection-1.pdf>
-
-
 [33]
-Overfull \vbox (2.10355pt too high) detected at line 1642
- []
-
-
 
 [34]
 
@@ -1726,9 +1599,6 @@ Overfull \vbox (2.10355pt too high) detected at line 1642
 [38]
 
 [39]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
 
 [40]
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1746,10 +1616,15 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 [43]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 [44]
 
-[45
+[45]
+
+[46
 
 ]
 File: embeddings_paper_files/figure-pdf/fig-f1_by_dictsize-1.pdf Graphic file (type pdf)
@@ -1762,12 +1637,12 @@ File: embeddings_paper_files/figure-pdf/fig-neg_by_freq_variance-1.pdf Graphic f
 <use embeddings_paper_files/figure-pdf/fig-neg_by_freq_variance-1.pdf>
 
 
-[46]
+[47]
 Underfull \vbox (badness 3635) has occurred while \output is active []
 
 
 
-[47]
+[48]
 File: embeddings_paper_files/figure-pdf/fig-morality_equalvsfreq-1.pdf Graphic file (type pdf)
 <use embeddings_paper_files/figure-pdf/fig-morality_equalvsfreq-1.pdf>
 
@@ -1775,19 +1650,19 @@ Underfull \vbox (badness 3635) has occurred while \output is active []
 
 
 
-[48]
-
 [49]
 
 [50]
 
 [51]
 
-[52
+[52]
+
+[53
 
 ]
 
-[53]
+[54]
 File: embeddings_paper_files/figure-pdf/fig-values_essay-1.pdf Graphic file (type pdf)
 <use embeddings_paper_files/figure-pdf/fig-values_essay-1.pdf>
 File: embeddings_paper_files/figure-pdf/fig-values_essay_neg-1.pdf Graphic file (type pdf)
@@ -1796,18 +1671,18 @@ File: embeddings_paper_files/figure-pdf/fig-behaviors_essay-1.pdf Graphic file (
 <use embeddings_paper_files/figure-pdf/fig-behaviors_essay-1.pdf>
 
 
-[54]
-
 [55]
+
+[56]
 File: embeddings_paper_files/figure-pdf/fig-behaviors_essay_neg-1.pdf Graphic file (type pdf)
 <use embeddings_paper_files/figure-pdf/fig-behaviors_essay_neg-1.pdf>
 
 
-[56]
+[57]
 
-[57] AED endfloat: Processing end Figures and Tables
+[58] AED endfloat: Processing end Figures and Tables
 
-[58]
+[59]
 
 Package longtable Warning: Table widths have changed. Rerun LaTeX.
 
@@ -1815,15 +1690,15 @@ Package longtable Warning: Table widths have changed. Rerun LaTeX.
 ! Missing \endcsname inserted.
 <to be read again> 
                    \protect 
-l.157 ...f1\_by\_dictsize}}}{figure.caption.44}{}}
+l.164 ...f1\_by\_dictsize}}}{figure.caption.47}{}}
                                                    
 Here is how much of TeX's memory you used:
- 38411 strings out of 476194
- 780960 string characters out of 5783861
+ 38413 strings out of 476194
+ 780822 string characters out of 5783861
  1939557 words of memory out of 5000000
- 60299 multiletter control sequences out of 15000+600000
- 592293 words of font info for 136 fonts, out of 8000000 for 9000
+ 60302 multiletter control sequences out of 15000+600000
+ 592285 words of font info for 135 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  99i,12n,125p,907b,741s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on embeddings_paper.pdf (58 pages).
+Output written on embeddings_paper.pdf (59 pages).

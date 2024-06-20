@@ -396,13 +396,13 @@ this question is simple with vector-based text embeddings.
 In this guide, we introduce state of the art methods for using neural
 text embeddings to quantify psychological dimensions of text. We aim to
 explain the conceptual foundations of these methods in a way that is
-accessible to psychology researchers with no background in machine
+accessible to psychological researchers with no background in machine
 learning or mathematics. We note methodological concerns and give
 concrete recommendations regarding proper usage of the techniques
-discussed. Throughout, we provide example code in R using the tidyverse
-(Wickham et al., 2019) and Quanteda (Benoit et al., 2018) packages.
-Other packages are used more sparingly and will be noted as they become
-relevant.
+discussed. Throughout, we provide example code in R using the
+\emph{tidyverse} (Wickham et al., 2019) and \emph{Quanteda} (Benoit et
+al., 2018) packages. Other packages are used more sparingly and will be
+noted as they become relevant.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -425,7 +425,7 @@ repo offers full example workflows for each method discussed.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Abstract Embedding Spaces}\label{abstract-embedding-spaces}
+\section{Abstract Embedding Spaces}\label{abstract-embedding-spaces}
 
 The modern ability to generate nuanced, quantitative representations of
 language relies on a key assumption: The meaning of any word (or other
@@ -444,18 +444,22 @@ they have many more than three dimensions---often hundreds or even
 thousands. This high dimensionality is necessary to represent the many
 ways in which linguistic meaning can vary.
 
-\subsection{Distance and Similarity}\label{distance-and-similarity}
+\subsection{Navigating Vector Spaces: Distance and
+Similarity}\label{navigating-vector-spaces-distance-and-similarity}
 
 Once words or texts are embedded into the semantic space, how do we
-quantify their relative positions? Here we introduce the most intuitive
-similarity metric---Euclidean distance---as well as the most commonly
-used metric for neural text embeddings---cosine similarity.
+quantify their relative positions? Here we introduce three metrics by
+which two points in an embedding space can be compared: most Euclidean
+distance, cosine similarity, and the dot product. While these do not
+constitute a comprehensive review of available similarity metrics, we
+consider them sufficient for making effective use of neural text
+embeddings in psychological research.
 
 \subsubsection{Euclidean Distance}\label{euclidean-distance}
 
 The most straightforward way to measure the similarity between two
-points in space is to measure the distance between them. \emph{Euclidean
-distance} is the simplest sort of distance---the length of the shortest
+points in space is to measure the distance between them. Euclidean
+distance is the simplest sort of distance---the length of the shortest
 straight line between the two points. The Euclidean distance between two
 vectors \(A\) and \(B\) can be calculated in any number of dimensions
 \(n\) using the following formula:
@@ -464,15 +468,20 @@ vectors \(A\) and \(B\) can be calculated in any number of dimensions
 d\left( A,B\right)   = \sqrt {\sum _{i=1}^{n}  \left( A_{i}-B_{i}\right)^2 }
 \]
 
-A low Euclidean distance means two vectors are very similar.
+A low Euclidean distance means two vectors are very similar. Euclidean
+distance has the advantage of being familiar to many non-specialists,
+but it is not usually well suited to the organizational structure of
+neural text embeddings and can result in higher rates of false positives
+than other similarity metrics (see Appendix B).
 
 \subsubsection{Cosine Similarity}\label{cosine-similarity}
 
-The most common way to measure the similarity between two vectors is
-with cosine similarity. This is the cosine of the angle between the two
-vectors. Since the cosine of 0 is 1, a high cosine similarity (close to
-1) means two vectors are very similar. To give a simplified example, we
-consider the vectors in Table~\ref{tbl-example_vecs}.
+The most common way to measure the similarity between two embedding
+vectors is with cosine similarity. This is the cosine of the angle
+between the two vectors. Since the cosine of 0 is 1, a high cosine
+similarity (close to 1) means two vectors are very similar. To give a
+simplified example, we consider the vectors in
+Table~\ref{tbl-example_vecs}.
 
 \begin{table}
 
@@ -573,6 +582,123 @@ Seeing cosine similarity as the non-centered version of correlation
 might provide additional intuition for why cosine similarity works best
 for vector spaces that are centered at zero.
 
+\subsubsection{Dot Product}\label{dot-product}
+
+The dot product (sometimes called the inner product) of two vectors is
+similar to cosine similarity, with the exception that it gets larger as
+the vectors get further away from the origin (i.e.~cosine similarity is
+the dot product of two normalized vectors).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#  {-} \textasciigrave{}x\textasciigrave{}: a numeric vector}
+\CommentTok{\#  {-} \textasciigrave{}y\textasciigrave{}: another numeric vector}
+\NormalTok{dot\_prod }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x, y)\{}
+\NormalTok{  dot }\OtherTok{\textless{}{-}}\NormalTok{ x }\SpecialCharTok{\%*\%}\NormalTok{ y}
+  \FunctionTok{as.vector}\NormalTok{(dot)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+\caption{\label{fig-dotprod}Dot Product vs.~Cosine Similarity}
+
+\centering{
+
+\includegraphics{embeddings_paper_files/figure-pdf/fig-dotprod-1.pdf}
+
+}
+
+\end{figure}%
+
+As we shall see later in this guide, the dot product is used internally
+in some neural embedding models to quantify the relationships between
+embeddings (e.g. Mikolov, Chen, et al., 2013; Pennington et al., 2014),
+providing the basis for much geometrical interpretation of embeddings
+produced by these models (Ethayarajh et al., 2019). We discuss the
+implications of this fact later in this guide, after introducing the
+models in question.
+
+\subsubsection{Additive Analogies and Anchored
+Vectors}\label{additive-analogies-and-anchored-vectors}
+
+An oft-touted property of embeddings from some models is that they can
+be added to each other in order to arrive at new concepts. A
+prototypical example is shown in Figure~\ref{fig-parallelogram}.
+Subtracting the embedding of ``man'' from the embedding of ``woman''
+results in the vector shown in blue. This vector represents the move
+from male to female gender. A vector between two embeddings is called an
+\emph{anchored vector}. When the man-woman anchored vector is added to
+the embedding of ``aunt'', the result is very close to the embedding of
+``uncle''. This property was first noted in word2vec (Mikolov, Yih, et
+al., 2013), and GloVe (Pennington et al., 2014) was specifically
+designed with it in mind.
+
+\begin{figure}[!htbp]
+
+{\caption{{An Additive Analogy in Word
+Embeddings}{\label{fig-parallelogram}}}}
+
+\includegraphics{embeddings_paper_files/figure-pdf/fig-parallelogram-1.pdf}
+
+{\noindent \emph{Note.} Word embeddings were acquired from the
+glove.twitter.27B.100d pretrained model and reduced to two dimensions
+with Principle Component Analysis (PCA).}
+
+\end{figure}
+
+Additive analogical reasoning can help overcome a fundamental challenge
+of semantic embeddings. Consider the embeddings for ``happy'' and
+``sad''. These may seem like opposites, but actually they are likely to
+be very close to each other in vector space because they both relate to
+emotional valence. This means that if we try to measure the happiness of
+words by comparing their embeddings to the embedding for ``happy'', we
+will actually be measuring the extent to which the words relate to
+emotion in general. The word ``depression'' might seem happier than the
+word ``table'', since depression is more emotion-related. This problem
+can be solved by using anchored vectors. Just as we created an anchored
+vector between ``man'' and ``woman'' to represent masculinity (as
+opposed to femininity) in Figure~\ref{fig-parallelogram}, we can create
+an anchored vector between ``happy'' and ``sad'' to represent happiness
+(as opposed to sadness). Such anchored vectors can be applied wherever
+necessary in embedding space.
+
+To measure a construct with an anchored vector, take the dot product of
+a text embedding with the anchored vector. This is the equivalent of
+``projecting'' the embeddings down onto the scale between one end of the
+anchored vector and the other, as shown in
+Figure~\ref{fig-projection}.\footnote{For an intuitive explanation of
+  why the dot product is equivalent to a projection, see 3blue1brown's
+  video on the subject, at
+  https://youtu.be/LyGKycYT2v0?si=86cfrN9DP9xw5HUx. Incidentally, the
+  dot product with the anchored vector is also equivalent to the dot
+  product with the positive embedding (e.g.~``happy'') minus the dot
+  product with the negative vector (e.g.~``sad'').}
+
+\begin{figure}[!htbp]
+
+{\caption{{Projection of Embeddings Onto an Anchored
+Vector}{\label{fig-projection}}}}
+
+\includegraphics{embeddings_paper_files/figure-pdf/fig-projection-1.pdf}
+
+{\noindent \emph{Note.} Word embeddings were acquired from the
+glove.twitter.27B.100d pretrained model and reduced to two dimensions
+with Principle Component Analysis (PCA).}
+
+\end{figure}
+
+By projecting each embedding down onto the anchored vector between happy
+and sad, we create a scale from happy to sad.\footnote{Taking the dot
+  product with an anchored vector yields an unstandardized version of
+  this scale. For a standardized version of this function, in which
+  ``sad'' is at 0 and ``happy'' is at 1 on the scale, use the
+  \texttt{anchored\_sim()} function included in our Github repo at
+  https://github.com/rimonim/embeddings\_tutorial/blob/master/embedding\_scripts.R.}
+This is sometimes referred to as \textbf{semantic projection} (Grand et
+al., 2022).
+
 \subsection{The Distributional
 Hypothesis}\label{the-distributional-hypothesis}
 
@@ -617,8 +743,10 @@ never appear together in the same sentence, but they do tend to appear
 next to similar groupings of other words (e.g.~``food,'' ``cold,''
 etc.).
 
-\subsection{Word Embeddings: word2vec, GloVe, and
+\section{Word Embeddings: word2vec, GloVe, and
 FastText}\label{word-embeddings-word2vec-glove-and-fasttext}
+
+\subsection{Word2vec}\label{word2vec}
 
 word2vec was first introduced by Mikolov, Chen, et al. (2013) and was
 refined by Mikolov, Sutskever, et al. (2013). They proposed a few
@@ -683,12 +811,10 @@ coding & is & 1 \\
 coding & frustrating & 1 \\
 is & coding & 1 \\
 is & frustrating & 1 \\
-coding & happy & 1 \\
+coding & happy & 0 \\
 coding & olive & 0 \\
-coding & jump & 0 \\
 is & happy & 0 \\
 is & olive & 0 \\
-is & jump & 0 \\
 \end{longtable}
 
 \end{table}
@@ -699,16 +825,14 @@ see~\ref{tbl-skipgram2}. It does this by learning two separate sets of
 embeddings: word embeddings and context embeddings. For each row of the
 training set, the model looks up the embedding for the target word and
 the embedding for the context word, and computes the dot product between
-the two vectors. The dot product is closely related to the cosine
-similarity---it measures how similar the two embeddings are. If the dot
-product is large (i.e.~the word embedding and the context embedding are
-very similar), the model predicts that the two words are likely to be
-real neighbors. If the dot product is small, the model predicts that the
-two words were probably sampled at random.\footnote{To learn why models
-  like word2vec use dot products instead of cosine similarity, see
-  Section~\ref{sec-embedding-magnitude} below.} During training, the
-model learns which word embeddings and context embeddings will do best
-at this binary prediction task.
+the two vectors. If the dot product is large (i.e.~the word embedding
+and the context embedding are very similar), the model predicts that the
+two words are likely to be real neighbors. If the dot product is small,
+the model predicts that the two words were probably sampled at
+random.\footnote{To learn why models like word2vec use dot products
+  instead of cosine similarity, see ``Interpreting Word Embeddings''
+  below.} During training, the model learns which word embeddings and
+context embeddings will do best at this binary prediction task.
 
 Note that word2vec (as well as fastText and GloVe) give each word two
 embeddings: one for when the word is the target and another for when it
@@ -776,7 +900,7 @@ scratch.\footnote{Training custom word embeddings may be useful in
   https://quanteda.io/articles/pkgdown/replication/text2vec.html.}
 
 A downloaded pretrained model (generally a .bin file), can be opened in
-R with the word2vec package.\footnote{Available at
+R with the \emph{word2vec} package.\footnote{Available at
   https://cran.r-project.org/web/packages/word2vec/readme/README.html}
 In the example code below, we use a model trained on Google news, which
 uses 300-dimensional embeddings.\footnote{Available at
@@ -794,15 +918,15 @@ uses 300-dimensional embeddings.\footnote{Available at
 \end{Highlighting}
 \end{Shaded}
 
-To find embeddings of specific words using the word2vec package, use
+To find embeddings of specific words using the \emph{word2vec} package,
+use
 \texttt{predict(word2vec\_mod,\ c("word1",\ "word2"),\ type\ =\ "embedding")}.
 To get embeddings for full documents, average the embeddings of the
 words in the document. In our github repo, we provide the
 \texttt{textstat\_embedding} to compute document embeddings directly
 from a document-feature matrix (DFM).\footnote{https://github.com/rimonim/embeddings\_tutorial/blob/master/embedding\_scripts.R}
 
-\paragraph{Advantages and Disadvantages of
-Word2vec.}\label{advantages-and-disadvantages-of-word2vec}
+\paragraph{Word2vec: Key Takeaways.}\label{word2vec-key-takeaways}
 
 By distinguishing between target and context words, word2vec allows
 greater fidelity to the distributional hypothesis. Since it is not based
@@ -822,7 +946,7 @@ relearn the meaning for each form of the word. Finally, word2vec is made
 less appealing to researchers due to the relative paucity of pretrained
 models available online.
 
-\subsubsection{GloVe}\label{glove}
+\subsection{GloVe}\label{glove}
 
 Word2vec produces spectacularly rich and reliable vector embeddings, but
 their reliance on randomly sampled pairs of words and contexts makes
@@ -865,8 +989,7 @@ loads a downloaded pretrained model for use.
 \end{Highlighting}
 \end{Shaded}
 
-\paragraph{Advantages and Disadvantages of
-GloVe.}\label{advantages-and-disadvantages-of-glove}
+\paragraph{GloVe: Key Takeaways.}\label{glove-key-takeaways}
 
 GloVe's efficient training procedure has made it a popular choice for
 researchers who wish to train their own models. GloVe is also appealing
@@ -876,7 +999,7 @@ download online. Like word2vec, GloVe's primary downsides are that it
 relies on word-level meaning and that it has limited applicability to
 languages other than English.
 
-\subsubsection{FastText}\label{fasttext}
+\subsection{FastText}\label{fasttext}
 
 FastText (Bojanowski et al., 2017) is a specialized version of word2vec,
 designed to work with languages in which words take different forms
@@ -904,32 +1027,33 @@ appear in the training dataset (e.g.~it could quantify the meaning of
 ``morpheme'', and ``chronologically'').
 
 After downloading a pretrained model from Grave et al. (2018), you can
-use fastText in R through the fastTextR package.\footnote{Available at
+use fastText in R through the \emph{fastTextR} package.\footnote{Available
+  at
   https://cran.r-project.org/web/packages/fastTextR/vignettes/Word\_representations.html}
-FastTextR includes a dedicated function for obtaining full text
+\emph{FastTextR} includes a dedicated function for obtaining full text
 embeddings, \texttt{ft\_sentence\_vectors()}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(fastTextR)}
 
-\CommentTok{\# example Hebrew texts}
-\NormalTok{heb\_words }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"מחשבותייך"}\NormalTok{, }\StringTok{"מחשבה"}\NormalTok{)}
-\NormalTok{heb\_texts }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"הדבור מיחד את האדם מן החי, הדומם והצומח, הלשון היא – נפש חיה – רוח ממללה"}\NormalTok{, }\StringTok{"לשון היא המבדלת בין אומה אחת לחברתה, והיא החוט, שעליו נחרזות תמורות הנפש הרבות"}\NormalTok{)}
+\CommentTok{\# example French texts}
+\NormalTok{fr\_words }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Français"}\NormalTok{, }\StringTok{"française"}\NormalTok{)}
+\NormalTok{fr\_texts }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Ce qui n\textquotesingle{}est pas clair n\textquotesingle{}est pas français."}\NormalTok{, }
+              \StringTok{"Ce que l\textquotesingle{}on conçoit bien s\textquotesingle{}énonce clairement"}\NormalTok{)}
 
 \CommentTok{\# load pretrained model from file}
-\NormalTok{heb\_model }\OtherTok{\textless{}{-}} \FunctionTok{ft\_load}\NormalTok{(}\StringTok{"data/cc.he.300.bin"}\NormalTok{)}
+\NormalTok{fr\_model }\OtherTok{\textless{}{-}} \FunctionTok{ft\_load}\NormalTok{(}\StringTok{"data/cc.fr.300.bin"}\NormalTok{)}
 
 \CommentTok{\# get word embeddings}
-\NormalTok{word\_vecs }\OtherTok{\textless{}{-}} \FunctionTok{ft\_word\_vectors}\NormalTok{(heb\_model, heb\_words)}
+\NormalTok{word\_vecs }\OtherTok{\textless{}{-}} \FunctionTok{ft\_word\_vectors}\NormalTok{(fr\_model, fr\_words)}
 
 \CommentTok{\# get text embeddings}
-\NormalTok{text\_vecs }\OtherTok{\textless{}{-}} \FunctionTok{ft\_sentence\_vectors}\NormalTok{(heb\_model, heb\_texts)}
+\NormalTok{text\_vecs }\OtherTok{\textless{}{-}} \FunctionTok{ft\_sentence\_vectors}\NormalTok{(fr\_model, fr\_texts)}
 \end{Highlighting}
 \end{Shaded}
 
-\paragraph{Advantages and Disadvantages of
-FastText.}\label{advantages-and-disadvantages-of-fasttext}
+\paragraph{FastText: Key Takeaways.}\label{fasttext-key-takeaways}
 
 Relative to word2vec and GloVe, fastText performs much better on
 morphologically rich languages. Pretrained models for 157 languages are
@@ -940,50 +1064,22 @@ The cost of this gain is that fastText models are more complex,
 resulting in larger files to download when using pretrained models. The
 added complexity may also increase the risk of overfitting.
 
-\subsubsection{Interpreting Advanced Word
-Embeddings}\label{sec-embedding-magnitude}
+\subsection{Interpreting Word
+Embeddings}\label{interpreting-word-embeddings}
 
 Advanced word embedding algorithms like word2vec, GloVe, and fastText
-use the dot product of embeddings to measure how likely two words are to
-appear together. The dot product is the same as cosine similarity,
-except that it gets larger as the vectors get farther away from the
-origin (i.e.~cosine similarity is the dot product of two normalized
-vectors).
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{dot\_prod }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x, y)\{}
-\NormalTok{  dot }\OtherTok{\textless{}{-}}\NormalTok{ x }\SpecialCharTok{\%*\%}\NormalTok{ y}
-  \FunctionTok{as.vector}\NormalTok{(dot)}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}
-
-\caption{\label{fig-dotprod}Dot Product vs.~Cosine Similarity}
-
-\centering{
-
-\includegraphics{embeddings_paper_files/figure-pdf/fig-dotprod-1.pdf}
-
-}
-
-\end{figure}%
-
-Recall that in models like word2vec and GloVe, the dot product
-corresponds to the probability that two words occur together. Vectors
-that are farther away from the origin will result in very positive or
-very negative dot products, making the model more confident in the pair
-of words either being neighbors or not. This means that the distance of
-a word embedding from the origin (also called the norm or magnitude) is
-proportional to the informativeness of the word (Oyama et al., 2023;
-Schakel \& Wilson, 2015). For example, the word ``the'' has a very low
-magnitude because it does not indicate a specific context, while the
-word ``psychology'' has a very high magnitude because its use is
-associated with a very specific context. Therefore, the magnitude of the
-embedding measures how representative it is of certain contexts as
-opposed to others.
+use the dot product of two word embeddings to measure how likely the
+probability that the words occur together. Vectors that are farther away
+from the origin will result in very positive or very negative dot
+products, making the model more confident in the pair of words either
+being neighbors or not. This means that the distance of a word embedding
+from the origin (also called the norm or magnitude) is proportional to
+the informativeness of the word (Oyama et al., 2023; Schakel \& Wilson,
+2015). For example, the word ``the'' has a very low magnitude because it
+does not indicate a specific context, while the word ``psychology'' has
+a very high magnitude because its use is associated with a very specific
+context. Therefore, the magnitude of the embedding measures how
+representative it is of certain contexts as opposed to others.
 
 This is the reason why an accurate embedding of a full text can be
 obtained by averaging the embeddings of each of its words. One may
@@ -1003,7 +1099,7 @@ product may be more appropriate than the cosine similarity. For this
 reason, the dot product may sometimes be optimal for analyzing texts
 with decontextualized embeddings (See Appendix A).
 
-\subsection{Contextualization With Large Language
+\section{Contextualization With Large Language
 Models}\label{contextualization-with-large-language-models}
 
 The models we have discussed so far represent the meaning of each token
@@ -1048,20 +1144,21 @@ a new understanding of what these tokens mean in the particular context
 of that text. For this reason, embeddings produced by these models are
 often referred to as \textbf{contextualized embeddings}.
 
-The core of all modern LLMs is a model called the \emph{transformer}. We
-will not cover exactly how transformers work. For the purposes of this
-guide, we offer only the broad overview necessary to make proper use of
-them in research: In processing a text, transformers first convert all
-the words into word embeddings, as word2vec or GloVe would do. At the
-start, these word embeddings represent the average meaning of each word.
-The transformer then estimates how each word in the text might be
-relevant for better understanding the meaning of the other words. For
-example, if ``circuit'' appears immediately following ``short'', the
-embedding of ``short'' should probably be tweaked. Once it has
-identified this connection, the transformer computes what ``circuit''
-should add to a word that it is associated with, moving the ``short''
-embedding closer to embeddings for electrical concepts. A full LLM has
-many \emph{layers}. In each layer, the LLM identifies more connections
+The core of all modern LLMs is a model called the \emph{transformer}
+(Vaswani et al., 2017). We will not cover exactly how transformers work.
+For the purposes of this guide, we offer only the broad overview
+necessary to make proper use of them in research: In processing a text,
+transformers first convert all the words into word embeddings, as
+word2vec or GloVe would do. At the start, these word embeddings
+represent the average meaning of each word. The transformer then
+estimates how each word in the text might be relevant for better
+understanding the meaning of the other words. For example, if
+``circuit'' appears immediately following ``short'', the embedding of
+``short'' should probably be tweaked. Once it has identified this
+connection, the transformer computes what ``circuit'' should add to a
+word that it is associated with, moving the ``short'' embedding closer
+to embeddings for electrical concepts. A full LLM has many
+\emph{layers}. In each layer, the LLM identifies more connections
 between embeddings and shifts the embeddings in the vector space to add
 more nuance to their representations. When it gets to the final layer,
 the LLM uses the enriched embeddings of the words in the text for
@@ -1074,8 +1171,8 @@ predicting the next word (or anything else it was trained to do). This
 way, we can read the LLM's mind, capturing all of the rich associations
 it has with the text.
 
-\subsubsection{Hugging Face and the text
-Package}\label{hugging-face-and-the-text-package}
+\subsection{\texorpdfstring{Hugging Face and the \emph{text}
+Package}{Hugging Face and the text Package}}\label{hugging-face-and-the-text-package}
 
 Leading commercial LLMs like GPT-4 are hidden behind APIs so that their
 inner workings are kept secret. Researchers therefore cannot access the
@@ -1083,13 +1180,13 @@ embeddings of these high profile models. Nevertheless, plenty of models
 that are almost as good are open source and easily accessible through
 Hugging Face Transformers.\footnote{https://huggingface.co/docs/transformers/index}
 Any text-based transformer model can be accessed in R using the
-\texttt{text} package (Kjell et al., 2021).\footnote{The \texttt{text}
+\emph{text} package (Kjell et al., 2021).\footnote{The \emph{text}
   package runs Python code behind the scenes, so new users will have to
   set up a Python environment for it to run properly. For instructions
   on how to do this, see
   https://www.r-text.org/articles/huggingface\_in\_r\_extended\_installation\_guide.html.}
 
-The key tool provided by the \texttt{text} package is
+The key tool provided by the \emph{text} package is
 \texttt{textEmbed()}. This function takes in raw texts and generates
 contextualized embeddings using a specified open source model. Here we
 use \texttt{BAAI/bge-base-en-v1.5} (Xiao et al., 2023), a relatively
@@ -1178,52 +1275,78 @@ as expected.
 
 \subsubsection{Choosing the Right Model}\label{choosing-the-right-model}
 
-New LLMs are published on Hugging Face every day, and choosing one can
-be daunting. Part of the beauty of LLMs is their ability to
-generalize---most popular models today are trained on enormous datasets
-with a wide variety of content, and even smaller models perform more
-than well enough to capture straightforward psychological concepts like
-emotional valence (Kjell et al., 2022). Nevertheless, it is important to
-note one recent development: the popularization of models that are
-trained explicitly to produce high quality embeddings. Such models have
-made significant progress in solving a major limitation of LLM
-embeddings. Word2vec, GloVe, and related models have architectures that
-guarantee vector spaces with consistent geometric properties, allowing
-researchers to confidently compute averages between vectors and
-interpret linear directions as encoding unique semantic meanings. In
-contrast, the ways that LLMs organize meaning in their embedding spaces
-are not well understood and may not always lend themselves to simple
-measures like those described in this guide {[}Cai et al. (2021); Li et
-al. (2020); Reif et al. (2019); zhou\_etal\_2022{]}. Recently,
-researchers have tried to fix this problem by creating models that
-encourage embeddings to spread out evenly in the embedding space, or
-that explicitly optimize for reliable cosine similarity metrics. Many of
+Part of the beauty of LLMs is their ability to generalize---most popular
+models today are trained on enormous datasets with a wide variety of
+content, and even smaller models perform more than well enough to
+capture straightforward psychological concepts like emotional valence
+(Kjell et al., 2022). Nevertheless, there is a notable major limitation
+of LLM embeddings. Word2vec, GloVe, and related models have
+architectures that guarantee vector spaces with consistent geometric
+properties, allowing researchers to confidently compute averages between
+vectors and interpret linear directions as encoding unique semantic
+meanings. In contrast, the ways that LLMs organize meaning in their
+embedding spaces are not well understood and may not always lend
+themselves to simple measures like those described in this guide {[}Cai
+et al. (2021); Li et al. (2020); Reif et al. (2019);
+zhou\_etal\_2022{]}.
+
+Recently, researchers have tried to fix this problem by creating models
+that are trained explicitly to produce high quality embeddings. These
+models encourage embeddings to spread out evenly in the embedding space,
+or explicitly optimize for reliable cosine similarity metrics. Many of
 these models can be found on the leaderboard for the MTEB benchmark
 (Muennighoff et al., 2022).\footnote{The current MTEB leaderboard can be
   found at https://huggingface.co/spaces/mteb/leaderboard.}
 
-\paragraph{Advantages and Disadvantages of Contextualized
-Embeddings.}\label{advantages-and-disadvantages-of-contextualized-embeddings}
+\subsection{Additive Analogies in Contextualized
+Embeddings}\label{additive-analogies-in-contextualized-embeddings}
 
-Contextualized embeddings can represent multiple senses of each word.
-This is especially important for analyzing shorter texts---since the
-sample of words is small, the need to correctly characterize each one is
-greater. Contextualized embeddings are also sensitive to word order and
-negation (e.g.~LLMs can tell the difference between ``he's funny but not
-smart'' and ``he's smart but not funny''). Despite these advantages, LLM
-embeddings come with two downsides. First, they are computationally
-expensive to generate, making them unfeasible for application to large
-datasets. Second, unlike simple word embedding models, LLMs may
-sometimes organize embeddings in nonlinear patterns. For example, GPT
-models tend to arrange their embeddings in a spiral (Cai et al., 2021).
-This is presumably why BERT text embeddings perform worse than word2vec
-and GloVe when analyzed using cosine similarity (Reimers \& Gurevych,
-2019). Specialized models such as those listed on the leaderboard for
-the MTEB benchmark (Muennighoff et al., 2022) can help with this
-problem, but are unlikely to solve it entirely.
+Note in Figure~\ref{fig-parallelogram} that the analogical property
+relies on the magnitude of the vectors---if some vectors were shorter or
+longer than necessary, the parallelogram would not fit. This means that
+analogical reasoning may not be applicable to LLM embeddings, which are
+often organized in nonlinear patterns (Cai et al., 2021; Ethayarajh,
+2019; Gao et al., 2019). Even specialized models like sentence
+transformers are generally not designed with the additive analogical
+property in mind (Reimers \& Gurevych, 2019). Even though the
+geometrically motivated methods described in this guide work fairly well
+in LLM embeddings, there is room for improvement in this
+area.\footnote{Some promising methods have been suggested for extracting
+  geometrically regular embeddings out of non-specialized LLMs. For
+  example, averaging the last two layers of the model seems to help (Li
+  et al., 2020). Taking a different approach, Ethayarajh (2019) created
+  static word embeddings from an LLM by running it on a large corpus and
+  taking the set of each word's contextualized representations from all
+  the places it appears in the corpus. The loadings of the first
+  principal component of this set represent the dimensions along which
+  the meaning of the word changes across different contexts. These
+  loadings can themselves be used as a vector embedding which can
+  out-perform GloVe and FastText embeddings on many word vector
+  benchmarks, including analogy solving. This approach worked best for
+  embeddings from the early layers of the LLM.}
 
-\subsection{Representing Psychological
-Constructs}\label{representing-psychological-constructs}
+\subsection{Contextualized Embeddings: Key
+Takeaways}\label{contextualized-embeddings-key-takeaways}
+
+Contextualized embeddings by definition can represent multiple senses of
+each word. This is especially important for analyzing shorter
+texts---since the sample of words is small, the need to correctly
+characterize each one is greater. Contextualized embeddings are also
+sensitive to word order and negation (e.g.~LLMs can tell the difference
+between ``he's funny but not smart'' and ``he's smart but not funny'').
+Despite these advantages, LLM embeddings come with two downsides. First,
+they are computationally expensive to generate, making them unfeasible
+for application to large datasets. Second, unlike simple word embedding
+models, LLMs may sometimes organize embeddings in nonlinear patterns.
+For example, GPT models tend to arrange their embeddings in a spiral
+(Cai et al., 2021). This is presumably why BERT text embeddings perform
+worse than word2vec and GloVe when analyzed using cosine similarity
+(Reimers \& Gurevych, 2019). Specialized models such as those listed on
+the leaderboard for the MTEB benchmark (Muennighoff et al., 2022) can
+help with this problem, but are unlikely to solve it entirely.
+
+\section{Representing Psychological Constructs: DDR, CCR, and
+CAV}\label{representing-psychological-constructs-ddr-ccr-and-cav}
 
 With modern vector-based methods, any language-based psychological
 measure can be represented as a vector. Psychology has used
@@ -1233,34 +1356,34 @@ vector spaces, we introduce three methods for quantifying existing
 psychological constructs in high-dimensional vector space: Distributed
 Dictionary Representation (DDR), Contextualized Construct Representation
 (CCR), and Correlational Anchored Vectors (CAV). As we introduce each
-method, we use it to quantify a psychological construct: either
+method, we use it to quantify an example psychological construct: either
 self-referential processing or the related concept of locus of
 control---the feeling that one has control over one's own life (Rotter,
 1966). Finally, we use each metric to test for significant differences
 between posts in the Reddit r/depression community (N = 995) and posts
-in r/TodayIamHappy community (N = 781). As their names suggest, the
+in the r/TodayIamHappy community (N = 781). As their names suggest, the
 former is a support group for users struggling with depression, while
 the latter is a forum for sharing happy experiences. This small sample
 of posts, which we name \texttt{reddit\_emotion}, was collected from the
 Pushshift Reddit archives (Baumgartner et al., 2020) and is used here
 purely for the sake of demonstration.
 
-\subsubsection{Distributed Dictionary Representation
+\subsection{Distributed Dictionary Representation
 (DDR)}\label{distributed-dictionary-representation-ddr}
 
 We begin with a straightforward sort of psychological measure---the
 dictionary (also known as a word list or lexicon). A dictionary is a
-list of words (or other units of text, called generally ``tokens'')
+list of words (or other units of text, generally called ``tokens'')
 associated with a given psychological or other construct. For example, a
 dictionary for depression might include words like ``sleepy'' and
-``down.'' Psychology researchers have been constructing, validating, and
-publicizing dictionaries for decades. But these dictionaries are
+``down.'' Psychological researchers have been constructing, validating,
+and publicizing dictionaries for decades. But these dictionaries are
 generally designed to be used by counting dictionary words in a
-text---How do we apply them to a vector-based analysis? Garten et al.
+text---How can they be applied to a vector-based analysis? Garten et al.
 (2018) propose a simple solution: Generate word embeddings for each word
-in the dictionary, and average them together to create a single
-Distributed Dictionary Representation (DDR). The dictionary construct
-can then be measured by comparing text embeddings to the DDR.
+in the dictionary, and average them together to create a single DDR. The
+dictionary construct can then be measured by comparing text embeddings
+to the DDR.
 
 DDR cannot entirely replace word counts; for linguistic concepts like
 conjunctions or use of the passive voice, word counts may still be
@@ -1379,8 +1502,7 @@ We find that posts in r/depression have more self-referential language
 indicating that the use of self-referential language increases during
 depressive episodes (Rude et al., 2004).
 
-\paragraph{Advantages and Disadvantages of
-DDR.}\label{advantages-and-disadvantages-of-ddr}
+\subsubsection{DDR: Key Takeaways}\label{ddr-key-takeaways}
 
 DDR produces richer, more robust construct representation than
 traditional word counting methods (cf. Boyd et al., 2022). Since DDR
@@ -1408,7 +1530,7 @@ refer to specific words. Constructs that are concretely tied to words or
 grammatical forms in the text should therefore be analyzed using
 standard word counting methods (see Boyd et al., 2022).
 
-\subsubsection{Contextualized Construct Representation
+\subsection{Contextualized Construct Representation
 (CCR)}\label{contextualized-construct-representation-ccr}
 
 Dictionaries are not the only validated psychological measures that we
@@ -1418,8 +1540,7 @@ Atari et al. (2023) propose to do this with the most popular form of
 psychometric scale: the questionnaire. Psychologists have been using
 questionnaires to measure things for over a century, and tens of
 thousands of validated questionnaires are now available online. The LLM
-embedding of a questionnaire is referred to as a Contextualized
-Construct Representation (CCR).
+embedding of a questionnaire is referred to as a CCR.
 
 We can use CCR to measure internal locus of control by using the
 questionnaire introduced by Rotter (1966). The questionnaire includes
@@ -1451,10 +1572,10 @@ the internal locus of control items.\footnote{Many questionnaires
 \end{Highlighting}
 \end{Shaded}
 
-The ubiquity of questionnaire measures in psychology research makes CCR
-a powerful tool. Nevertheless, researchers should keep in mind what is
-being represented by the CCR. Embeddings capture the overall feel of a
-text, including its tone and dialect. With CCR, we are comparing the
+The ubiquity of questionnaire measures in psychological research makes
+CCR a powerful tool. Nevertheless, researchers should keep in mind what
+is being represented by the CCR. Embeddings capture the overall feel of
+a text, including its tone and dialect. With CCR, we are comparing the
 feel of a questionnaire written by academics to the feel of posts
 written by Reddit users. By comparing these vectors, we are not just
 measuring how much self-referential language is in each text---we are
@@ -1474,95 +1595,13 @@ participants can answer in their own words, which CCR will compare to
 the wording of the questionnaire (for preliminary empirical validation
 of this recommendation, see Appendix B).
 
-\paragraph{Advantages and Disadvantages of
-CCR.}\label{advantages-and-disadvantages-of-ccr}
+\subsubsection{Anchored Vectors in CCR and
+DDR}\label{anchored-vectors-in-ccr-and-ddr}
 
-CCR is a powerful tool because it can apply existing questionnaires---a
-fundamental tool in psychological research---to modern automated text
-analysis. In this sense it makes effective use of contextualized
-embeddings provided by state of the art LLMs. CCR thus allows
-psychologists to efficiently implement questionnaire-based research
-designs that nevertheless allow participants to compose responses in
-their own words. One limitation of CCR is its limited ability to
-generalize---it is thus contraindicated for texts that do not contain
-similar content and wording to the embedded questionnaire. Nevertheless
-the risk of questionnaire-ness described above can be mitigated by
-constructing an anchored vector, discussed below.
-
-\subsection{Reasoning in Vector Space: Additive Analogies and Anchored
-Vectors}\label{reasoning-in-vector-space-additive-analogies-and-anchored-vectors}
-
-An oft-touted property of word embeddings is that they can be added to
-each other in order to arrive at new concepts. A prototypical example is
-shown in Figure~\ref{fig-parallelogram}. Subtracting the embedding of
-``man'' from the embedding of ``woman'' results in the vector shown in
-blue. This vector represents the move from male to female gender. A
-vector between two embeddings is called an \textbf{anchored vector}. So
-when the man-woman anchored vector is added to the embedding of
-``aunt'', the result is very close to the embedding of ``uncle''. This
-property was first noted in word2vec (Mikolov, Yih, et al., 2013), and
-GloVe (Pennington et al., 2014) was specifically designed with it in
-mind.
-
-\begin{figure}[!htbp]
-
-{\caption{{An Additive Analogy in Word
-Embeddings}{\label{fig-parallelogram}}}}
-
-\includegraphics{embeddings_paper_files/figure-pdf/fig-parallelogram-1.pdf}
-
-{\noindent \emph{Note.} Word embeddings were acquired from the
-glove.twitter.27B.100d pretrained model and reduced to two dimensions
-with Principle Component Analysis (PCA).}
-
-\end{figure}
-
-\paragraph{Additive Analogies in Contextualized
-Embeddings.}\label{additive-analogies-in-contextualized-embeddings}
-
-Note in Figure~\ref{fig-parallelogram} that the analogical property
-relies on the magnitude of the vectors---if some vectors were shorter or
-longer than necessary, the parallelogram would not fit. This means that
-analogical reasoning may not be applicable to LLM embeddings, which are
-often organized in nonlinear patterns (Cai et al., 2021; Ethayarajh,
-2019; Gao et al., 2019). Even specialized models like sentence
-transformers are generally not designed with the additive analogical
-property in mind (Reimers \& Gurevych, 2019). Even though the
-geometrically motivated methods described in this guide work fairly well
-in LLM embeddings, there is lots of room for improvement in this
-area.\footnote{There are some promising methods for getting more
-  geometrically regular embeddings out of non-specialized LLMs. For
-  example, averaging the last two layers of the model seems to help (Li
-  et al., 2020). Taking a different approach, Ethayarajh (2019) created
-  static word embeddings from an LLM by running it on a large corpus and
-  taking the set of each word's contextualized representations from all
-  the places it appears in the corpus. The loadings of the first
-  principal component of this set represent the dimensions along which
-  the meaning of the word changes across different contexts. These
-  loadings can themselves be used as a vector embedding which can
-  out-perform GloVe and FastText embeddings on many word vector
-  benchmarks, including analogy solving. This approach worked best for
-  embeddings from the early layers of the LLM.}
-
-Additive analogical reasoning can help overcome a fundamental challenge
-of semantic embeddings, a more general form of the questionnaire-ness
-problem discussed above in the context of CCR. Consider the embeddings
-for ``happy'' and ``sad''. These may seem like opposites, but actually
-they are likely to be very close to each other in vector space because
-they both relate to emotional valence. This means that if we try to
-measure the happiness of words by comparing their embeddings to the
-embedding for ``happy'', we will actually be measuring the extent to
-which the words relate to emotion in general. The word ``depression''
-might seem happier than the word ``table'', since depression is more
-emotion-related. This problem can be solved by using \textbf{anchored
-vectors}. Just as we created an anchored vector between ``man'' and
-``woman'' to represent masculinity (as opposed to femininity) in
-Figure~\ref{fig-parallelogram}, we can create an anchored vector between
-``happy'' and ``sad'' to represent happiness (as opposed to sadness).
-Such anchored vectors can be applied wherever necessary in embedding
-space.
-
-In the code below, we compute an anchored vector for locus of control by
+A second potential remedy for the questionnaire-ness problem is to
+compute CCRs for both the construct of interest and its opposite, and to
+operationalize the construct as the anchored vector between them. In the
+code below, we compute an anchored vector for locus of control by
 subtracting the CCR of the internal locus of control items from that of
 the external locus of control items. This anchored vector then measures
 internal \emph{as opposed to external} locus of control.
@@ -1573,41 +1612,6 @@ internal \emph{as opposed to external} locus of control.
 \NormalTok{loc\_anchored }\OtherTok{\textless{}{-}}\NormalTok{ internal\_bge }\SpecialCharTok{{-}}\NormalTok{ external\_bge}
 \end{Highlighting}
 \end{Shaded}
-
-To measure a construct with an anchored vector, take the dot product of
-a text embedding with the anchored vector. This is the equivalent of
-``projecting'' the embeddings down onto the scale between one end of the
-anchored vector and the other, as shown in
-Figure~\ref{fig-projection}.\footnote{For an intuitive explanation of
-  why the dot product is equivalent to a projection, see 3blue1brown's
-  video on the subject, at
-  https://youtu.be/LyGKycYT2v0?si=86cfrN9DP9xw5HUx. Incidentally, the
-  dot product with the anchored vector is also equivalent to the dot
-  product with the positive embedding (e.g.~``happy'') minus the dot
-  product with the negative vector (e.g.~``sad'').}
-
-\begin{figure}[!htbp]
-
-{\caption{{Projection of Embeddings Onto an Anchored
-Vector}{\label{fig-projection}}}}
-
-\includegraphics{embeddings_paper_files/figure-pdf/fig-projection-1.pdf}
-
-{\noindent \emph{Note.} Word embeddings were acquired from the
-glove.twitter.27B.100d pretrained model and reduced to two dimensions
-with Principle Component Analysis (PCA).}
-
-\end{figure}
-
-By projecting each embedding down onto the anchored vector between happy
-and sad, we create a scale from happy to sad.\footnote{Taking the dot
-  product with an anchored vector yields an unstandardized version of
-  this scale. For a standardized version of this function, in which
-  ``sad'' is at 0 and ``happy'' is at 1 on the scale, use the
-  \texttt{anchored\_sim()} function included in our Github repo at
-  https://github.com/rimonim/embeddings\_tutorial/blob/master/embedding\_scripts.R.}
-This is sometimes referred to as \textbf{semantic projection} (Grand et
-al., 2022).
 
 Anchored vectors can be applied to any construct that has a clear
 opposite, whether operationalized through CCR, DDR, or other methods.
@@ -1660,15 +1664,29 @@ We find that posts in r/TodayIamHappy have more internal (as opposed to
 external) locus of control than those in r/depression (p \textless{}
 .001).
 
-\subsubsection{Correlational Anchored Vectors
+\subsubsection{CCR: Key Takeaways}\label{ccr-key-takeaways}
+
+CCR is a powerful tool because it can apply existing questionnaires---a
+fundamental tool in psychological research---to modern automated text
+analysis. In this sense it makes effective use of contextualized
+embeddings provided by state of the art LLMs. CCR thus allows
+psychologists to efficiently implement questionnaire-based research
+designs that nevertheless allow participants to compose responses in
+their own words. One limitation of CCR is its limited ability to
+generalize---it is thus contraindicated for texts that do not contain
+similar content and wording to the embedded questionnaire. Nevertheless
+the risk of questionnaire-ness described above can be mitigated by
+constructing an anchored vector, discussed below.
+
+\subsection{Correlational Anchored Vectors
 (CAV)}\label{correlational-anchored-vectors-cav}
 
 An anchored vector is simply a direction in the embedding space. Rather
 than finding this direction by subtracting a negative construct
-embedding from a positive one, as we have done so far, we can use
-machine learning to find the direction that best represents the
-contstruct in a training dataset. This provides an alternative to DDR
-and CCR, by which construct representations are learned directly from
+embedding from a positive one, as we have done so far in this guide, we
+can use machine learning to find the direction that best represents the
+construct in a training dataset. This provides an alternative to DDR and
+CCR, by which construct representations are learned directly from
 examples. Such examples may be the product of human raters or of an
 experimental manipulation. For the example below we use data from
 Kasprzyk and Calin-Jageman (2014), who asked participants to write about
@@ -1700,7 +1718,7 @@ With Partial Least Squares (PLS) regression (Mevik \& Wehrens, 2007;
 Wold et al., 2001), which finds directions in the feature space that
 best correlate with the dependent variable (in this case Power as
 opposed to Control), we create a CAV. PLS is implemented here with the
-caret package (Kuhn \& Max, 2008).
+\emph{caret} package (Kuhn \& Max, 2008).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1758,8 +1776,7 @@ We find that posts in r/TodayIamHappy share more characteristics in
 common with narratives of the speaker having control over others than
 did posts in r/depression (p \textless{} .001).
 
-\paragraph{Advantages and Disadvantages of
-CAV.}\label{advantages-and-disadvantages-of-cav}
+\subsubsection{CAV: Key Takeaways}\label{cav-key-takeaways}
 
 CAV allows the application of closely related texts. Given a training
 set that closely resembles the texts of interest, CAV provides a
@@ -1768,7 +1785,7 @@ unconfounded by differences in text genre. On the other hand, CAV
 requires applicable training data and introduces questions of validity
 when applying patterns in the training set to the texts of interest.
 
-\subsubsection{Other Machine Learning
+\subsection{Other Machine Learning
 Methods}\label{other-machine-learning-methods}
 
 Using PLS regression to generate a CAV is a very simple way to leverage
@@ -2096,6 +2113,11 @@ E., \& Dehghani, M. (2022). \emph{The moral foundations reddit corpus}.
 Tversky, A., \& Gati, I. (1982). Similarity, separability, and the
 triangle inequality. \emph{Psychological Review}, \emph{89}, 123--154.
 \url{https://doi.org/10.1037/0033-295X.89.2.123}
+
+\bibitem[\citeproctext]{ref-vaswani_etal_2017}
+Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez,
+A. N., Kaiser, L., \& Polosukhin, I. (2017). \emph{Attention is all you
+need}. \url{https://arxiv.org/abs/1706.03762}
 
 \bibitem[\citeproctext]{ref-wickham_etal_2019}
 Wickham, H., Averick, M., Bryan, J., Chang, W., McGowan, L. D.,
