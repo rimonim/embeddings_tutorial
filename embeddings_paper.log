@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.6.17)  20 JUN 2024 14:42
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.6.17)  20 JUN 2024 19:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1506,33 +1506,31 @@ File: embeddings_paper_files/figure-pdf/fig-projection-1.pdf Graphic file (type 
 
 [13]
 
-LaTeX Warning: Reference `tbl-skipgram1' on page 14 undefined on input line 767.
+LaTeX Warning: Reference `tbl-skipgram1' on page 14 undefined on input line 764.
 
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 4 on input line 787.
+(longtable)                in table 4 on input line 784.
 
 
-LaTeX Warning: Reference `tbl-skipgram2' on page 14 undefined on input line 795.
-
-
-Package longtable Warning: Column widths have changed
-(longtable)                in table 6 on input line 818.
-
-
-LaTeX Warning: Reference `tbl-skipgram2' on page 14 undefined on input line 824.
+LaTeX Warning: Reference `tbl-skipgram2' on page 14 undefined on input line 792.
 
 
 
 [14]
-Underfull \vbox (badness 1881) has occurred while \output is active []
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 6 on input line 815.
+
+
+LaTeX Warning: Reference `tbl-skipgram2' on page 15 undefined on input line 821.
 
 
 
 [15]
 
 [16]
-Overfull \hbox (14.22499pt too wide) in paragraph at lines 907--907
+Overfull \hbox (14.22499pt too wide) in paragraph at lines 904--904
 \TU/TeXGyreTermesX(0)/m/n/10 https://www.kaggle.com/datasets/pkugoodspeed/nlpword2vecembeddingspretrained/download?datasetVersionNumber=1|  
  []
 
@@ -1550,7 +1548,7 @@ Overfull \hbox (14.22499pt too wide) in paragraph at lines 907--907
 
 [22]
 LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/it' will be
-(Font)              scaled to size 10.0pt on input line 1187.
+(Font)              scaled to size 10.0pt on input line 1184.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -1562,7 +1560,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [25]
 
-LaTeX Warning: Reference `fig-parallelogram' on page 26 undefined on input line 1304.
+LaTeX Warning: Reference `fig-parallelogram' on page 26 undefined on input line 1301.
 
 
 
@@ -1576,9 +1574,6 @@ Underfull \vbox (badness 2529) has occurred while \output is active []
 
 
 [29]
-Underfull \vbox (badness 1043) has occurred while \output is active []
-
-
 
 [30]
 

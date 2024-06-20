@@ -285,7 +285,7 @@ As we shall see later in this guide, the dot product is used internally in some 
 
 ### Additive Analogies and Anchored Vectors
 
-An oft-touted property of embeddings from some models is that they can be added to each other in order to arrive at new concepts. A prototypical example is shown in @fig-parallelogram. Subtracting the embedding of "man" from the embedding of "woman" results in the vector shown in blue. This vector represents the move from male to female gender. A vector between two embeddings is called an *anchored vector*. When the man-woman anchored vector is added to the embedding of "aunt", the result is very close to the embedding of "uncle". This property was first noted in word2vec [@mikolov_etal_2013], and GloVe [@pennington_etal_2014] was specifically designed with it in mind. 
+An oft-touted property of embeddings from some models is that they can be added to each other in order to arrive at new concepts. A prototypical example is shown in @fig-parallelogram. Subtracting the embedding of "man" from the embedding of "woman" results in the vector shown in blue. This vector represents the move from male to female gender. A vector between two embeddings is called an *anchored vector*. When the man-woman anchored vector is added to the embedding of "aunt", the result is very close to the embedding of "uncle". This property was first noted in the word2vec model [@mikolov_etal_2013], and GloVe [@pennington_etal_2014] was specifically designed with it in mind. 
 
 ```{r}
 #| label: fig-parallelogram
@@ -332,9 +332,9 @@ analogy_pca |>
 
 Additive analogical reasoning can help overcome a fundamental challenge of semantic embeddings. Consider the embeddings for "happy" and "sad". These may seem like opposites, but actually they are likely to be very close to each other in vector space because they both relate to emotional valence. This means that if we try to measure the happiness of words by comparing their embeddings to the embedding for "happy", we will actually be measuring the extent to which the words relate to emotion in general. The word "depression" might seem happier than the word "table", since depression is more emotion-related. This problem can be solved by using anchored vectors. Just as we created an anchored vector between "man" and "woman" to represent masculinity (as opposed to femininity) in @fig-parallelogram, we can create an anchored vector between "happy" and "sad" to represent happiness (as opposed to sadness). Such anchored vectors can be applied wherever necessary in embedding space. 
 
-To measure a construct with an anchored vector, take the dot product of a text embedding with the anchored vector. This is the equivalent of "projecting" the embeddings down onto the scale between one end of the anchored vector and the other, as shown in @fig-projection.[^anchored-vecs-1] 
+A construct can be measured with an anchored vector by taking the dot product of a text embedding and the anchored vector. This is the equivalent of "projecting" the embeddings down onto the scale between one end of the anchored vector and the other, as shown in @fig-projection.[^anchored-vecs-1] 
 
-[^anchored-vecs-1]: For an intuitive explanation of why the dot product is equivalent to a projection, see 3blue1brown's video on the subject, at https://youtu.be/LyGKycYT2v0?si=86cfrN9DP9xw5HUx. Incidentally, the dot product with the anchored vector is also equivalent to the dot product with the positive embedding (e.g. "happy") minus the dot product with the negative vector (e.g. "sad").
+[^anchored-vecs-1]: The dot product with the anchored vector is also equivalent to the dot product with the positive embedding (e.g. "happy") minus the dot product with the negative embedding (e.g. "sad").
 
 ```{r}
 #| label: fig-projection
@@ -656,9 +656,9 @@ We begin with a straightforward sort of psychological measure---the dictionary (
 
 DDR cannot entirely replace word counts; for linguistic concepts like conjunctions or use of the passive voice, word counts may still be psychometrically optimal. But DDR is ideal for studies of abstract constructs like emotions, that refer to the general gist of a text rather than particular words. The rich representation of word embeddings allows DDR to capture even the subtlest associations between words and constructs, and to precisely reflect the _extent_ to which each word is associated with each construct. It can do this even for texts that do not contain any dictionary words. Because embeddings are continuous and already calibrated to the probabilities of word use in language, DDR also avoids the difficult statistical problems that arise due to the strange distributions of word counts [see @teitelbaum_simchon_2024, chap. 16].
 
-@garten_etal_2018 found that DDR works best with smaller dictionaries of only the words most directly connected to the construct being measured (around 30 words worked best in their experiments). Word embeddings work by overvaluing informative words---a desirable property for raw texts, in which uninformative words tend to be very frequent.[^ddr-1] But dictionaries only include one of each word. In longer dictionaries with more infrequent, tangentially connected words, averaging word embeddings will therefore overvalue those infrequent words and skew the DDR. This can be fixed with Garten et al.'s method of picking out only the most informative words. Alternatively, it could be fixed by measuring the frequency of each dictionary word in a corpus and weighting the average embedding by that frequency. This method is actually more consistent with the way most dictionaries are validated, by counting the frequencies of dictionary words in text (for preliminary empirical validation of this method, see Appendix A).
+@garten_etal_2018 found that DDR works best with smaller dictionaries of only the words most directly connected to the construct being measured (around 30 words worked best in their experiments). Word embeddings work by overvaluing informative words---a desirable property for raw texts, in which uninformative words tend to be very frequent.[^ddr-1] But dictionaries only include one of each word. In longer dictionaries with greater numbers of rare words that are only tangentially connected to the construct of interest, averaging word embeddings will therefore overvalue those rare words and skew the DDR. This can be fixed with Garten et al.'s method of picking out only the most informative words. Alternatively, it could be fixed by measuring the frequency of each dictionary word in a corpus of texts and weighting the average embedding by that frequency (for preliminary empirical validation of this method, see Appendix A).
 
-[^ddr-1]: For more information on this property, see "Interpreting Advanced Word Embeddings" above. Note that this property emerges naturally from the way decontextualized models like word2vec and GloVe are trained, and therefore may not hold true for contextualized embeddings.
+[^ddr-1]: For more information on this property, see "Interpreting Word Embeddings" above. Note that this property emerges naturally from the way decontextualized models like word2vec and GloVe are trained, and therefore may not hold true for contextualized embeddings.
 
 In the example code below, we create a DDR for self-referential processing using the Linguistic Inquiry and Word Count (LIWC) dictionary of first person singular pronouns [@boyd_etal_2022]. Since LIWC dictionaries include stems in addition to full words, we first expand the dictionary by running the LIWC software on each unique word in `reddit_emotion` (full code is available in our Github repo). This results in a character vector of dictionary words, called `i_dict` in the code below. To correct for word informativeness, we weight the dictionary word embeddings by their frequency in `reddit_emotion`.
 
@@ -760,7 +760,7 @@ i_dict_freqs <- reddit_emotion_dfm |>
 i_DDR <- apply(i_dict_glove, 2, weighted.mean, w = i_dict_freqs)
 ```
 
-To measure the similarity of Reddit posts to this theoretical construct, we now need only to compute the cosine similarity between the DDR and the embedding of each text. Beginning with a DFM of `reddit_emotion`, the following code performs this computation and conducts a t-test for differences between r/depression and r/TodayIamHappy.
+To measure the similarity of Reddit posts to this theoretical construct, we compute the cosine similarity between the DDR and the embedding of each text. Beginning with a DFM of `reddit_emotion`, the following code performs this computation and conducts a t-test for differences between r/depression and r/TodayIamHappy.
 
 ```{r}
 #| echo: true
@@ -792,9 +792,9 @@ DDR produces richer, more robust construct representation than traditional word 
 
 ## Contextualized Construct Representation (CCR)
 
-Dictionaries are not the only validated psychological measures that we can apply using embeddings. With contextualized embeddings, we can extract the gist of any text and compare it to that of any other text. @atari_etal_2023 propose to do this with the most popular form of psychometric scale: the questionnaire. Psychologists have been using questionnaires to measure things for over a century, and tens of thousands of validated questionnaires are now available online. The LLM embedding of a questionnaire is referred to as a CCR.
+Dictionaries are not the only validated psychological measures that we can apply using embeddings. With contextualized embeddings, we can extract the gist of any text and compare it to that of any other text. @atari_etal_2023 propose to do this with the most popular form of psychometric scale: the questionnaire. Psychologists have been using questionnaires to measure constructs of interest for over a century, and tens of thousands of validated questionnaires are now available online. The LLM embedding of a questionnaire is referred to as a CCR.
 
-We can use CCR to measure internal locus of control by using the questionnaire introduced by @rotter_1966. The questionnaire includes items measuring an internal locus of control (e.g. "What happens to me is my own doing"), and items measuring an external locus of control (e.g. "Sometimes I feel that I don't have enough control over the direction my life is taking"). In the code below, we compute a CCR for the internal locus of control items.^[Many questionnaires include reverse-coded items (e.g. "I often feel happy" on a depression questionnaire). The easiest way to deal with these is to manually add negations to flip their meaning (e.g. "I _do not_ often feel happy").]
+We can use CCR to measure an internal locus of control by using the questionnaire introduced by @rotter_1966. The questionnaire includes items measuring an internal locus of control (e.g. "What happens to me is my own doing"), and items measuring an external locus of control (e.g. "Sometimes I feel that I don't have enough control over the direction my life is taking"). In the code below, we compute a CCR for the items representing the internal locus of control.^[Many questionnaires include reverse-coded items (e.g. "I often feel happy" on a depression questionnaire). The easiest way to deal with these is to manually add negations to flip their meaning (e.g. "I _do not_ often feel happy").]
 
 ```{r}
 #| eval: false
@@ -836,7 +836,7 @@ loc_anchored <- internal_bge - external_bge
 
 Anchored vectors can be applied to any construct that has a clear opposite, whether operationalized through CCR, DDR, or other methods. Although their application to contextualized embeddings relies on strong assumptions about the linearity of the contextualized embedding space, they have been shown to work reasonably well for a variety of constructs and models [@grand_etal_2022]. For an empirical demonstration of the robustness of anchored vectors for DDR, see Appendix A. For an empirical demonstration of their applicability to CCR, see Appendix B. 
 
-In the following code, we use the anchored vector for locus of control that we computed above (`loc_anchored`) to measure locus of control in `reddit_emotions` and to test the hypothesis that posts in r/depression exhibit more external locus of control than those in r/TodayIamHappy [cf. @simchon_etal_2023].
+In the following code, we use the anchored vector for locus of control computed above (`loc_anchored`) to measure locus of control in `reddit_emotions` and to test the hypothesis that posts in r/depression exhibit more external locus of control than those in r/TodayIamHappy [cf. @simchon_etal_2023].
 
 ```{r}
 #| label: CCR-setup
@@ -865,7 +865,7 @@ We find that posts in r/TodayIamHappy have more internal (as opposed to external
 
 ### CCR: Key Takeaways
 
-CCR is a powerful tool because it can apply existing questionnaires---a fundamental tool in psychological research---to modern automated text analysis. In this sense it makes effective use of contextualized embeddings provided by state of the art LLMs. CCR thus allows psychologists to efficiently implement questionnaire-based research designs that nevertheless allow participants to compose responses in their own words. One limitation of CCR is its limited ability to generalize---it is thus contraindicated for texts that do not contain similar content and wording to the embedded questionnaire. Nevertheless the risk of questionnaire-ness described above can be mitigated by constructing an anchored vector, discussed below.
+CCR is a powerful tool because it can apply existing questionnaires---a fundamental tool in psychological research---to modern automated text analysis. In this sense it makes effective use of contextualized embeddings provided by state of the art LLMs. CCR thus allows psychologists to efficiently implement questionnaire-based research designs that nevertheless allow participants to compose responses in their own words. One limitation of CCR is its limited ability to generalize---it is thus contraindicated for texts that do not contain similar content and wording to the embedded questionnaire. Nevertheless the risk of questionnaire-ness described above can be mitigated by constructing an anchored vector.
 
 ## Correlational Anchored Vectors (CAV)
 
@@ -879,7 +879,7 @@ d_train <- d_train |>
   bind_cols(d_train_bge)
 ```
 
-An anchored vector is simply a direction in the embedding space. Rather than finding this direction by subtracting a negative construct embedding from a positive one, as we have done so far in this guide, we can use machine learning to find the direction that best represents the construct in a training dataset. This provides an alternative to DDR and CCR, by which construct representations are learned directly from examples. Such examples may be the product of human raters or of an experimental manipulation. For the example below we use data from @kasprzyk_calinjageman_2014, who asked participants to write about either incidents in which they had power over others (Power) or incidents in which other people had power over them (Control). 
+An anchored vector is simply a direction in the embedding space. Rather than finding this direction by subtracting a negative construct embedding from a positive one, as we have done so far in this guide, we can use machine learning to find the direction that best represents the construct in a training dataset. Construct representations are learned directly from examples, providing an alternative to DDR and CCR. Such examples may be the product of human raters or of an experimental manipulation. For the example below we use data from @kasprzyk_calinjageman_2014, who asked participants to write about either incidents in which they had power over others (Power) or incidents in which other people had power over them (Control). 
 
 ```{r}
 #| eval: false
@@ -945,11 +945,13 @@ We find that posts in r/TodayIamHappy share more characteristics in common with 
 
 ### CAV: Key Takeaways
 
-CAV allows the application of closely related texts. Given a training set that closely resembles the texts of interest, CAV provides a relatively simple metric that is likely to be highly accurate and unconfounded by differences in text genre. On the other hand, CAV requires applicable training data and introduces questions of validity when applying patterns in the training set to the texts of interest.
+CAV allows the application of closely related texts. Given a training set that closely resembles the texts of interest, CAV provides a relatively simple metric that is likely to be highly accurate and unconfounded by differences in text genre. On the other hand, these benefits only apply inasmuch as the training data are directly analogous to the texts of interest. 
 
-## Other Machine Learning Methods
+Using PLS regression to generate a CAV is a very simple way to leverage machine learning for interpreting embeddings. The simplicity of dealing with a single direction in embedding space can provide useful intuition and transparency for researchers. Nevertheless, it sacrifices some of the predictive capacities available with modern machine learning methods.
 
-Using PLS regression to generate a CAV is a very simple way to leverage machine learning for interpreting embeddings. The simplicity of dealing with a single direction in embedding space can provide useful intuition and transparency for researchers. Nevertheless, it sacrifices some of the predictive capacities available with modern machine learning methods. With more complex algorithms, the nonlinearity of contextualized embedding spaces becomes less of a problem. Given enough training data, one can specify a model that can capture nonlinear patterns, such as a support vector machine. More complex methods also allow the simultaneous use of embeddings from multiple layers of an LLM. A comprehensive review of machine learning algorithms for psychological features is beyond the scope of this guide. See @kjell_etal_2022 for a useful introductory primer.
+### Other Machine Learning Methods
+
+With more complex algorithms, the nonlinearity of contextualized embedding spaces becomes less of a problem. Given enough training data, one can specify a model that can capture nonlinear patterns, such as a support vector machine. More complex methods also allow the simultaneous use of embeddings from multiple layers of an LLM. A comprehensive review of machine learning algorithms for psychological features is beyond the scope of this guide. See @kjell_etal_2022 for a useful introductory primer.
 
 # Conclusion
 

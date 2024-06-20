@@ -631,8 +631,8 @@ results in the vector shown in blue. This vector represents the move
 from male to female gender. A vector between two embeddings is called an
 \emph{anchored vector}. When the man-woman anchored vector is added to
 the embedding of ``aunt'', the result is very close to the embedding of
-``uncle''. This property was first noted in word2vec (Mikolov, Yih, et
-al., 2013), and GloVe (Pennington et al., 2014) was specifically
+``uncle''. This property was first noted in the word2vec model (Mikolov,
+Yih, et al., 2013), and GloVe (Pennington et al., 2014) was specifically
 designed with it in mind.
 
 \begin{figure}[!htbp]
@@ -664,17 +664,14 @@ an anchored vector between ``happy'' and ``sad'' to represent happiness
 (as opposed to sadness). Such anchored vectors can be applied wherever
 necessary in embedding space.
 
-To measure a construct with an anchored vector, take the dot product of
-a text embedding with the anchored vector. This is the equivalent of
-``projecting'' the embeddings down onto the scale between one end of the
-anchored vector and the other, as shown in
-Figure~\ref{fig-projection}.\footnote{For an intuitive explanation of
-  why the dot product is equivalent to a projection, see 3blue1brown's
-  video on the subject, at
-  https://youtu.be/LyGKycYT2v0?si=86cfrN9DP9xw5HUx. Incidentally, the
-  dot product with the anchored vector is also equivalent to the dot
-  product with the positive embedding (e.g.~``happy'') minus the dot
-  product with the negative vector (e.g.~``sad'').}
+A construct can be measured with an anchored vector by taking the dot
+product of a text embedding and the anchored vector. This is the
+equivalent of ``projecting'' the embeddings down onto the scale between
+one end of the anchored vector and the other, as shown in
+Figure~\ref{fig-projection}.\footnote{The dot product with the anchored
+  vector is also equivalent to the dot product with the positive
+  embedding (e.g.~``happy'') minus the dot product with the negative
+  embedding (e.g.~``sad'').}
 
 \begin{figure}[!htbp]
 
@@ -1405,20 +1402,18 @@ measured (around 30 words worked best in their experiments). Word
 embeddings work by overvaluing informative words---a desirable property
 for raw texts, in which uninformative words tend to be very
 frequent.\footnote{For more information on this property, see
-  ``Interpreting Advanced Word Embeddings'' above. Note that this
-  property emerges naturally from the way decontextualized models like
-  word2vec and GloVe are trained, and therefore may not hold true for
+  ``Interpreting Word Embeddings'' above. Note that this property
+  emerges naturally from the way decontextualized models like word2vec
+  and GloVe are trained, and therefore may not hold true for
   contextualized embeddings.} But dictionaries only include one of each
-word. In longer dictionaries with more infrequent, tangentially
-connected words, averaging word embeddings will therefore overvalue
-those infrequent words and skew the DDR. This can be fixed with Garten
-et al.'s method of picking out only the most informative words.
-Alternatively, it could be fixed by measuring the frequency of each
-dictionary word in a corpus and weighting the average embedding by that
-frequency. This method is actually more consistent with the way most
-dictionaries are validated, by counting the frequencies of dictionary
-words in text (for preliminary empirical validation of this method, see
-Appendix A).
+word. In longer dictionaries with greater numbers of rare words that are
+only tangentially connected to the construct of interest, averaging word
+embeddings will therefore overvalue those rare words and skew the DDR.
+This can be fixed with Garten et al.'s method of picking out only the
+most informative words. Alternatively, it could be fixed by measuring
+the frequency of each dictionary word in a corpus of texts and weighting
+the average embedding by that frequency (for preliminary empirical
+validation of this method, see Appendix A).
 
 In the example code below, we create a DDR for self-referential
 processing using the Linguistic Inquiry and Word Count (LIWC) dictionary
@@ -1454,11 +1449,10 @@ we weight the dictionary word embeddings by their frequency in
 \end{Shaded}
 
 To measure the similarity of Reddit posts to this theoretical construct,
-we now need only to compute the cosine similarity between the DDR and
-the embedding of each text. Beginning with a DFM of
-\texttt{reddit\_emotion}, the following code performs this computation
-and conducts a t-test for differences between r/depression and
-r/TodayIamHappy.
+we compute the cosine similarity between the DDR and the embedding of
+each text. Beginning with a DFM of \texttt{reddit\_emotion}, the
+following code performs this computation and conducts a t-test for
+differences between r/depression and r/TodayIamHappy.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1538,21 +1532,21 @@ can apply using embeddings. With contextualized embeddings, we can
 extract the gist of any text and compare it to that of any other text.
 Atari et al. (2023) propose to do this with the most popular form of
 psychometric scale: the questionnaire. Psychologists have been using
-questionnaires to measure things for over a century, and tens of
-thousands of validated questionnaires are now available online. The LLM
-embedding of a questionnaire is referred to as a CCR.
+questionnaires to measure constructs of interest for over a century, and
+tens of thousands of validated questionnaires are now available online.
+The LLM embedding of a questionnaire is referred to as a CCR.
 
-We can use CCR to measure internal locus of control by using the
+We can use CCR to measure an internal locus of control by using the
 questionnaire introduced by Rotter (1966). The questionnaire includes
 items measuring an internal locus of control (e.g.~``What happens to me
 is my own doing''), and items measuring an external locus of control
 (e.g.~``Sometimes I feel that I don't have enough control over the
 direction my life is taking''). In the code below, we compute a CCR for
-the internal locus of control items.\footnote{Many questionnaires
-  include reverse-coded items (e.g.~``I often feel happy'' on a
-  depression questionnaire). The easiest way to deal with these is to
-  manually add negations to flip their meaning (e.g.~``I \emph{do not}
-  often feel happy'').}
+the items representing the internal locus of control.\footnote{Many
+  questionnaires include reverse-coded items (e.g.~``I often feel
+  happy'' on a depression questionnaire). The easiest way to deal with
+  these is to manually add negations to flip their meaning (e.g.~``I
+  \emph{do not} often feel happy'').}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1623,10 +1617,10 @@ robustness of anchored vectors for DDR, see Appendix A. For an empirical
 demonstration of their applicability to CCR, see Appendix B.
 
 In the following code, we use the anchored vector for locus of control
-that we computed above (\texttt{loc\_anchored}) to measure locus of
-control in \texttt{reddit\_emotions} and to test the hypothesis that
-posts in r/depression exhibit more external locus of control than those
-in r/TodayIamHappy (cf. Simchon et al., 2023).
+computed above (\texttt{loc\_anchored}) to measure locus of control in
+\texttt{reddit\_emotions} and to test the hypothesis that posts in
+r/depression exhibit more external locus of control than those in
+r/TodayIamHappy (cf. Simchon et al., 2023).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1676,7 +1670,7 @@ their own words. One limitation of CCR is its limited ability to
 generalize---it is thus contraindicated for texts that do not contain
 similar content and wording to the embedded questionnaire. Nevertheless
 the risk of questionnaire-ness described above can be mitigated by
-constructing an anchored vector, discussed below.
+constructing an anchored vector.
 
 \subsection{Correlational Anchored Vectors
 (CAV)}\label{correlational-anchored-vectors-cav}
@@ -1685,13 +1679,13 @@ An anchored vector is simply a direction in the embedding space. Rather
 than finding this direction by subtracting a negative construct
 embedding from a positive one, as we have done so far in this guide, we
 can use machine learning to find the direction that best represents the
-construct in a training dataset. This provides an alternative to DDR and
-CCR, by which construct representations are learned directly from
-examples. Such examples may be the product of human raters or of an
-experimental manipulation. For the example below we use data from
-Kasprzyk and Calin-Jageman (2014), who asked participants to write about
-either incidents in which they had power over others (Power) or
-incidents in which other people had power over them (Control).
+construct in a training dataset. Construct representations are learned
+directly from examples, providing an alternative to DDR and CCR. Such
+examples may be the product of human raters or of an experimental
+manipulation. For the example below we use data from Kasprzyk and
+Calin-Jageman (2014), who asked participants to write about either
+incidents in which they had power over others (Power) or incidents in
+which other people had power over them (Control).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1781,26 +1775,28 @@ did posts in r/depression (p \textless{} .001).
 CAV allows the application of closely related texts. Given a training
 set that closely resembles the texts of interest, CAV provides a
 relatively simple metric that is likely to be highly accurate and
-unconfounded by differences in text genre. On the other hand, CAV
-requires applicable training data and introduces questions of validity
-when applying patterns in the training set to the texts of interest.
-
-\subsection{Other Machine Learning
-Methods}\label{other-machine-learning-methods}
+unconfounded by differences in text genre. On the other hand, these
+benefits only apply inasmuch as the training data are directly analogous
+to the texts of interest.
 
 Using PLS regression to generate a CAV is a very simple way to leverage
 machine learning for interpreting embeddings. The simplicity of dealing
 with a single direction in embedding space can provide useful intuition
 and transparency for researchers. Nevertheless, it sacrifices some of
 the predictive capacities available with modern machine learning
-methods. With more complex algorithms, the nonlinearity of
-contextualized embedding spaces becomes less of a problem. Given enough
-training data, one can specify a model that can capture nonlinear
-patterns, such as a support vector machine. More complex methods also
-allow the simultaneous use of embeddings from multiple layers of an LLM.
-A comprehensive review of machine learning algorithms for psychological
-features is beyond the scope of this guide. See Kjell et al. (2022) for
-a useful introductory primer.
+methods.
+
+\subsubsection{Other Machine Learning
+Methods}\label{other-machine-learning-methods}
+
+With more complex algorithms, the nonlinearity of contextualized
+embedding spaces becomes less of a problem. Given enough training data,
+one can specify a model that can capture nonlinear patterns, such as a
+support vector machine. More complex methods also allow the simultaneous
+use of embeddings from multiple layers of an LLM. A comprehensive review
+of machine learning algorithms for psychological features is beyond the
+scope of this guide. See Kjell et al. (2022) for a useful introductory
+primer.
 
 \section{Conclusion}\label{conclusion}
 
