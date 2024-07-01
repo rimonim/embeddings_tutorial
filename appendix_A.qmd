@@ -1,0 +1,624 @@
+# Appendix A
+
+# DDR Metrics
+
+```{r}
+#| echo: true
+#| eval: false
+library(tidyverse)
+library(quanteda)
+source("embedding_scripts.R")
+```
+
+```{r}
+#| include: false
+average_vector <- function(mat){
+  mat <- as.matrix(mat)
+  apply(mat, 2, mean)
+}
+
+# outputs 
+new_scores <- function(dat, cols, pos_mean, neg_mean, prefix = "",
+                       schemes = c("mean_dot", "mean_cos", "mean_euc", 
+                                   "negdiff_dot", "negdiff_cos", "negdiff_euc", 
+                                   "anchoredvec_norm")){
+  dat <- dat |> rowwise()
+  for(scheme in schemes){
+    new_col_name = paste0(prefix, scheme)
+    ccr <- pos_mean
+    ccr_neg <- neg_mean
+    if(str_detect(scheme, "negdiff_")){
+      ccr <- ccr - ccr_neg
+    }
+    
+    if(str_detect(scheme, "anchoredvec_")){
+      if(scheme == "anchoredvec_norm"){
+        ccr <- ccr/sqrt(sum(ccr^2))
+        ccr_neg <- ccr_neg/sqrt(sum(ccr_neg^2))
+      }
+      dat <- dat |> mutate(!!new_col_name := anchored_sim(c_across({{cols}}), ccr, ccr_neg))
+    }else{
+      if(str_detect(scheme, "_dot")){
+        dat <- dat |> mutate(!!new_col_name := dot_prod(c_across({{cols}}), ccr))
+      }else if(str_detect(scheme, "_cos")){
+        dat <- dat |> mutate(!!new_col_name := cos_sim(c_across({{cols}}), ccr))
+      }else if(str_detect(scheme, "_euc")){
+        dat <- dat |> mutate(!!new_col_name := -euc_dist(c_across({{cols}}), ccr))
+      }
+    }
+  }
+  dat |> ungroup() |> select(-{{cols}})
+}
+```
+
+@garten_etal_2018 found that DDR works best with smaller dictionaries of only the words most directly connected to the construct being measured (around 30 words worked best in their experiments). Here we replicate their study using slightly different methods, and extend it to a variety of vector-based metrics, including anchored vectors. We also investigate the impact of weighting the averaged dictionary representation by token frequency, which we suggested would eliminate the observed superiority of smaller dictionaries.
+
+## Benchmark 1: Negative Sentiment in Movie Reviews
+
+As an initial benchmark, we used the same data used by @garten_etal_2018 in their investigation of dictionary size: a set of 2000 movie reviews, half labeled as negative and half as positive [@pang_lee_2005]. For vector representations of words and texts, we used a publicly available GloVe model trained on 2B Tweets to produce 100-dimensional embeddings [@pennington_etal_2014]. For construct representations, we used the positive tone and negative tone dictionaries from LIWC-22 [@boyd_etal_2022], expanded on the movie reviews dataset. The primary DDR was the average embedding of the negative tone dictionary, while for anchored vectors the average embedding of the positive tone dictionary was used as a second anchor.
+
+We investigated the following metrics:
+
+-   **Cosine similarity** with the negative tone DDR
+-   **Cosine similarity with the anchored vector** (equivalent to projection of the normalized text vector onto the anchored vector)
+-   **Dot product** with the negative tone DDR
+-   **Dot product with the anchored vector** (equivalent to projection of the raw text vector onto the anchored vector)
+-   **Dot product with the pre-normalized anchored vector** (i.e. positive and negative DDR embeddings normalized before calculating the anchored vector)
+-   **Euclidean distance** from the negative tone DDR
+-   **Euclidean distance from the anchored vector**
+
+To evaluate the predictive value of each metric, we trained a univariate logistic regression model for each metric at each dictionary size. We then computed an F1 score for the model's predictions on the training set, with the model's threshold set at 0.5 (i.e. any text given a probability of greater than 0.5 of being negative was considered as having been predicted to be negative).
+
+```{r}
+#| echo: false
+#| eval: false
+
+# word embeddings
+path_to_glove <- "~/Projects/ds4psych/data/glove/glove.twitter.27B.100d.txt"
+glove_dimensions <- as.numeric(str_extract(path_to_glove, "[:digit:]+(?=d\\.txt)"))
+glove_pretrained <- data.table::fread(
+  path_to_glove, 
+  quote = "",
+  col.names = c("token", paste0("dim_", 1:glove_dimensions))
+  ) |> 
+  distinct(token, .keep_all = TRUE) |> 
+  remove_rownames() |> 
+  column_to_rownames("token") |> 
+  as.matrix()
+class(glove_pretrained) <- "embeddings"
+
+# Load Data
+reviews_files_neg <- list.files("benchmarks/DDR/txt_sentoken/neg", full.names = TRUE)
+reviews_files_pos <- list.files("benchmarks/DDR/txt_sentoken/pos", full.names = TRUE)
+
+reviews_neg <- sapply(reviews_files_neg, function(x) paste(readLines(x), collapse = " "))
+reviews_pos <- sapply(reviews_files_pos, function(x) paste(readLines(x), collapse = " "))
+
+reviews <- tibble(
+  text = c(reviews_neg, reviews_pos),
+  label = factor(rep(c("neg", "pos"), each = length(reviews_neg)))
+) |> 
+  mutate(label_int = as.integer(label) - 1L)
+
+rm(reviews_neg, reviews_pos)
+
+# Load Dictionaries (LIWC-22 expanded on corpus)
+reviews_dfm <- reviews$text |> 
+  tokens(remove_punct = TRUE, remove_url = TRUE) |> 
+  dfm()
+# reviews_tokens <- reviews_dfm |> 
+#   featnames()
+# tibble(text = reviews_tokens) |> 
+#   write_csv("benchmarks/DDR/reviews_tokens.csv")
+
+pos_dict <- read_csv("benchmarks/DDR/reviews_tokens.csv") |> 
+  filter(tone_pos > 0) |> 
+  pull(text)
+neg_dict <- read_csv("benchmarks/DDR/reviews_tokens.csv") |> 
+  filter(tone_neg > 0) |> 
+  pull(text)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## DICTIONARY EMBEDDINGS (by word)
+
+pos_dict_glove <- pos_dict |> 
+  tokens() |> 
+  dfm() |> 
+  textstat_embedding(glove_pretrained) |> 
+  select(-doc_id) |> 
+  as.matrix()
+rownames(pos_dict_glove) <- pos_dict
+
+neg_dict_glove <- neg_dict |> 
+  tokens() |> 
+  dfm() |> 
+  textstat_embedding(glove_pretrained) |> 
+  select(-doc_id) |> 
+  as.matrix()
+rownames(neg_dict_glove) <- neg_dict
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## DICTIONARY WORD FREQUENCIES
+
+pos_dict_freqs <- reviews_dfm |> 
+  dfm_keep(pos_dict) |> 
+  quanteda.textstats::textstat_frequency() |> 
+  pull(frequency, name = feature)
+
+neg_dict_freqs <- reviews_dfm |> 
+  dfm_keep(neg_dict) |> 
+  quanteda.textstats::textstat_frequency() |> 
+  pull(frequency, name = feature)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## BENCHMARK TEXT EMBEDDINGS
+
+reviews_glove <- reviews_dfm |> 
+  textstat_embedding(glove_pretrained) |> 
+  select(-doc_id)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## RUN MODELS (construct = negative tone)
+
+results_grid <- expand_grid(
+  dict_size = c(10, 20, 30, 40, 50, 100, 200, 400),
+  seed = 1:200,
+  model = c("raw", "freq_weight"),
+  scheme = c("mean_dot", "mean_cos", "mean_euc", 
+             "negdiff_dot", "negdiff_cos", "negdiff_euc", 
+             "anchoredvec_norm")
+) |> 
+  mutate(
+    model_disp = if_else(model == "raw", "Equal Weighting", "Frequency Weighted"),
+    scheme_disp = case_match(
+      scheme,
+      "mean_dot" ~ "Dot", 
+      "mean_cos" ~ "Cosine", 
+      "mean_euc" ~ "Euclidean", 
+      "negdiff_dot" ~ "Dot (Anchored Vector)", 
+      "negdiff_cos" ~ "Cosine (Anchored Vector)", 
+      "negdiff_euc" ~ "Euclidean (Anchored Vector)", 
+      "anchoredvec_norm" ~ "Dot (Pre-normalized Anchored Vector)"
+      )
+  )
+
+results_grid <- results_grid |> 
+  mutate(Acc = NA, F1 = NA, Beta = NA, sig = NA)
+
+model <- "none"
+for (row in 1:nrow(results_grid)) {
+  # recalculate when needed
+  if(model != results_grid$model[row]){
+    message("Calculating scores for row ", row, "/", nrow(results_grid))
+    dict_size <- results_grid$dict_size[row]
+    seed <- results_grid$seed[row]
+    model <- results_grid$model[row]
+    
+    if(model == "raw"){
+      set.seed(seed)
+      neg_DDR <- average_vector(neg_dict_glove[sample(1:nrow(neg_dict_glove), dict_size),])
+      set.seed(seed)
+      pos_DDR <- average_vector(pos_dict_glove[sample(1:nrow(pos_dict_glove), dict_size),])
+    }else{
+      set.seed(seed)
+      neg_DDR <- neg_dict_glove[sample(1:nrow(neg_dict_glove), dict_size),]
+      neg_DDR <- apply(neg_DDR, 2, weighted.mean, w = neg_dict_freqs[rownames(neg_DDR)], na.rm = TRUE)
+      set.seed(seed)
+      pos_DDR <- pos_dict_glove[sample(1:nrow(pos_dict_glove), dict_size),]
+      pos_DDR <- apply(pos_DDR, 2, weighted.mean, w = pos_dict_freqs[rownames(pos_DDR)], na.rm = TRUE)
+    }
+
+    scores_df <- reviews |> 
+      select(label, label_int) |> 
+      bind_cols(new_scores(reviews_glove, dim_1:dim_100, neg_DDR, pos_DDR, prefix = paste0(model, "_")))
+  }
+  
+  scheme <- results_grid$scheme[row]
+  
+  var_name <- paste(model, scheme, sep = "_")
+  row_form <- as.formula(paste0("label~",var_name))
+  
+  mod <- glm(row_form, data = scores_df, family = binomial())
+  mod_pred <- round(predict(mod, type = "response"))
+  tp <- sum(mod_pred == 1 & scores_df$label_int == 1)
+  fp <- sum(mod_pred == 1 & scores_df$label_int == 0)
+  fn <- sum(mod_pred == 0 & scores_df$label_int == 1)
+  
+  results_grid$Acc[row] <- mean(mod_pred == scores_df$label_int)
+  results_grid$F1[row] <- tp/(tp + (fp + fn)/2)
+  results_grid$Beta[row] <- summary(mod)$coefficients[[2,"Estimate"]]
+  results_grid$sig[row] <- summary(mod)$coefficients[[2,"Pr(>|z|)"]]
+}
+
+results_grid |> 
+  # bind_rows(read_csv("benchmarks/DDR/results1.csv")) |> 
+  write_csv("benchmarks/DDR/results1.csv")
+
+# Check whether success is related to frequency
+results_grid <- results_grid |> 
+  mutate(mean_freq = NA, sd_freq = NA, entropy_freq = NA)
+
+for (row in 1:nrow(results_grid)) {
+  dict_size <- results_grid$dict_size[row]
+  seed <- results_grid$seed[row]
+  anchored <- str_detect(results_grid$scheme[row], "anchoredvec|negdiff")
+  
+  set.seed(seed)
+  neg_freqs <- rownames(neg_dict_glove[sample(1:nrow(neg_dict_glove), dict_size),])
+  neg_freqs <- neg_dict_freqs[neg_freqs]
+  freqs <- neg_freqs
+  results_grid$mean_freq[row] <- mean(freqs, na.rm = TRUE)
+  results_grid$sd_freq[row] <- sd(freqs, na.rm = TRUE)
+  results_grid$entropy_freq[row] <- entropy::entropy(freqs, method = "ML")
+}
+
+results_grid |> 
+  write_csv("benchmarks/DDR/results1.csv")
+```
+
+When using only the primary DDR, we found that the performance of equal weighting drops sharply with increasing dictionary size, while the performance of frequency weighting continues to rise. Indeed, DDRs computed with equal weighting were likely to result in negative associations between the predictor and the outcome, even at small dictionary sizes. Surprisingly, metrics based on anchored vectors were robust to this instability. Additionally, frequency weighting was not superior to equal weighting for metrics based on anchored vectors. The overall best performing metric across all dictionary sizes was cosine similarity with the anchored vector calculated using equal weighting.
+
+```{r}
+#| echo: false
+#| output: false
+results_grid <- read_csv("benchmarks/DDR/results1.csv")
+```
+
+```{r}
+#| label: fig-f1_by_dictsize
+#| echo: false
+#| fig-cap: Mean F1 by Dictionary Size
+#| apa-note: Each data point represents the mean of 200 samples. F1 scores arising from negative associations between the predictor and the outcome are counted as negative.
+#| fig-height: 4
+#| fig-width: 6
+
+results_grid |> 
+  mutate(F1 = if_else(Beta > 0, -F1, F1),
+         anchored = if_else(str_detect(scheme, "anchoredvec|negdiff"), "Anchored Vector", "Primary DDR")) |> 
+  group_by(model_disp, scheme_disp, anchored, dict_size) |> 
+  summarise(F1 = mean(F1), .groups = "drop") |> 
+  ggplot(aes(dict_size, F1, color = scheme_disp, linetype = model_disp)) +
+    geom_line() +
+    scale_color_manual(values = c(
+      "navyblue", "dodgerblue",
+      "orange", "red2", "firebrick4",
+      "seagreen2", "seagreen4"
+    )) +
+    labs(x = "Sampled Dictionary Size",
+         y = "F1",
+         color = "Metric",
+         linetype = "Aggregation\nMethod") + 
+    facet_wrap(~anchored) +
+    theme_bw() +
+    theme(plot.caption = element_text(hjust = 0))
+```
+
+The pattern of results was similar among the highest performing dictionaries at each size, with two notable exceptions. First, frequency weighting was slightly better than equal weighting for all metrics (including those based on anchored vectors) except cosine similarity with the anchored vector. Second, the performance of frequency weighting among metrics using only the primary DDR did not increase with sample size.
+
+```{r}
+#| label: fig-f1_by_dictsize_top
+#| echo: false
+#| fig-cap: Mean F1 Score by Dictionary Size for Dictionaries Above the 80th Percentile
+#| apa-note: Each data point represents the mean of 200 samples. F1 scores arising from negative associations between the predictor and the outcome are counted as negative.
+#| fig-height: 4
+#| fig-width: 6
+results_grid |> 
+  mutate(F1 = if_else(Beta > 0, -F1, F1),
+         anchored = if_else(str_detect(scheme, "anchoredvec|negdiff"), "Anchored Vector", "Primary DDR")) |> 
+  group_by(model_disp, scheme_disp, anchored, dict_size) |> 
+  filter(F1 >= quantile(F1, probs = .8)) |> 
+  summarise(F1 = mean(F1), .groups = "drop") |> 
+  ggplot(aes(dict_size, F1, color = scheme_disp, linetype = model_disp)) +
+    geom_line() +
+    scale_color_manual(values = c(
+      "navyblue", "dodgerblue",
+      "orange", "red2", "firebrick4",
+      "seagreen2", "seagreen4"
+    )) +
+    labs(x = "Sampled Dictionary Size",
+         y = "F1",
+         color = "Metric",
+         linetype = "Aggregation\nMethod") + 
+    facet_wrap(~anchored) +
+    theme_bw() +
+    theme(plot.caption = element_text(hjust = 0))
+```
+
+```{r}
+#| label: fig-neg_by_dictsize
+#| echo: false
+#| fig-cap: Significant Negative Effects by Dictionary Size
+#| apa-note: 200 samples per data point.
+#| fig-height: 4
+#| fig-width: 6
+
+results_grid |> 
+  mutate(anchored = if_else(str_detect(scheme, "anchoredvec|negdiff"), "Anchored Vector", "Single DDR")) |> 
+  group_by(model_disp, scheme_disp, anchored, dict_size) |> 
+  summarise(false = 100*mean(Beta > 0 & sig < .05), .groups = "drop") |> 
+  ggplot(aes(dict_size, false, color = scheme_disp, linetype = model_disp)) +
+    geom_line() +
+    scale_color_manual(values = c(
+        "navyblue", "dodgerblue",
+        "orange", "red2", "firebrick4",
+        "seagreen2", "seagreen4"
+      )) +
+    labs(x = "Sampled Dictionary Size",
+         y = "Significant Negative Effects (%)",
+         color = "Metric",
+         linetype = "Aggregation\nMethod") + 
+    facet_wrap(~anchored) +
+    theme_bw() +
+    theme(plot.caption = element_text(hjust = 0))
+```
+
+As a further validation of our proposed frequency weighting method, we investigated the performance of dictionary representations as a function of the variance of their word frequencies. We found that dictionaries with higher variation in word frequencies result in a large advantage for frequency weighted aggregation. As before, we found that this did not hold for metrics based on anchored vectors.
+
+```{r}
+#| label: fig-neg_by_freq_variance
+#| echo: false
+#| fig-cap: Mean F1 Score by Dictionary Frequency Variance
+#| apa-note: Smoothing lines are computed with LOESS regression. F1 scores arising from negative associations between the predictor and the outcome are counted as negative.
+#| fig-height: 4
+#| fig-width: 8
+
+results_grid |> 
+  mutate(F1 = if_else(Beta > 0, -F1, F1),
+         anchored = if_else(str_detect(scheme, "anchoredvec|negdiff"), "Anchored Vector", "Single DDR")) |> 
+  ggplot(aes(sd_freq, F1, color = scheme_disp, linetype = model_disp)) +
+    geom_smooth(method = "loess", formula = 'y ~ x') +
+    scale_color_manual(values = c(
+      "navyblue", "dodgerblue",
+      "orange", "red2", "firebrick4",
+      "seagreen2", "seagreen4"
+    )) +
+    labs(x = "SD Dictionary Word Frequency",
+         y = "F1",
+         color = "Metric",
+         linetype = "Aggregation\nMethod") + 
+    facet_wrap(~anchored) +
+    theme_bw() +
+    theme(plot.caption = element_text(hjust = 0))
+```
+
+## Benchmark 2: Moral Foundations in Reddit Comments
+
+To see whether the patterns observed for negative valence extend to more complex psychological constructs, we evaluated the same metrics and aggregation methods on a large dataset of Reddit comments (N = 16,123), which were manually annotated with six moral foundations: authority, care, fairness, loyalty, sanctity, and vice [@trager_etal_2022]. Each text was annotated by at least three annotators, giving a total of 53,545 cases.
+
+To construct distributed construct representations for the moral foundations, we used the Moral Foundations Dictionary 2.0 [@frimer_etal_2019], which includes more than 200 words per foundation. Since the moral foundations do not have clear opposites, we constructed a neutral embedding by averaging the embeddings of all six foundations. This neutral embedding was used as the second anchor in anchored vector metrics.
+
+Since the Reddit dataset was heavily imbalanced (i.e. most comments were not labeled as reflecting any given foundation), we set the classifier threshold at the empirical probability of each rating. For example, if 20% of texts in the dataset were labeled as reflecting loyalty, we would consider any text given a probability of greater than 0.2 to reflect loyalty according to the model. Using these predictions, F1 scores were computed as for the first benchmark.
+
+```{r}
+#| eval: false
+#| echo: false
+
+# Load Data
+morality <- read_csv("https://huggingface.co/datasets/USC-MOLA-Lab/MFRC/resolve/main/final_mfrc_data.csv")
+
+morality <- morality |> 
+  separate_longer_delim(annotation, ",") |> 
+  distinct() |> 
+  pivot_wider(id_cols = c("text", "subreddit", "bucket", "annotator", "confidence"),
+              names_from = "annotation", values_from = "annotation") |> 
+  mutate(across(-c(text:confidence), function(x) if_else(is.na(x), 0, 1))) |> 
+  rename(fairness = Equality, sanctity = Purity)
+
+names(morality) <- str_to_lower(names(morality))
+
+
+morality_unique <- morality |> 
+  distinct(text)
+
+morality_unique_dfm <- morality_unique$text |> 
+  tokens(remove_punct = TRUE, remove_url = TRUE) |> 
+  tokens_ngrams(n= c(1L, 2L)) |> 
+  dfm() |> 
+  dfm_keep(rownames(glove_pretrained))
+
+# Load Dictionaries (Moral Foundations Dictionary 2.0)
+mfd <- read_csv("benchmarks/DDR/mfd2.0.csv")
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## DICTIONARY WORD FREQUENCIES
+
+mfd_freqs <- morality_unique_dfm |> 
+  dfm_keep(mfd$token) |> 
+  quanteda.textstats::textstat_frequency() |> 
+  pull(frequency, name = feature)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## DICTIONARY EMBEDDINGS (by word)
+
+mfd_glove <- mfd |> 
+  group_by(foundation) |> 
+  summarise(token = paste(token, collapse = " ")) |> 
+  pull(token) |> 
+  tokens() |> 
+  tokens_ngrams(n= c(1L, 2L)) |> 
+  dfm() |> 
+  dfm_keep(mfd$token) |> 
+  textstat_embedding(glove_pretrained) |> 
+  select(-doc_id) |> 
+  as.matrix()
+rownames(mfd_glove) <- unique(mfd$foundation)[order(unique(mfd$foundation))]
+
+mfd_neutral_glove <- average_vector(mfd_glove)
+
+mfd_glove_weighted <- mfd |> 
+  pull(token) |> 
+  tokens() |> 
+  tokens_ngrams(n= c(1L, 2L)) |> 
+  dfm() |> 
+  dfm_keep(mfd$token) |> 
+  textstat_embedding(glove_pretrained) |> 
+  select(-doc_id) |> 
+  as.matrix()
+rownames(mfd_glove_weighted) <- mfd$token
+
+mfd_glove_weighted <- do.call(rbind,
+  lapply(rownames(mfd_glove)[1:5], function(construct){
+    construct_tokens <- mfd$token[mfd$foundation == construct]
+    construct_tokens <- construct_tokens[construct_tokens %in% featnames(morality_unique_dfm)]
+    construct_token_weights <- mfd_freqs[construct_tokens]
+    construct_mat <- mfd_glove_weighted[construct_tokens,]
+    apply(construct_mat, 2, weighted.mean, w = construct_token_weights, na.rm = TRUE)
+  })
+)
+rownames(mfd_glove_weighted) <- rownames(mfd_glove)[1:5]
+mfd_neutral_glove_weighted <- average_vector(mfd_glove)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## BENCHMARK TEXT EMBEDDINGS
+
+morality_unique_glove <- morality_unique_dfm |> 
+  textstat_embedding(glove_pretrained) |> 
+  select(-doc_id)
+
+#~~~~~~~~~~~~~~~~
+## COMPUTE SCORES
+
+for (construct in rownames(mfd_glove)) {
+  morality_unique <- morality_unique |> 
+    bind_cols(
+      new_scores(
+        morality_unique_glove,
+        dim_1:dim_100, 
+        mfd_glove[construct,], 
+        mfd_neutral_glove, 
+        prefix = paste0(construct,"_raw_")
+        ),
+      new_scores(
+        morality_unique_glove,
+        dim_1:dim_100, 
+        mfd_glove_weighted[construct,], 
+        mfd_neutral_glove_weighted, 
+        prefix = paste0(construct,"_freqweight_")
+        )
+    )
+}
+
+morality <- morality |> 
+  left_join(morality_unique)
+
+#~~~~~~~~~~~~
+## RUN MODELS
+
+results_grid <- expand_grid(
+  construct = rownames(mfd_glove),
+  model = c("raw", "freqweight"),
+  scheme = c("mean_dot", "mean_cos", "mean_euc", 
+             "negdiff_dot", "negdiff_cos", "negdiff_euc", 
+             "anchoredvec_norm")
+) |> 
+  mutate(
+    model_disp = if_else(model == "raw", "Equal Weighting", "Frequency Weighted"),
+    scheme_disp = case_match(
+      scheme,
+      "mean_dot" ~ "Dot", 
+      "mean_cos" ~ "Cosine", 
+      "mean_euc" ~ "Euclidean", 
+      "negdiff_dot" ~ "Dot (Anchored Vector)", 
+      "negdiff_cos" ~ "Cosine (Anchored Vector)", 
+      "negdiff_euc" ~ "Euclidean (Anchored Vector)", 
+      "anchoredvec_norm" ~ "Dot (Pre-normalized Anchored Vector)"
+      )
+  )
+
+results_grid <- results_grid |> 
+  mutate(Acc = NA, F1 = NA, Beta = NA, sig = NA, AIC = NA)
+
+for (row in 1:nrow(results_grid)) {
+  message("Calculating scores for row ", row, "/", nrow(results_grid))
+  construct <- results_grid$construct[row]
+  model <- results_grid$model[row]
+  scheme <- results_grid$scheme[row]
+  
+  var_name <- paste(construct, model, scheme, sep = "_")
+  row_form <- as.formula(paste0(construct,"~",var_name))
+  
+  mod <- glm(row_form, data = morality, family = binomial())
+  mod_pred <- as.numeric(predict(mod, type = "response") > mean(pull(morality, {{construct}})))
+  tp <- sum(mod_pred == 1 & pull(morality, {{construct}}) == 1)
+  fp <- sum(mod_pred == 1 & pull(morality, {{construct}}) == 0)
+  fn <- sum(mod_pred == 0 & pull(morality, {{construct}}) == 1)
+  
+  results_grid$Acc[row] <- mean(mod_pred == pull(morality, {{construct}}))
+  results_grid$F1[row] <- tp/(tp + (fp + fn)/2)
+  results_grid$Beta[row] <- summary(mod)$coefficients[[2,"Estimate"]]
+  results_grid$sig[row] <- summary(mod)$coefficients[[2,"Pr(>|z|)"]]
+  results_grid$AIC[row] <- mod$aic
+}
+
+write_csv(results_grid, "benchmarks/DDR/results2.csv")
+```
+
+We found that frequency weighted aggregation performed better than equal weighting in all five moral foundations except loyalty, for which all metrics performed comparably. Furthermore, the pattern of optimal metrics was somewhat erratic for equal weighting, whereas with frequency weighted aggregation, cosine similarity with the DDR performed best in all five foundations.
+
+Curiously, anchored vector metrics did not perform as well as simple similarity scores. This may be attributable to the use of a neutral embedding as the second anchor, rather than a true opposite.
+
+```{r}
+#| include: false
+results_grid <- read_csv("benchmarks/DDR/results2.csv")
+```
+
+```{r}
+#| label: fig-morality_equalvsfreq
+#| echo: false
+#| warning: false
+#| fig-cap: Equal vs. Frequency Weights for Moral Foundation DDRs
+#| apa-note: Vertical lines represent mean F1 scores across moral foundations.
+#| fig-height: 4
+#| fig-width: 8
+
+scheme_agg <- results_grid |> 
+  mutate(F1 = if_else(Beta < 0, -F1, F1)) |> 
+  group_by(model_disp, scheme_disp) |> 
+  summarise(F1 = mean(F1),
+            F1_sd = sd(F1),
+            F1_max = max(F1), .groups = "drop") |> 
+  group_by(model_disp) |> 
+  arrange(F1) |> 
+  mutate(scheme_disp = factor(scheme_disp))
+
+results_grid |> 
+  mutate(F1 = if_else(Beta < 0, -F1, F1),
+         construct_disp = str_to_title(construct)) |> 
+  ggplot(
+    aes(F1, construct_disp, 
+        xmin = 0, xmax = F1,
+        color = scheme_disp)
+    ) +
+    geom_linerange(position = position_dodge(width = 1/2), alpha = 0) +
+    # annotate("tile", 2, seq(1,6,by=2), width = Inf, alpha = .1) +
+    geom_point(position = position_dodge(width = 1/2), size = 2) +
+    geom_vline(aes(xintercept = F1, color = scheme_disp), 
+               linewidth = 1,
+               data = scheme_agg) +
+    scale_color_manual(values = c(
+      "navyblue", "dodgerblue",
+      "orange", "red2", "firebrick4",
+      "seagreen2", "seagreen4"
+    )) +
+    facet_wrap(~model_disp, ncol = 1) +
+    labs(x = "F1",
+         y = "Moral Foundation",
+         linetype = "Model",
+         color = "Metric") +
+    theme_bw() +
+    theme(plot.caption = element_text(hjust = .1))
+```
+
+For equal weighting, Euclidean distance from the anchored vector resulted in significant negative effects in 1/5 foundations. For frequency weighted aggregation, the dot product with the pre-normalized anchored vector resulted in significant negative effects in 3/5 foundations. Otherwise no negative effects were observed.
+
+```{r}
+#| echo: false
+#| eval: false
+results_grid |> 
+  group_by(model_disp, scheme_disp) |> 
+  summarise(prop_neg = sum(Beta < 0 & sig < 0.05)/n(), .groups = "keep")
+```
+
+## Conclusions
+
+The results of our experiments support our suggestion that the diminishing performance of larger dictionaries is due to the influence of less frequent words. We found that computing the DDR as a weighted average generally improves performance, especially for larger dictionaries of a few hundred words. We further found that metrics based on anchored vectors were largely robust to the influence of term weighting. Nevertheless, metrics based on anchored vectors require a construct with a clear opposite---while anchored vectors performed well for negative vs. positive sentiment, they did not perform well for moral foundations as compared to a neutral moral foundation embedding.
