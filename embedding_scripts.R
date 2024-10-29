@@ -34,7 +34,7 @@ textstat_embedding <- function(dfm, model){
 
 # for GloVe
 
-load_embeddings_txt <- function(path, dimensions <- as.numeric(str_extract(path, "[:digit:]+(?=d\\.txt)"))) {
+load_embeddings_txt <- function(path, dimensions = as.numeric(str_extract(path, "[:digit:]+(?=d\\.txt)"))) {
   
   # matrix with token embeddings
   pretrained_mod <- data.table::fread(
