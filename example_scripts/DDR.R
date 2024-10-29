@@ -2,7 +2,7 @@
 
 library(tidyverse)
 library(quanteda)
-source("example_scripts/useful_scripts.R")
+source("embedding_scripts.R")
 
 # 1. Load Word Embedding Model
 

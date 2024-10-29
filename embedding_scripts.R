@@ -35,11 +35,11 @@ textstat_embedding <- function(dfm, model){
 # for GloVe
 
 load_embeddings_txt <- function(path) {
-  dimensions <- as.numeric(str_extract(path_to_glove, "[:digit:]+(?=d\\.txt)"))
+  dimensions <- as.numeric(str_extract(path, "[:digit:]+(?=d\\.txt)"))
   
   # matrix with token embeddings
   pretrained_mod <- data.table::fread(
-    path_to_glove, 
+    path, 
     quote = "",
     col.names = c("token", paste0("dim_", 1:dimensions))
   ) |> 
@@ -130,6 +130,10 @@ project_points_onto_line <- function(line_start, line_end, points_df) {
 # `scale`: perform scaling in addition to centering?
 reduce_dimensionality <- function(data, cols, reduce_to, scale = FALSE){
   in_dat <- dplyr::select(data, {{ cols }})
+  if (any(is.na(in_dat))) {
+    warning("Input data contains missing values. Rows dropped in output.")
+    data <- tidyr::drop_na(data, {{ cols }})
+  }
   pca <- stats::prcomp(~., data = in_dat, scale = scale, rank. = reduce_to)
   out_dat <- as.data.frame(pca$x)
   dplyr::bind_cols( select(data, -{{ cols }}), out_dat )
