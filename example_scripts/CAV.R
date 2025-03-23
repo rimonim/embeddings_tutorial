@@ -21,6 +21,8 @@ write_csv(reddit_emotion_bge, "example_data/reddit_emotion_bge.csv")
 
 # 2. Embed Training Data
 
+source("example_data/load_power_narratives.R")
+
 d_train <- read_csv("example_data/power_narratives.csv") |> 
   mutate(condition = factor(condition, levels = c("Control", "Power")))
 
