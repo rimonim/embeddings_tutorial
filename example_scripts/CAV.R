@@ -54,7 +54,6 @@ write_csv(d_train_bge, "example_data/d_train_bge.csv")
     data = select(d_train, condition, Dim1:Dim768), 
     method = "pls",
     scale = FALSE,  # keep original embedding dimensions
-    trControl = trainControl("cv", number = 10),  # cross-validation
     tuneLength = 1  # only 1 component (our anchored vector)
   )
   

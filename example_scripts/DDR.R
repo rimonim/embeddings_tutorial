@@ -60,16 +60,16 @@ reddit_emotion_glove <- reddit_emotion_dfm |>
   i_dict_glove <- i_dict |> 
     tokens() |> 
     dfm() |> 
-    textstat_embedding(glove_pretrained) |> 
-    select(-doc_id) |> 
+    textstat_embedding(glove_pretrained) |>  # find embedding of each word
+    select(-doc_id) |> # convert to matrix of embeddings
     as.matrix()
   rownames(i_dict_glove) <- i_dict
   
   shehe_they_dict_glove <- shehe_they_dict |> 
     tokens() |> 
     dfm() |> 
-    textstat_embedding(glove_pretrained) |> 
-    select(-doc_id) |> 
+    textstat_embedding(glove_pretrained) |>  # find embedding of each word
+    select(-doc_id) |>  # convert to matrix of embeddings
     as.matrix()
   rownames(shehe_they_dict_glove) <- shehe_they_dict
   
@@ -78,12 +78,12 @@ reddit_emotion_glove <- reddit_emotion_dfm |>
 i_dict_freqs <- reddit_emotion_dfm |> 
   dfm_keep(i_dict) |> 
   quanteda.textstats::textstat_frequency() |> 
-  pull(frequency, name = feature)
+  pull(frequency, name = feature) # convert to vector of frequencies
 
 shehe_they_dict_freqs <- reddit_emotion_dfm |> 
   dfm_keep(shehe_they_dict) |> 
   quanteda.textstats::textstat_frequency() |> 
-  pull(frequency, name = feature)
+  pull(frequency, name = feature) # convert to vector of frequencies
   
 # 5. Compute Anchored Vector
 
@@ -98,7 +98,8 @@ shehe_they_dict_freqs <- reddit_emotion_dfm |>
 
   reddit_emotion_scores <- reddit_emotion_glove |> 
     rowwise() |> 
-    mutate(selfref = dot_prod(c_across(V1:V100), selfref_anchored)) |> 
+    # dot product with anchored vector
+    mutate(selfref = dot_prod(c_across(V1:V100), selfref_anchored)) |>  
     pull(selfref)
 
 # 7. Test Hypothesis (two sample t-test)
