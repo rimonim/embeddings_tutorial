@@ -47,7 +47,7 @@ reddit_emotion_glove <- reddit_emotion_dfm |>
   write_csv(tibble(text = reddit_emotion_tokens), "~/Downloads/reddit_emotion_tokens.csv")
 
   # Load expanded LIWC dictionaries
-  reddit_emotion_tokens <- read_csv("~/Downloads/reddit_emotion_tokens_LIWC.csv") |> drop_na()
+  reddit_emotion_tokens <- read_csv("example_data/reddit_emotion_tokens_LIWC.csv") |> drop_na()
   
   i_dict <- reddit_emotion_tokens$text[reddit_emotion_tokens$i > 0]
   shehe_they_dict <- reddit_emotion_tokens$text[reddit_emotion_tokens$shehe > 0 | reddit_emotion_tokens$they > 0]
