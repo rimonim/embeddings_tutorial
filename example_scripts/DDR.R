@@ -6,7 +6,7 @@ source("embedding_scripts.R")
 
 # 1. Load Word Embedding Model
 
-path_to_glove <- "~/Projects/ds4psych/data/glove/glove.twitter.27B.100d.txt"
+path_to_glove <- "~/Documents/data/embeddings/glove.twitter.27B.100d.txt"
 
 glove_dimensions <- as.numeric(str_extract(path_to_glove, "[:digit:]+(?=d\\.txt)"))
 
